@@ -12,3 +12,24 @@ def MostrarSala(matriz):
             else:
                 print(" ".ljust(5),end="    ")
         print()
+
+def busq_mat(matrix,target): #buscar en matriz
+    total_fila=len(matrix)
+    total_columnas=len(matrix[0])
+    mini,maxi=0,(total_columnas*total_fila)-1
+    while mini<=maxi:
+        mid= (mini+maxi)//2
+        fila=mid//total_fila
+        col=mid%total_columnas
+
+        if matrix[fila][col] == target:
+            return True
+
+        
+        elif matrix[fila][col] < target:
+            mini= mid+1
+
+        else:
+            maxi= mid-1
+    return False
+
