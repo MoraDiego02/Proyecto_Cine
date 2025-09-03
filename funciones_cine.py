@@ -1,3 +1,4 @@
+import random
 def MostrarSala(matriz):
     columnas=len(matriz[1])
     print("        ",end="")
@@ -33,3 +34,15 @@ def busq_mat(matrix,target): #buscar en matriz
             maxi= mid-1
     return False
 
+
+def crearsala(filas,columnas,numero ):
+    if numero == 1:
+        Sala_1=[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]
+        return Sala_1
+    if numero == 2:
+        Sala_2=[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]
+        return Sala_2
+    if numero == 3:
+        Sala_3=[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]
+        return Sala_3
+    
