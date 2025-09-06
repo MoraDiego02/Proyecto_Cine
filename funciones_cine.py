@@ -1,4 +1,17 @@
 import random
+def peliculas():
+    print("Listado de peliculas: ")
+    print("1. Avatar: El camino del agua")
+    print("2. El gato con botas 2")
+    print("3. Super Mario Bros")
+    print("4. Barbie")
+    print("5. M3GAN")
+    print("6. La ballena")
+    print("7. Oppenheimer")
+    print("8. Indiana Jones y el dial del destino")
+    print("9. Transformers: El despertar de las bestias")
+    print("10. Guardianes de la galaxia Vol. 3")
+    
 def MostrarSala(matriz):
     columnas=len(matriz[1])
     print("        ",end="")
