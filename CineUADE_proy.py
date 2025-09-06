@@ -10,7 +10,7 @@ def inicio():
     print("-" * 40)
 
 def main():
-    eleccion = input("Que pelicula desea ver?: (Para ver el listado de las peliculas solo escriba 'peliculas') ").lower().strip()
+    eleccion = input("Que pelicula desea ver?: (Para ver el listado de las peliculas solo escriba 'peliculas'. Sino escriba el numero de pelicula (1,10)) ").lower().strip()
     if eleccion == "peliculas":
         from funciones_cine import peliculas
         peliculas()
