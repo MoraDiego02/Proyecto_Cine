@@ -3,13 +3,10 @@ import random
 def crearsala(numero,sucursal,SalaCreadas):
     columnas=5
     filas=5
-    if 
-    if  sucursal == 1 and numero == 1:
-        for i in range()
-        Sala_1=[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]
-    else:
-        return sala_1
     
+    if  sucursal == 1 and numero == 1:
+        Sala_1=[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]
+        return Sala_1
     if sucursal == 1 and numero == 2:
         Sala_2=[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]
         return Sala_2
@@ -69,31 +66,39 @@ while NumeroSala >= 1 and NumeroSala <= 3:
         print("que asiento quiere seleccionar para esta pelicula")
         FilaAsiento=int(input("seleccione la fila en la que quiere su asiento"))
         ColumnaAsiento=int(input("seleccione la columna en la que quiere su asiento"))
+        ControlDeAsientos(sucursal,NumeroSala,FilaAsiento,ColumnaAsiento)
         NumeroSala= -1 # int(input("ingrese el numero de sala que quiere seleccionar -1 para salir de esto:"))
-
-def nosecomoponer(): 
+        
+            
+def ControlDeAsientos(sucursal,NumeroSala,FilaAsiento,ColumnaAsiento): 
     if sucursal == 1 and NumeroSala == 1:
-        BuscarAsiento(crearsala(NumeroSala))
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala,sucursal))
     if sucursal == 1 and NumeroSala == 2:
-        BuscarAsiento(crearsala(NumeroSala))
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
     if sucursal == 1 and NumeroSala == 3:
-        BuscarAsiento(crearsala(NumeroSala))
-
-    if sucursal == 1 and NumeroSala == 1:
-        BuscarAsiento(crearsala(NumeroSala))
-    if sucursal == 1 and NumeroSala == 2:
-        BuscarAsiento(crearsala(NumeroSala))
-    if sucursal == 1 and NumeroSala == 3:
-        BuscarAsiento(crearsala(NumeroSala))
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
 
     if sucursal == 1 and NumeroSala == 1:
-        BuscarAsiento(crearsala(NumeroSala))
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
     if sucursal == 1 and NumeroSala == 2:
-        BuscarAsiento(crearsala(NumeroSala))
+       BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
     if sucursal == 1 and NumeroSala == 3:
-        BuscarAsiento(crearsala(NumeroSala))
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
+
+    if sucursal == 1 and NumeroSala == 1:
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
+    if sucursal == 1 and NumeroSala == 2:
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
+    if sucursal == 1 and NumeroSala == 3:
+        BuscarAsiento(FilaAsiento,ColumnaAsiento,crearsala(NumeroSala))
 
 
+def BuscarAsiento(fila,columna,sala):
+    if 0 <= fila == len(sala) and 0 <= columna == len(sala[0]):
+        return True
+    else:
+        return False
+     
 """
 def PagarLosAsiento():
     for i in range():

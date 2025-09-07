@@ -17,7 +17,7 @@ def main():
     print("CINEUADE")
     print("bienvenidos al cien uade")
     print("en que sucursal quiere ver la pelicula")
-    print("ingrese 1 un seleccionar")
+    print("")
     sucursal= 1 #int(input("ingrese un numero para seleccionar la sucursal"))
     print("elija un numero del 1 al 3")
     print("si quiere volver a la pagina principal ingrese -1")
