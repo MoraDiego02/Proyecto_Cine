@@ -9,7 +9,7 @@ def inicio():
 
 def main():
     dni = int(input("Ingrese su DNI: "))
-    while dni < 1000000 or dni > 99999999:
+    while dni < 10000000 or dni > 99999999:
         dni = int(input("DNI inválido. Ingrese su DNI nuevamente: "))
     print(" ")
     cartelera()

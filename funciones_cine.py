@@ -17,7 +17,7 @@ def PrecioDelaEntrada():
     print("ingrese 1 para pagar con tarjeta ")
     print("ingrese 2 para abonar en efectivo ")
     MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-    while 1 != MetodoDePago != 2:
+    while MetodoDePago != 1 and MetodoDePago != 2:
         MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
     if MetodoDePago == 1:
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
