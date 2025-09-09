@@ -127,6 +127,16 @@ def BuscarAsiento(fila,columna,sala):
         return True
     else:
         return False
+
+def comprobante():
+    print("Comprobante de pago")
+    print("DNI:", dni)
+    print("Pelicula:", pelicula)
+    print("Sucursal:", sucursal)
+    print("Sala:", sala)
+    print("Asiento:", asiento)
+    print("Precio final:", precio_final)
+    print("¡Gracias por su compra!")
      
 
 
