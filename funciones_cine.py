@@ -95,21 +95,51 @@ def SeleccionarSucursal(SucursalAbasto,SucursalCaballito,SucursalPalermo):
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
 
 
-def ReservaDeButacas(sala):
-    NumeroDeAsientos=int(input("ingrese el numero de asientos que quiere comprar: "))
-    print(sala.count(0))
-    ColumnaButaca=0
-    FilaButaca=0
+def ReservaDeButacas(Sala):
+    ButacasVacias=0
+    for i in range(len(Sala)):
+        for j in range(len(Sala[0])):
+            if Sala[i][j] == 0:
+                ButacasVacias+=1
+
+    NumeroDeButacas=int(input("ingrese el numero de la cantidad de butacas que quiere comprar: "))
+    while NumeroDeButacas > ButacasVacias or NumeroDeButacas <= 0:
+        if NumeroDeButacas <= 0:
+            print("ingrese un numero mayor que",NumeroDeButacas,"porfavor")
+            NumeroDeButacas=int(input("ingrese el numero de la cantidad de butacas que quiere comprar: "))
+        else:
+            print("no hay suficientes butacas vacias")
+            print("la cantidad de butacas vacias es:",ButacasVacias,"porfavor ingrese un numero menor o igual a que este")
+            NumeroDeButacas=int(input("ingrese el numero de la cantidad de butacas que quiere comprar: "))
+    while NumeroDeButacas>=1:
+        FilaDeLaButaca=0
+        ColumnaDeLaButaca=0
+        print("a continuacion seleccione la fila en la que quiere su asiento")
+        FilaDeLaButaca=int(input("ingrese un numero del 1 al 5 "))-1
+        print("ahora seleccione en que lugar de la columna le gustaria sentarse")
+        ColumnaDeLaButaca=int(input("ingrese un numero del 1 al 5 "))-1
+        while ColumnaDeLaButaca>5 or ColumnaDeLaButaca < 0:
+            print("pedilo")
+
+        print(FilaDeLaButaca)
+        print(Sala)
+        for i in range(len(Sala)):
+            for j in range(len(Sala[0])):
+                if i == FilaDeLaButaca and j == ColumnaDeLaButaca:
+                    if Sala[i][j] == 0:
+                        print("el asiento esta libre ")
+                        print("ya lo reservamos para usted")
+                        Sala[i][j]== 1
+                        NumeroDeButacas=+-1
+                    else:
+                        print("el asiento esta ocupado porfavor eliga otro")                
+    
+    return sala,FilaDeLaButaca,ColumnaDeLaButaca
 
 
-def BuscarAsiento(fila,columna,sala):
-    if 0 <= fila == len(sala) and 0 <= columna == len(sala[0]):
-        return True
-    else:
-        return False
-
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final):
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
     print("Comprobante de pago")
+    print("Nombre", Nombre)
     print("DNI:", dni)
     print("Pelicula:", pelicula)
     print("Sucursal:", sucursal)
