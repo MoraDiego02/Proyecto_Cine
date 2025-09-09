@@ -17,7 +17,7 @@ def PrecioDelaEntrada():
     print("ingrese 1 para pagar con tarjeta ")
     print("ingrese 2 para abonar en efectivo ")
     MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-    while MetodoDePago != 1 and MetodoDePago != 2:
+    while 1 != MetodoDePago != 2:
         MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
     if MetodoDePago == 1:
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
@@ -166,10 +166,40 @@ def formato():
         return "4D"
 
      
-def FinDelDia(Sucursales,PrecioDelaentrada):
+
+def FinDelDia():
+    filas=5
+    columnas=5
+    SucursalAbasto=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
+        
+    SucursalCaballito=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
+        
+    SucursalPalermo=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
+        
+    Sucursales=(SucursalAbasto,SucursalCaballito,SucursalPalermo)
+
+
+    SCaballito=0
+    SPalermo=0
+    SAbasto=0
+
     print("finalizo el dia")
     print("estos son los datos de todas la sucursales")
-    for i in range():
-        for j in range():
+            
+    for i in range(len(Sucursales)):
+        for j in range(len(Sucursales[i])):
+            for k in range(len(Sucursales[i][j])):
+                for l in range(len(Sucursales[i][j][k])):
+                        if i == 0:
+                            if Sucursales[i][j][k][l]==1:
+                                SAbasto+=7500
+                        elif i == 1:
+                            if Sucursales[i][j][k][l]==1:
+                                SCaballito+=7500                            
+                        else:
+                            if Sucursales[i][j][k][l]==1:
+                                SPalermo+=7500
 
-    lambda
+    print("plata conseguida en el dia en la sucursal abasto:",SAbasto)
+    print("plata conseguida en el dia en la sucursal Caballito:",SCaballito)
+    print("plata conseguida en el dia en la sucursal Palermo:",SPalermo)
