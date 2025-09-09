@@ -24,10 +24,10 @@ def PrecioDelaEntrada():
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
         PrecioFinal=PrecioFinal*1.05
         print("el precio final seria de:",PrecioFinal)
-        return PrecioFinal
+        return 1
     else: 
         print("selecciono efectivo")
-        return PrecioFinal
+        return 2
 
 #def DatosDelCliente(preciofinal):
 """
@@ -73,7 +73,6 @@ def SeleccionarSucursal(SucursalAbasto,SucursalCaballito,SucursalPalermo):
     NumeroDeSucursal=int(input("ingrese el numero de la sucursal desea seleccionar: "))-1
     while 3 <= NumeroDeSucursal <=1:
         NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
-
     NumeroDeSala=1-1#int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
 
     while 3 <= NumeroDeSala <=1:
@@ -83,17 +82,18 @@ def SeleccionarSucursal(SucursalAbasto,SucursalCaballito,SucursalPalermo):
         for i in range(len(SucursalAbasto[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
+                return 0
 
     if NumeroDeSucursal == 1:
         for i in range(len(SucursalPalermo[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
-
+                return 2
     if NumeroDeSucursal == 2:
         for i in range(len(SucursalCaballito[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
-
+                return 3
 
 def ReservaDeButacas(Sala):
     ButacasVacias=0
@@ -134,18 +134,15 @@ def ReservaDeButacas(Sala):
                     else:
                         print("el asiento esta ocupado porfavor eliga otro")                
     
-    return sala,FilaDeLaButaca,ColumnaDeLaButaca
+    return Sala,FilaDeLaButaca,ColumnaDeLaButaca
 
 
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
+def comprobante(dni,pelicula,sucursal,precio):
     print("Comprobante de pago")
-    print("Nombre", Nombre)
     print("DNI:", dni)
     print("Pelicula:", pelicula)
     print("Sucursal:", sucursal)
-    print("Sala:", sala)
-    print("Asiento:", asiento)
-    print("Precio final:", precio_final)
+    print("Precio final:", precio)
     print("¡Gracias por su compra!")
 
 def cartelera():
@@ -158,6 +155,15 @@ def cartelera():
     ]
     for peli in peliculas:
         print(peli)
+def formato():
+    formatos = [
+        "Formatos disponibles:",
+        "1. 2D",
+        "2. 3D",
+        "3. 4D"
+    ]
+    for formato in formatos:
+        print(formato)
      
 
 
