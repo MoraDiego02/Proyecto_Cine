@@ -102,33 +102,13 @@ def ReservaDeButacas(sala):
     FilaButaca=0
 
 
-
-
-
-print("bienvenidos al cien uade")
-print("en que sucursal quiere ver la pelicula")
-print("ingrese 1 un seleccionar")
-sucursal= 1 #int(input("ingrese un numero para seleccionar la sucursal"))
-print("elija un numero del 1 al 3")
-print("si quiere volver a la pagina principal ingrese -1")
-NumeroSala= 1
-while NumeroSala >= 1 and NumeroSala <= 3:
-    NumeroSala=int(input("ingrese el numero de sala que quiere seleccionar "))
-    while NumeroSala != -1:
-        print("que asiento quiere seleccionar para esta pelicula")
-        FilaAsiento=int(input("Seleccione la fila (1 a 5): ")) -1
-        ColumnaAsiento=int(input("seleccione la columna (1 a 5)")) -1
-        NumeroSala=int(input("selecciones el numero de"))
-        
-            
-
 def BuscarAsiento(fila,columna,sala):
     if 0 <= fila == len(sala) and 0 <= columna == len(sala[0]):
         return True
     else:
         return False
 
-def comprobante():
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final):
     print("Comprobante de pago")
     print("DNI:", dni)
     print("Pelicula:", pelicula)
@@ -137,6 +117,16 @@ def comprobante():
     print("Asiento:", asiento)
     print("Precio final:", precio_final)
     print("¡Gracias por su compra!")
+
+def cartelera():
+    peliculas = [
+        "1. Avatar: El camino del agua",
+        "2. El gato con botas 2",
+        "3. John Wick 4",
+        "4. Super Mario"
+    ]
+    for peli in peliculas:
+        print(peli)
      
 
 

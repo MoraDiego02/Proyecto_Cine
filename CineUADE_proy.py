@@ -1,21 +1,20 @@
-from funciones_cine import MostrarSala
-from funciones_cine import crearsala
+from funciones_cine import MostrarSala, cartelera, CargarSucursales, SeleccionarSucursal, ReservaDeButacas
+import random
 
 
 def inicio():
     print("-" * 40)
     print("|      🎥 Bienvenido a CineUADE 🎥      |")
     print("-" * 40)
-    print("-" * 40)
 
 def main():
 
     Menu=0
     while Menu==0:
-        print("bienvenidos al cine uade")
-        print("1. para comprar una entrada para el cine")
-        print("2.")
-        print("3.")
+        dni=int(input("ingrese su DNI sin puntos: "))
+        while dni < 1000000 or dni > 99999999:
+            dni=int(input("ingrese su DNI sin puntos: "))
+        print(cartelera())
         Opciones= 1 #int(input("ingrese el numero de la opcion que quiere (1-3) "))
         while Opciones > 3 or Opciones < 1: 
             print("el numero tiene que estar en un rango de 1 a 3")
