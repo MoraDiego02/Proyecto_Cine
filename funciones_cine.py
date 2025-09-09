@@ -4,7 +4,6 @@ import random
 def PrecioDelaEntrada():
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
     QueDiaEs=random.randint(0,6)
-    print(Dias[QueDiaEs])
     entrada=7500
     if 0<= QueDiaEs <= 3 :
         PrecioFinal=entrada*0.80
@@ -16,7 +15,7 @@ def PrecioDelaEntrada():
         print("la entrada para la pelicula esta:",PrecioFinal)
     print("con que quiere pagar ")
     print("ingrese 1 para pagar con tarjeta ")
-    print("ingrese 2 para abonar con efectivo ")
+    print("ingrese 2 para abonar en efectivo ")
     MetodoDePago=int(input("ingrese el numero (1 o 2) "))
     while 1 != MetodoDePago != 2:
         MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
@@ -28,15 +27,6 @@ def PrecioDelaEntrada():
     else: 
         print("selecciono efectivo")
         return PrecioFinal
-
-#def DatosDelCliente(preciofinal):
-"""
-horas=['15:30','17:30','19:30']
-
-
-def ComprobanteDePago(ButacasReservadas,Preciofinal,DatosDelclientes):
-"""
-####faltan comprobante de pago y lo del dni 
 
 def MostrarSala(matriz):
     columnas=len(matriz[0])
@@ -68,9 +58,9 @@ def CargarSucursales():
 
 
 def SeleccionarSucursal(Sucursal):
-    SucursalAbasto=Sucursal[0][0][0]
-    SucursalPalermo=Sucursal[0][0][0]
-    SucursalCaballito=Sucursal[0][0][0]
+    SucursalAbasto=Sucursal[0]
+    SucursalCaballito=Sucursal[1]
+    SucursalPalermo=Sucursal[2]
     print("1. Para la sucursal de el Abasto")
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
@@ -78,8 +68,7 @@ def SeleccionarSucursal(Sucursal):
     while 3 <= NumeroDeSucursal <=1:
         NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
 
-    NumeroDeSala=1-1#int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
-
+    NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
     while 3 <= NumeroDeSala <=1:
         NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
 
@@ -162,8 +151,10 @@ def cartelera():
     for peli in peliculas:
         print(peli)
      
+def FinDelDia(Sucursales,PrecioDelaentrada):
+    print("finalizo el dia")
+    print("estos son los datos de todas la sucursales")
+    for i in range():
+        for j in range():
 
-
-
-
-
+    lambda
