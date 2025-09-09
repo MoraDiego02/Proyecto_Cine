@@ -65,11 +65,11 @@ def SeleccionarSucursal(Sucursal):
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
     NumeroDeSucursal=int(input("ingrese el numero de la sucursal desea seleccionar: "))-1
-    while 3 <= NumeroDeSucursal <=1:
+    while 2 <= NumeroDeSucursal <=0:
         NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
 
     NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
-    while 3 <= NumeroDeSala <=1:
+    while 2 <= NumeroDeSala <=0:
         NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
 
     if NumeroDeSucursal == 0:
