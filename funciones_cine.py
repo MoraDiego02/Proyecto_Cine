@@ -24,10 +24,10 @@ def PrecioDelaEntrada():
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
         PrecioFinal=PrecioFinal*1.05
         print("el precio final seria de:",PrecioFinal)
-        return 1
+        return PrecioFinal
     else: 
         print("selecciono efectivo")
-        return 2
+        return PrecioFinal
 
 #def DatosDelCliente(preciofinal):
 """
@@ -60,19 +60,24 @@ def CargarSucursales():
 
     filas=5
     columnas=5
-    SucursalAbasto=[[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]]
-    SucursalCaballito=[[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]]
-    SucursalPalermo=[[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]]
-    return SucursalAbasto,SucursalCaballito,SucursalPalermo
+    SucursalAbasto=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
+    SucursalCaballito=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
+    SucursalPalermo=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
+    sucursal=[SucursalAbasto,SucursalCaballito,SucursalPalermo]
+    return sucursal
 
 
-def SeleccionarSucursal(SucursalAbasto,SucursalCaballito,SucursalPalermo):
+def SeleccionarSucursal(Sucursal):
+    SucursalAbasto=Sucursal[0][0][0]
+    SucursalPalermo=Sucursal[0][0][0]
+    SucursalCaballito=Sucursal[0][0][0]
     print("1. Para la sucursal de el Abasto")
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
     NumeroDeSucursal=int(input("ingrese el numero de la sucursal desea seleccionar: "))-1
     while 3 <= NumeroDeSucursal <=1:
         NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
+
     NumeroDeSala=1-1#int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
 
     while 3 <= NumeroDeSala <=1:
@@ -82,18 +87,17 @@ def SeleccionarSucursal(SucursalAbasto,SucursalCaballito,SucursalPalermo):
         for i in range(len(SucursalAbasto[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
-                return 0
 
     if NumeroDeSucursal == 1:
         for i in range(len(SucursalPalermo[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
-                return 2
+
     if NumeroDeSucursal == 2:
         for i in range(len(SucursalCaballito[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
-                return 3
+
 
 def ReservaDeButacas(Sala):
     ButacasVacias=0
@@ -133,16 +137,18 @@ def ReservaDeButacas(Sala):
                         NumeroDeButacas=+-1
                     else:
                         print("el asiento esta ocupado porfavor eliga otro")                
-    
-    return Sala,FilaDeLaButaca,ColumnaDeLaButaca
+    return FilaDeLaButaca,ColumnaDeLaButaca
 
 
-def comprobante(dni,pelicula,sucursal,precio):
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
     print("Comprobante de pago")
+    print("Nombre", Nombre)
     print("DNI:", dni)
     print("Pelicula:", pelicula)
     print("Sucursal:", sucursal)
-    print("Precio final:", precio)
+    print("Sala:", sala)
+    print("Asiento:", asiento)
+    print("Precio final:", precio_final)
     print("¡Gracias por su compra!")
 
 def cartelera():
@@ -155,15 +161,6 @@ def cartelera():
     ]
     for peli in peliculas:
         print(peli)
-def formato():
-    formatos = [
-        "Formatos disponibles:",
-        "1. 2D",
-        "2. 3D",
-        "3. 4D"
-    ]
-    for formato in formatos:
-        print(formato)
      
 
 
