@@ -161,6 +161,21 @@ def cartelera():
     ]
     for peli in peliculas:
         print(peli)
+
+def formato():
+    print("2D")
+    print("3D")
+    print("4D")
+    formato = int(input("Seleccione el formato de la película (1-3): "))
+    while formato < 1 or formato > 3:
+        formato = int(input("Por favor, seleccione un formato válido (1-3): "))
+    if formato == 1:
+        return "2D"
+    elif formato == 2:
+        return "3D"
+    else:
+        return "4D"
+
      
 
 

@@ -1,4 +1,4 @@
-from funciones_cine import MostrarSala, cartelera, CargarSucursales, SeleccionarSucursal, ReservaDeButacas, PrecioDelaEntrada, comprobante
+from funciones_cine import MostrarSala, cartelera, CargarSucursales, SeleccionarSucursal, ReservaDeButacas, PrecioDelaEntrada, comprobante, formato
 import random
 
 
@@ -14,16 +14,13 @@ def main():
     print(" ")
     cartelera()
     print(" Seleccione la película que desea ver ")
-    pelicula = int(input("Ingrese el número de la película: ")).lower().strip()
+    pelicula = int(input("Ingrese el número de la película: "))
     while pelicula < 1 or pelicula > 4:
         pelicula = int(input("Número inválido. Ingrese el número de la película nuevamente: "))
     print(" ")
     print("Usted seleccionó la película:", pelicula)
     print(" ")
     formato()
-    formato = int(input("Ingrese el número del formato (1 a 3): "))
-    while formato < 1 or formato > 3:
-        formato = int(input("Número inválido. Ingrese el número del formato nuevamente: "))
     print(" ")
     print("Seleccione la sucursal y Sala")
     SucursalAbasto, SucursalCaballito, SucursalPalermo = CargarSucursales()
@@ -33,6 +30,13 @@ def main():
     print(" ")
     print("Gracias por su compra. ¡Disfrute la película!")
     print(" ")
+    volver_a_comprar = input("¿Desea realizar otra compra? (si/no): ").lower()
+    if volver_a_comprar == "si":
+        comprobante(dni, pelicula)
+        main()
+    else:
+        comprobante(dni, pelicula)
+        print("¡Hasta luego!")
 #Comprobante : Falta arreglar lo de la sucursal y precio final
 #Falta: Lambda, Slices, Funcion del lenguajes, informe de ventas
 
