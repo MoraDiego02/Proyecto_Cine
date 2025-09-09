@@ -150,6 +150,7 @@ def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
 
 def cartelera():
     peliculas = [
+        "Cartelera de Películas:",
         "1. Avatar: El camino del agua",
         "2. El gato con botas 2",
         "3. John Wick 4",
