@@ -58,17 +58,10 @@ def CargarSucursales():
     return sucursal
 
 
-<<<<<<< HEAD
 def SeleccionarSucursal(Sucursal):
     SucursalAbasto = Sucursal[0]
     SucursalCaballito = Sucursal[1]
     SucursalPalermo = Sucursal[2]
-=======
-def SeleccionarSala(Sucursal):
-    SucursalAbasto=Sucursal[0]
-    SucursalCaballito=Sucursal[1]
-    SucursalPalermo=Sucursal[2]
->>>>>>> 0a2d3dde9ada683f00e72c6d5abe8d44ccfb0eee
     print("1. Para la sucursal de el Abasto")
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
@@ -81,49 +74,18 @@ def SeleccionarSala(Sucursal):
         NumeroDeSala = int(input("ingrese el numero de sala válido (1 a 3): ")) - 1
 
     if NumeroDeSucursal == 0:
-<<<<<<< HEAD
         sala_matriz = SucursalAbasto[NumeroDeSala]
     elif NumeroDeSucursal == 1:
         sala_matriz = SucursalPalermo[NumeroDeSala]
     elif NumeroDeSucursal == 2:
         sala_matriz = SucursalCaballito[NumeroDeSala]
-=======
-        for i in range(len(SucursalAbasto[0])):
-            if NumeroDeSala == i:
-                return SucursalAbasto[0][i]
-
-    if NumeroDeSucursal == 1:
-        for i in range(len(SucursalPalermo[0])):
-            if NumeroDeSala == i:
-                return SucursalPalermo[0][i]
-
-    if NumeroDeSucursal == 2:
-        for i in range(len(SucursalCaballito[0])):
-            if NumeroDeSala == i:
-                return SucursalCaballito[0][i]
->>>>>>> 0a2d3dde9ada683f00e72c6d5abe8d44ccfb0eee
 
     ReservaDeButacas(MostrarSala(sala_matriz))
     return NumeroDeSucursal, NumeroDeSala
 
 
 def ReservaDeButacas(Sala):
-<<<<<<< HEAD
     ButacasVacias = 0
-=======
-    print("1. Para la sucursal de el Abasto")
-    print("2. Para la sucursal de Palermo")
-    print("3. Para la sucursal de Caballito")
-    NumeroDeSucursal=int(input("ingrese el numero de la sucursal desea seleccionar: "))-1
-    while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
-        NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
-
-    NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
-    while NumeroDeSala < 0 or NumeroDeSala > 2:
-        NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
-
-    ButacasVacias=0
->>>>>>> 0a2d3dde9ada683f00e72c6d5abe8d44ccfb0eee
     for i in range(len(Sala)):
         for j in range(len(Sala[0])):
             if Sala[i][j] == 0:
@@ -165,7 +127,7 @@ def ReservaDeButacas(Sala):
                 print()
         else:
             print()
-            print(" Eleccion erronea. Fila y columna deben estar entre 1 y 5.")
+            print(" Eleccion incorrecta. Fila y columna deben estar entre 1 y 5.")
             print()
 
     print()
@@ -198,6 +160,7 @@ def cartelera():
     ]
     for peli in peliculas:
         print(peli)
+    print("Películas taquilleras:", peliculas[1:3])
 
 def formato():
     print("2D")
@@ -205,7 +168,7 @@ def formato():
     print("4D")
     formato = int(input("Seleccione el formato de la película (1-3): "))
     while formato < 1 or formato > 3:
-        formato = int(input("Por favor, seleccione un formato válido (1-3): "))
+        formato = int(input("Incorrecto, Seleccione un formato válido (1-3): "))
     if formato == 1:
         return "2D"
     elif formato == 2:
@@ -214,7 +177,7 @@ def formato():
         return "4D"
 
 def FinDelDia(Sucursales):
-    recaudacion = []
+    recaudaciones_totales= []
     SCaballito=0
     SPalermo=0
     SAbasto=0
@@ -235,7 +198,11 @@ def FinDelDia(Sucursales):
                         else:
                             if Sucursales[i][j][k][l]==1:
                                 SPalermo+=7500
-    recaudacion.append(SAbasto,SCaballito,SPalermo)
-    print("plata conseguida en el dia en la sucursal abasto:",recaudacion[0:1])
-    print("plata conseguida en el dia en la sucursal Caballito:",SCaballito[1:2])
-    print("plata conseguida en el dia en la sucursal Palermo:",SPalermo[2:3])
+    recaudaciones_totales.append(SAbasto)
+    recaudaciones_totales.append(SCaballito)
+    recaudaciones_totales.append(SPalermo)
+    print("la recaudacion total de la sucursal Abasto es de:",recaudaciones_totales[0])
+    print("la recaudacion total de la sucursal Caballito es de:",recaudaciones_totales[1])
+    print("la recaudacion total de la sucursal Palermo es de:",recaudaciones_totales[2])
+    print("la recaudacion total del dia es de:",sum(recaudaciones_totales))
+
