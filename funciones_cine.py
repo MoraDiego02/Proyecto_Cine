@@ -50,7 +50,7 @@ def MostrarSala(matriz):
 
 
 
-def CargarSucursales(Sucursal):
+def CargarSucursales():
 
     filas=5
     columnas=5
@@ -79,17 +79,17 @@ def SeleccionarSucursal(Sucursal):
     if NumeroDeSucursal == 0:
         for i in range(len(SucursalAbasto[0])):
             if NumeroDeSala == i:
-                return(MostrarSala(SucursalAbasto[0][i]))
+                return SucursalAbasto[0][i]
 
     if NumeroDeSucursal == 1:
         for i in range(len(SucursalPalermo[0])):
             if NumeroDeSala == i:
-                return(MostrarSala(SucursalPalermo[0][i]))
+                return SucursalPalermo[0][i]
 
     if NumeroDeSucursal == 2:
         for i in range(len(SucursalCaballito[0])):
             if NumeroDeSala == i:
-                return(MostrarSala(SucursalCaballito[0][i]))
+                return SucursalCaballito[0][i]
 
 
 

@@ -27,7 +27,6 @@ def main():
         print("Seleccione la sucursal y Sala")
         ReservaDeButacas(SeleccionarSucursal(Sucursales))
         
-        print(Sucursales)
         print("Precio de la entrada")
         PrecioDelaEntrada()
         print(" ")
@@ -39,7 +38,7 @@ def main():
     
         
     print("¡Hasta luego!")      
-    FinDelDia(Sucursales)
+    FinDelDia(Sucursal)
 
 if __name__ == "__main__":
     inicio()
