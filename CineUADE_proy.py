@@ -1,7 +1,6 @@
 from funciones_cine import MostrarSala, cartelera, CargarSucursales, SeleccionarSucursal, ReservaDeButacas, PrecioDelaEntrada, comprobante, formato, FinDelDia
 import random
 
-
 def inicio():
     print("-" * 40)
     print("|      🎥 Bienvenido a CineUADE 🎥      |")
@@ -26,8 +25,7 @@ def main():
         formato()
         print(" ")
         print("Seleccione la sucursal y Sala")
-        Sucursales = CargarSucursales()
-        SeleccionarSucursal(Sucursales)
+        ReservaDeButacas(SeleccionarSucursal(Sucursales))
         
         print(Sucursales)
         print("Precio de la entrada")

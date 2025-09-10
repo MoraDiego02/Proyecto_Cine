@@ -79,17 +79,17 @@ def SeleccionarSucursal(Sucursal):
     if NumeroDeSucursal == 0:
         for i in range(len(SucursalAbasto[0])):
             if NumeroDeSala == i:
-                ReservaDeButacas(MostrarSala(SucursalAbasto[0][i]))
+                return(MostrarSala(SucursalAbasto[0][i]))
 
     if NumeroDeSucursal == 1:
         for i in range(len(SucursalPalermo[0])):
             if NumeroDeSala == i:
-                ReservaDeButacas(MostrarSala(SucursalPalermo[0][i]))
+                return(MostrarSala(SucursalPalermo[0][i]))
 
     if NumeroDeSucursal == 2:
         for i in range(len(SucursalCaballito[0])):
             if NumeroDeSala == i:
-                ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
+                return(MostrarSala(SucursalCaballito[0][i]))
 
 
 
