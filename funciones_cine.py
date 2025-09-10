@@ -61,7 +61,7 @@ def CargarSucursales():
     return [SucursalAbasto,SucursalCaballito,SucursalPalermo]
 
 
-def SeleccionarSucursal(Sucursal):
+def SeleccionarSala(Sucursal):
     SucursalAbasto=Sucursal[0]
     SucursalCaballito=Sucursal[1]
     SucursalPalermo=Sucursal[2]
@@ -94,6 +94,17 @@ def SeleccionarSucursal(Sucursal):
 
 
 def ReservaDeButacas(Sala):
+    print("1. Para la sucursal de el Abasto")
+    print("2. Para la sucursal de Palermo")
+    print("3. Para la sucursal de Caballito")
+    NumeroDeSucursal=int(input("ingrese el numero de la sucursal desea seleccionar: "))-1
+    while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
+        NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
+
+    NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
+    while NumeroDeSala < 0 or NumeroDeSala > 2:
+        NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
+
     ButacasVacias=0
     for i in range(len(Sala)):
         for j in range(len(Sala[0])):

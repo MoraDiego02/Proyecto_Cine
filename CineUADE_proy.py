@@ -25,7 +25,7 @@ def main():
         formato()
         print(" ")
         print("Seleccione la sucursal y Sala")
-        ReservaDeButacas(SeleccionarSucursal(Sucursales))
+        ReservaDeButacas(SeleccionarSala(Sucursales))
         
         print("Precio de la entrada")
         PrecioDelaEntrada()
