@@ -24,8 +24,10 @@ def main():
     formato()
     print(" ")
     print("Seleccione la sucursal y Sala")
-    CargarSucursales(Sucursales)
+    Sucursales = CargarSucursales()
     SeleccionarSucursal(Sucursales)
+    
+    print(Sucursales)
     print("Precio de la entrada")
     PrecioDelaEntrada()
     print(" ")

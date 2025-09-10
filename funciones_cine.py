@@ -1,32 +1,37 @@
 import random
 
 #precio de la entrada
-def PrecioDelaEntrada():
+def PrecioDelaEntrada(simular):
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
-    QueDiaEs=random.randint(0,6)
-    entrada=7500
-    if 0<= QueDiaEs <= 3 :
-        PrecioFinal=entrada*0.80
-        print("como hoy es",Dias[QueDiaEs],"la entrada tiene un descuento del 20%!")
-        print("la entrada para la pelicula esta:",PrecioFinal)
+    GenerarDia = lambda: random.randint(0,6)
+    QueDiaEs=GenerarDia()
+    if simular == 0:
+        entrada=7500
+        if 0<= QueDiaEs <= 3 :
+            PrecioFinal=entrada*0.80
+            print("como hoy es",Dias[QueDiaEs],"la entrada tiene un descuento del 20%!")
+            print("la entrada para la pelicula esta:",PrecioFinal)
+        else:
+            PrecioFinal=entrada*1.10
+            print("como hoy es",Dias[QueDiaEs],"la entrada tiene un aumento del 10%")
+            print("la entrada para la pelicula esta:",PrecioFinal)
+        print("con que quiere pagar ")
+        print("ingrese 1 para pagar con tarjeta ")
+        print("ingrese 2 para abonar en efectivo ")
+        MetodoDePago=int(input("ingrese el numero (1 o 2) "))
+        while 1 != MetodoDePago != 2:
+            MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
+        if MetodoDePago == 1:
+            print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
+            PrecioFinal=PrecioFinal*1.05
+            print("el precio final seria de:",PrecioFinal)
+            return PrecioFinal
+        else: 
+            print("selecciono efectivo")
+            return PrecioFinal
+
     else:
-        PrecioFinal=entrada*1.10
-        print("como hoy es",Dias[QueDiaEs],"la entrada tiene un aumento del 10%")
-        print("la entrada para la pelicula esta:",PrecioFinal)
-    print("con que quiere pagar ")
-    print("ingrese 1 para pagar con tarjeta ")
-    print("ingrese 2 para abonar en efectivo ")
-    MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-    while 1 != MetodoDePago != 2:
-        MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
-    if MetodoDePago == 1:
-        print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
-        PrecioFinal=PrecioFinal*1.05
-        print("el precio final seria de:",PrecioFinal)
-        return PrecioFinal
-    else: 
-        print("selecciono efectivo")
-        return PrecioFinal
+
 
 def MostrarSala(matriz):
     columnas=len(matriz[0])
@@ -53,8 +58,8 @@ def CargarSucursales(Sucursal):
     SucursalAbasto=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
     SucursalCaballito=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
     SucursalPalermo=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
-    sucursal=[SucursalAbasto,SucursalCaballito,SucursalPalermo]
-    return sucursal
+    
+    return [SucursalAbasto,SucursalCaballito,SucursalPalermo]
 
 
 def SeleccionarSucursal(Sucursal):
@@ -173,18 +178,7 @@ def formato():
 
      
 
-def FinDelDia():
-    filas=5
-    columnas=5
-    SucursalAbasto=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
-        
-    SucursalCaballito=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
-        
-    SucursalPalermo=[[[random.randint(0,1)for i in range(columnas)]for i in range(filas)]for i in range(3)]
-        
-    Sucursales=(SucursalAbasto,SucursalCaballito,SucursalPalermo)
-
-
+def FinDelDia(Sucursales):
     SCaballito=0
     SPalermo=0
     SAbasto=0
