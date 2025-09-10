@@ -160,6 +160,7 @@ def cartelera():
     ]
     for peli in peliculas:
         print(peli)
+    print("Películas taquilleras:", peliculas[1:3])
 
 def formato():
     print("2D")
