@@ -127,7 +127,7 @@ def ReservaDeButacas(Sala):
                 print()
         else:
             print()
-            print(" Eleccion erronea. Fila y columna deben estar entre 1 y 5.")
+            print(" Eleccion incorrecta. Fila y columna deben estar entre 1 y 5.")
             print()
 
     print()
@@ -168,7 +168,7 @@ def formato():
     print("4D")
     formato = int(input("Seleccione el formato de la película (1-3): "))
     while formato < 1 or formato > 3:
-        formato = int(input("Por favor, seleccione un formato válido (1-3): "))
+        formato = int(input("Incorrecto, Seleccione un formato válido (1-3): "))
     if formato == 1:
         return "2D"
     elif formato == 2:
