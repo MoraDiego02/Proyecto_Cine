@@ -46,7 +46,7 @@ def MostrarSala(matriz):
 
 
 
-def CargarSucursales():
+def CargarSucursales(Sucursal):
 
     filas=5
     columnas=5
@@ -110,11 +110,15 @@ def ReservaDeButacas(Sala):
         ColumnaDeLaButaca=0
         print("a continuacion seleccione la fila en la que quiere su asiento")
         FilaDeLaButaca=int(input("ingrese un numero del 1 al 5 "))-1
+        while FilaDeLaButaca > 4 or FilaDeLaButaca < 0:
+            print("porfavor ingrese un numero del 1 al 5")
+            ColumnaDeLaButaca=int(input("ingrese un numero del 1 al 5 "))-1
         print("ahora seleccione en que lugar de la columna le gustaria sentarse")
         ColumnaDeLaButaca=int(input("ingrese un numero del 1 al 5 "))-1
-        while ColumnaDeLaButaca>5 or ColumnaDeLaButaca < 0:
-            print("pedilo")
-
+        while ColumnaDeLaButaca > 4 or ColumnaDeLaButaca < 0:
+            print("porfavor ingrese un numero del 1 al 5")
+            ColumnaDeLaButaca=int(input("ingrese un numero del 1 al 5 "))-1
+        
         print(FilaDeLaButaca)
         print(Sala)
         for i in range(len(Sala)):
@@ -123,8 +127,8 @@ def ReservaDeButacas(Sala):
                     if Sala[i][j] == 0:
                         print("el asiento esta libre ")
                         print("ya lo reservamos para usted")
-                        Sala[i][j]== 1
-                        NumeroDeButacas=+-1
+                        Sala[i][j] = 1
+                        NumeroDeButacas-=1
                     else:
                         print("el asiento esta ocupado porfavor eliga otro")                
     return FilaDeLaButaca,ColumnaDeLaButaca
@@ -153,9 +157,10 @@ def cartelera():
         print(peli)
 
 def formato():
-    print("2D")
-    print("3D")
-    print("4D")
+    print("ingrese el numero en el al que correspondo el formato de la pelicula que quiere ver ")
+    print("1. 2D")
+    print("2. 3D")
+    print("3. 4D")
     formato = int(input("Seleccione el formato de la película (1-3): "))
     while formato < 1 or formato > 3:
         formato = int(input("Por favor, seleccione un formato válido (1-3): "))

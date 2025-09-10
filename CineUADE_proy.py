@@ -8,6 +8,7 @@ def inicio():
     print("-" * 40)
 
 def main():
+    Sucursales=[]
     dni = int(input("Ingrese su DNI: "))
     while dni < 10000000 or dni > 99999999:
         dni = int(input("DNI inválido. Ingrese su DNI nuevamente: "))
@@ -23,8 +24,8 @@ def main():
     formato()
     print(" ")
     print("Seleccione la sucursal y Sala")
-    SucursalAbasto, SucursalCaballito, SucursalPalermo = CargarSucursales()
-    SeleccionarSucursal(SucursalAbasto, SucursalCaballito, SucursalPalermo)
+    CargarSucursales(Sucursales)
+    SeleccionarSucursal(Sucursales)
     print("Precio de la entrada")
     PrecioDelaEntrada()
     print(" ")
