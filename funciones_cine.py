@@ -30,7 +30,6 @@ def PrecioDelaEntrada(simular):
             print("selecciono efectivo")
             return PrecioFinal
 
-    else:
 
 
 def MostrarSala(matriz):
