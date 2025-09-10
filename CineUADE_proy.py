@@ -40,12 +40,7 @@ def main():
     else:
         comprobante(dni, pelicula)
         print("¡Hasta luego!")
-#Comprobante : Falta arreglar lo de la sucursal y precio final
-#Falta: Lambda, Slices, Funcion del lenguajes, informe de ventas
 
-    
-
-   
 
 if __name__ == "__main__":
     inicio()
