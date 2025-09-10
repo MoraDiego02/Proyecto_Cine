@@ -65,27 +65,28 @@ def SeleccionarSucursal(Sucursal):
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
     NumeroDeSucursal=int(input("ingrese el numero de la sucursal desea seleccionar: "))-1
-    while 2 <= NumeroDeSucursal <=0:
+    while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
         NumeroDeSucursal=int(input("ingrese el numero de sala que desea seleccionar: "))-1
 
     NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
-    while 2 <= NumeroDeSala <=0:
+    while NumeroDeSala < 0 or NumeroDeSala > 2:
         NumeroDeSala=int(input("ingrese el numero de sala que desea seleccionar (1 a 3) "))-1
 
     if NumeroDeSucursal == 0:
         for i in range(len(SucursalAbasto[0])):
             if NumeroDeSala == i:
-                ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
+                ReservaDeButacas(MostrarSala(SucursalAbasto[0][i]))
 
     if NumeroDeSucursal == 1:
         for i in range(len(SucursalPalermo[0])):
             if NumeroDeSala == i:
-                ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
+                ReservaDeButacas(MostrarSala(SucursalPalermo[0][i]))
 
     if NumeroDeSucursal == 2:
         for i in range(len(SucursalCaballito[0])):
             if NumeroDeSala == i:
                 ReservaDeButacas(MostrarSala(SucursalCaballito[0][i]))
+
 
 
 def ReservaDeButacas(Sala):
