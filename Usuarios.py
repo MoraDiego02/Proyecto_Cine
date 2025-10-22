@@ -1,14 +1,17 @@
+from ActualizacionDeachivos import AdministrarArchivos
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     arch=open("cuentas.cvs",mode="at")
     Usuario=NombreDeusuario()
     Contraseña=SeguridadDeContraseña()
     Documento=ComprobacionDeDniYFecha()
     Fecha=ComprobacionDeDniYFecha()
-    Datos=(Usuario+"/"+Contraseña+"/"+Documento+"/"+Fecha)
-    RegistroDeUsuario(1)
-
+    Datos=("Usuario/Contraseña/Documento/Fecha\n")
     arch.write(Datos)
-
+    arch.close
+    AdministrarArchivos(Datos,1)
+    RegistroDeUsuario(1)
+    
+    
 def IniciarSesion():#esta es para verificar 
     while True:
 
@@ -21,15 +24,28 @@ def IniciarSesion():#esta es para verificar
         finally:
             print("el usuario es valido")
 
+        Errores=0
         try:
-            contraseña=input("ingrese la contraseña")
-            if VerificacionDeDatos(2,contraseña) == False:
-                raise ValueError
+            if Errores == 3:
+                print("desea reiniciar la contraseña")
+                print("1. Si 2. No")
+                Eleccion=int(input("1. Si 2. No"))
+                if Eleccion == 1:
+                    reinicioDeContraseña()
+                else:
+                    Errores=0
         except ValueError:
-            print("la contraseña no es valida")
-        finally:
-            print("se a realizado el logueo de la cuenta con exito!")
-            break
+                print("ingrese un numero (1 o 2) ")
+                try:     
+                    contraseña=input("ingrese la contraseña")
+                    if VerificacionDeDatos(2,contraseña) == False:
+                        Errores+=1
+                    raise ValueError
+                except ValueError:
+                    print("la contraseña no es valida")
+                finally:
+                    print("se a realizado el logueo de la cuenta con exito!")
+                    break
 
 
 def RegistroDeUsuario(Opcion):
@@ -42,38 +58,52 @@ def RegistroDeUsuario(Opcion):
     return Usuario
     
 def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
+    arch=open("cuentas.cvs",mode="rt")
+    TorF=False
     if OP==1:
-        print("")
+        while Cuenta:
+            Cuenta=arch.readline().strip().split("/")
+            if Dato == Cuenta[0]:
+                print("el usuario es valido")
+                TorF=True
+                break
+        return TorF
     else:
-        if SeguridadDeContraseña() == False:
-        
+        while Cuenta:
+            Cuenta=arch.readline().strip().split("/")
+            if Dato == Cuenta[1]:
+                print("la contraseña es valida")
+                TorF=True
+                break
+        return TorF
+
         
 
 def reinicioDeContraseña(Usuario):#este lo voy a mandar a usuario si pone mas de 3 veces la contraseña
     while True:
-
+        AdministrarArchivos(1)
         break
 
-def SeguridadDeContraseña(contraseña):#este va a ser el creador de contraseña
+def SeguridadDeContraseña():#este va a ser el creador de contraseña
+    Contraseña=input("ingrese la contraseña")
     try:
-        if len(contraseña)<8:
+        if len(Contraseña)<8:
             raise ValueError
     except ValueError:
-        print("la contraseña es demasiado corta")
+        print("la Contraseña es demasiado corta")
     
     try:
         SimbolosNecesarios=["!","_","-","~","@","*","<",">","?",]
         valor=0
-        for i in range(len(contraseña)):
-            if contraseña[i] in SimbolosNecesarios:
+        for i in range(len(Contraseña)):
+            if Contraseña[i] in SimbolosNecesarios:
                     valor=1
-                        
+            else:
+                continue
     except ValueError:
         print("la contraseña no es suficientemente segura")
-        return False
     finally:
-        return True
-
+        return Contraseña
 
 
 def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario este disponible
@@ -83,7 +113,7 @@ def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario
         try:
             Usuario=input("nombre de usuario:")
             if len(Usuario)<8:
-                raise ValueError
+                raise IndexError
             else:
                 while AuxUsuario:
                     AuxUsuario=arch.readline()
@@ -93,8 +123,10 @@ def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario
                         continue
                 break
 
+        except IndexError:
+            print("el nombre tiene que tener mas o igual a 8 caracteres")
         except ValueError:
-            print("el nombre tiene que tener mas o - caracteres ")
+            print("ese nombre de usuario ya esta ocupado por otra persona")
         finally:
             print("el nombre es valido")
             break
