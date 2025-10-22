@@ -1,4 +1,4 @@
-from funciones_cine import cartelera, formato, CargarSucursales, SeleccionarSucursal, PrecioDelaEntrada, comprobante, FinDelDia
+from funciones_cine import cartelera, formato, CargarSucursales, SeleccionarSucursal, PrecioDelaEntrada, comprobante, FinDelDia, RegistroDeUsuario
 
 def inicio():
     print("-" * 40)
@@ -6,6 +6,20 @@ def inicio():
     print("-" * 40)
 
 def main(sucursales):
+    print("1")
+    print("")
+    while True:
+        try:
+            Opcion=int(input(""))
+            if Opcion != 1 or Opcion != 2:
+                raise ValueError
+            else:
+                break
+        except ValueError:
+            print("ingrese 1 o 2 segun la opcion que quiere")
+    
+    Usuario=RegistroDeUsuario(Opcion)
+
     dni = int(input("Ingrese su DNI: "))
     while dni < 10000000 or dni > 99999999:
         dni = int(input("DNI inválido. Ingrese su DNI nuevamente: "))

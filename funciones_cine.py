@@ -1,5 +1,5 @@
 import random
-
+import faker
 #precio de la entrada
 def PrecioDelaEntrada():
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
@@ -206,3 +206,18 @@ def FinDelDia(Sucursales):
     print("la recaudacion total de la sucursal Palermo es de:",recaudaciones_totales[2])
     print("la recaudacion total del dia es de:",sum(recaudaciones_totales))
 
+
+def FinalDelDia():
+    print("hola es el final del dia") 
+
+
+    else:#este es el que crear las cuentas
+        arch=open("Cuentas.cvs",mode="at")
+        
+        Documento=("ingrese su numero de documento")
+        Edad=("ingrese su edad")
+
+
+
+
+    
