@@ -51,6 +51,7 @@ def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
 
 def reinicioDeContraseña(Usuario):#este lo voy a mandar a usuario si pone mas de 3 veces la contraseña
     while True:
+
         
         break
 
@@ -86,7 +87,28 @@ def ComprobacionDeDniYFecha(Opcion):
     if Opcion == 1:
         while True:
             try:
-                Dni
+                documento=int(input("ingrese su DNI sin puntos:"))
+                if documento <10000000 or documento >99999999:
+                    raise ValueError
+                break
             except ValueError:
+                print("el DNI ingresado no es valido")
+            finally:
+                print("el DNI es valido")
+        return str(documento)
+    else:
+        while True:
+            try:
+                fecha=input("Ingrese su fecha de nacimiento en formato dd/mm/aaaa:")
+                dia=int(fecha[0:2])
+                mes=int(fecha[3:5])
+                año=int(fecha[6:10])
+                if dia < 1 or dia > 31 or mes < 1 or mes > 12 or año < 1930 or año > 2025:
+                    raise ValueError
+                break
+            except ValueError:
+                print("La fecha de nacimiento es invalida. Volve a intentarlo")
+            finally:
+                print("La fecha de nacimiento es valida")
+        return str (fecha)
 
-            finally:        

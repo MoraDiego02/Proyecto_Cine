@@ -211,7 +211,7 @@ def FinalDelDia():
     print("hola es el final del dia") 
 
 
-    else:#este es el que crear las cuentas
+    else:@este es el que crear las cuentas
         arch=open("Cuentas.cvs",mode="at")
         
         Documento=("ingrese su numero de documento")

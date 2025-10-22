@@ -20,9 +20,6 @@ def main(sucursales):
     
     Usuario=RegistroDeUsuario(Opcion)
 
-    dni = int(input("Ingrese su DNI: "))
-    while dni < 10000000 or dni > 99999999:
-        dni = int(input("DNI inválido. Ingrese su DNI nuevamente: "))
     print(" ")
     cartelera()
     print(" Seleccione la película que desea ver ")
