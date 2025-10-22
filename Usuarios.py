@@ -1,10 +1,10 @@
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
-    arch=open("cuentas.cvs"mode=at)
+    arch=open("cuentas.cvs",mode="at")
     Usuario=NombreDeusuario()
     Contraseña=SeguridadDeContraseña()
     Documento=ComprobacionDeDniYFecha()
     Fecha=ComprobacionDeDniYFecha()
-    Datos=(Usuario+"_"+Contraseña+"_"+Documento+"_"+Fecha+)
+    Datos=(Usuario+"/"+Contraseña+"/"+Documento+"/"+Fecha)
     RegistroDeUsuario(1)
 
     arch.write(Datos)
@@ -23,7 +23,7 @@ def IniciarSesion():#esta es para verificar
 
         try:
             contraseña=input("ingrese la contraseña")
-            if VerificacionDeDatos(2,contraseña)== False:
+            if VerificacionDeDatos(2,contraseña) == False:
                 raise ValueError
         except ValueError:
             print("la contraseña no es valida")
@@ -45,20 +45,37 @@ def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
     if OP==1:
         print("")
     else:
-        
+        if SeguridadDeContraseña() == False:
         
         
 
 def reinicioDeContraseña(Usuario):#este lo voy a mandar a usuario si pone mas de 3 veces la contraseña
     while True:
 
-        
         break
 
 def SeguridadDeContraseña(contraseña):#este va a ser el creador de contraseña
-    while True:
+    try:
+        if len(contraseña)<8:
+            raise ValueError
+    except ValueError:
+        print("la contraseña es demasiado corta")
+    
+    try:
+        SimbolosNecesarios=["!","_","-","~","@","*","<",">","?",]
+        valor=0
+        for i in range(len(contraseña)):
+            if contraseña[i] in SimbolosNecesarios:
+                    valor=1
+                        
+    except ValueError:
+        print("la contraseña no es suficientemente segura")
+        return False
+    finally:
+        return True
 
-        break
+
+
 def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario este disponible
     arch=open("cuentas.cvs",mode="rt")
     while True:
@@ -85,16 +102,16 @@ def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario
 
 def ComprobacionDeDniYFecha(Opcion):
     if Opcion == 1:
+        documento=int(input("ingrese su DNI sin puntos:"))
         while True:
             try:
-                documento=int(input("ingrese su DNI sin puntos:"))
                 if documento <10000000 or documento >99999999:
                     raise ValueError
-                break
             except ValueError:
                 print("el DNI ingresado no es valido")
             finally:
                 print("el DNI es valido")
+                break
         return str(documento)
     else:
         while True:
@@ -105,10 +122,10 @@ def ComprobacionDeDniYFecha(Opcion):
                 año=int(fecha[6:10])
                 if dia < 1 or dia > 31 or mes < 1 or mes > 12 or año < 1930 or año > 2025:
                     raise ValueError
-                break
             except ValueError:
                 print("La fecha de nacimiento es invalida. Volve a intentarlo")
             finally:
                 print("La fecha de nacimiento es valida")
+                break
         return str (fecha)
 
