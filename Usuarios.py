@@ -11,6 +11,7 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
 
 def IniciarSesion():#esta es para verificar 
     while True:
+
         try:
             Usuario=input("ingrese su nombre de usuario")
             if VerificacionDeDatos(1,Usuario)== False:
@@ -19,6 +20,7 @@ def IniciarSesion():#esta es para verificar
             print("el nombre de usuario que ingreso no es valido")
         finally:
             print("el usuario es valido")
+
         try:
             contraseña=input("ingrese la contraseña")
             if VerificacionDeDatos(2,contraseña)== False:
@@ -41,17 +43,21 @@ def RegistroDeUsuario(Opcion):
     
 def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
     if OP==1:
-        
+        print("")
     else:
-
-
+        
+        
+        
 
 def reinicioDeContraseña(Usuario):#este lo voy a mandar a usuario si pone mas de 3 veces la contraseña
-    aaa
+    while True:
+        
+        break
 
 def SeguridadDeContraseña(contraseña):#este va a ser el creador de contraseña
-    aaa
+    while True:
 
+        break
 def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario este disponible
     arch=open("cuentas.cvs",mode="rt")
     while True:
@@ -77,3 +83,10 @@ def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario
     arch.close()
 
 def ComprobacionDeDniYFecha(Opcion):
+    if Opcion == 1:
+        while True:
+            try:
+                Dni
+            except ValueError:
+
+            finally:        
