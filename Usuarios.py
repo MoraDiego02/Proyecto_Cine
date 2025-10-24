@@ -3,9 +3,9 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     arch=open("cuentas.cvs",mode="at")
     Usuario=NombreDeusuario()
     Contraseña=SeguridadDeContraseña()
-    Documento=ComprobacionDeDniYFecha()
-    Fecha=ComprobacionDeDniYFecha()
-    Datos=("Usuario/Contraseña/Documento/Fecha\n")
+    Documento=ComprobacionDeDniYFecha(1)
+    Fecha=ComprobacionDeDniYFecha(2)
+    Datos=(f"{Usuario}/{Contraseña}/{Documento}/{Fecha}\n")
     arch.write(Datos)
     arch.close
     AdministrarArchivos(Datos,1)
@@ -14,14 +14,13 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     
 def IniciarSesion():#esta es para verificar 
     while True:
-
         try:
             Usuario=input("ingrese su nombre de usuario")
             if VerificacionDeDatos(1,Usuario)== False:
                 raise ValueError
         except ValueError:
             print("el nombre de usuario que ingreso no es valido")
-        finally:
+        else:
             print("el usuario es valido")
 
         Errores=0
@@ -43,13 +42,14 @@ def IniciarSesion():#esta es para verificar
                     raise ValueError
                 except ValueError:
                     print("la contraseña no es valida")
-                finally:
+                else:
                     print("se a realizado el logueo de la cuenta con exito!")
                     break
 
 
 def RegistroDeUsuario(Opcion):
     if Opcion == 1:
+       print("Inicio de Sesion")
        Usuario=IniciarSesion() 
                 
     else:#este es el que crear las cuentas
@@ -61,7 +61,7 @@ def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
     arch=open("cuentas.cvs",mode="rt")
     TorF=False
     if OP==1:
-        while Cuenta:
+        while True:
             Cuenta=arch.readline().strip().split("/")
             if Dato == Cuenta[0]:
                 print("el usuario es valido")
@@ -69,7 +69,7 @@ def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
                 break
         return TorF
     else:
-        while Cuenta:
+        while True:
             Cuenta=arch.readline().strip().split("/")
             if Dato == Cuenta[1]:
                 print("la contraseña es valida")
@@ -85,28 +85,34 @@ def reinicioDeContraseña(Usuario):#este lo voy a mandar a usuario si pone mas d
         break
 
 def SeguridadDeContraseña():#este va a ser el creador de contraseña
-    Contraseña=input("ingrese la contraseña")
-    try:
-        if len(Contraseña)<8:
-            raise ValueError
-    except ValueError:
-        print("la Contraseña es demasiado corta")
-    
-    try:
-        SimbolosNecesarios=["!","_","-","~","@","*","<",">","?",]
-        valor=0
-        for i in range(len(Contraseña)):
-            if Contraseña[i] in SimbolosNecesarios:
-                    valor=1
+    while True:
+        Contraseña=input("ingrese la contraseña:")
+        try:
+            if len(Contraseña)<8:
+                raise IndexError
+        except IndexError:
+            print("la Contraseña es demasiado corta")
+            continue
+        else:
+            try:
+                SimbolosNecesarios=["!","_","-","~","@","*","<",">","?"]
+                valor=0
+                for i in range(len(Contraseña)):
+                    if Contraseña[i] in SimbolosNecesarios:
+                            valor=1
+                    else:
+                        continue
+                if valor == 0:
+                    raise ValueError
+            except ValueError:
+                print("la contraseña no es suficientemente segura")
             else:
-                continue
-    except ValueError:
-        print("la contraseña no es suficientemente segura")
-    finally:
-        return Contraseña
+                print("la contraseña es segura")
+                break
+    return Contraseña
 
 
-def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario este disponible
+def NombreDeusuario():#este es para verificar de que el nombre de usuario este disponible
     arch=open("cuentas.cvs",mode="rt")
     while True:
         print("el nombre de usuario tiene que tener mas de 8 caracteres")
@@ -122,15 +128,17 @@ def NombreDeusuario(Usuario):#este es para verificar de que el nombre de usuario
                     else:
                         continue
                 break
-
+    
         except IndexError:
             print("el nombre tiene que tener mas o igual a 8 caracteres")
         except ValueError:
             print("ese nombre de usuario ya esta ocupado por otra persona")
-        finally:
+        else:
             print("el nombre es valido")
             break
     arch.close()
+    return Usuario
+    
 
 def ComprobacionDeDniYFecha(Opcion):
     if Opcion == 1:
@@ -141,7 +149,7 @@ def ComprobacionDeDniYFecha(Opcion):
                     raise ValueError
             except ValueError:
                 print("el DNI ingresado no es valido")
-            finally:
+            else:
                 print("el DNI es valido")
                 break
         return str(documento)
@@ -156,8 +164,9 @@ def ComprobacionDeDniYFecha(Opcion):
                     raise ValueError
             except ValueError:
                 print("La fecha de nacimiento es invalida. Volve a intentarlo")
-            finally:
+            else:
                 print("La fecha de nacimiento es valida")
                 break
-        return str (fecha)
+        fecha=(f"{dia}:{mes}:{año}")
+        return fecha
 

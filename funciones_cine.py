@@ -211,15 +211,8 @@ def FinDelDia(Sucursales):
 def FinalDelDia():
     print("hola es el final del dia") 
 
-
-    else:@este es el que crear las cuentas
-        arch=open("Cuentas.cvs",mode="at")
-        
-        Documento=("ingrese su numero de documento")
-        Edad=("ingrese su edad")
-
+"""
 def EdadRating(req):
-        
         
         with open("jtest.json", "r") as file :
             age=json.load(file)
@@ -273,5 +266,5 @@ while flag==0:
     except ValueError:
         print("Inserte un valor numerico")
 
-
+"""
     
