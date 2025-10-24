@@ -1,2 +1,14 @@
 en funciones.py 
 controlar los errores con excepciones mejorar el texto q habia sido hecho con ia
+
+en actualizacion de archivos 
+hacer la parte de reinciar contraseña 
+hacer lo de las finanzas 
+
+en candybar 
+hacer todo el tema de los consumibles poner un precio fijo y pasar los datos a las facturas crear un archivo que controle el stock
+
+agregar de manero eficiente el date time 
+
+hacer lo de generar un base de datos con faker
+para instalar faker poner en consola pip install faker 
