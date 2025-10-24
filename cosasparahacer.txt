@@ -1,0 +1,2 @@
+en funciones.py 
+controlar los errores con excepciones mejorar el texto q habia sido hecho con ia

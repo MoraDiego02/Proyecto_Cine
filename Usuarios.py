@@ -15,33 +15,33 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
 def IniciarSesion():#esta es para verificar 
     while True:
         try:
-            Usuario=input("ingrese su nombre de usuario")
-            if VerificacionDeDatos(1,Usuario)== False:
+            Usuario=input("ingrese su nombre de usuario: ")
+            if VerificacionDeDatos(1,Usuario) == False:
                 raise ValueError
         except ValueError:
             print("el nombre de usuario que ingreso no es valido")
         else:
             print("el usuario es valido")
-
-        Errores=0
-        try:
+            Errores=0
+            
             if Errores == 3:
-                print("desea reiniciar la contraseña")
+                print("desea reiniciar la contraseña: ")
                 print("1. Si 2. No")
+                print("ingrese un numero (1 o 2) ")
                 Eleccion=int(input("1. Si 2. No"))
                 if Eleccion == 1:
                     reinicioDeContraseña()
                 else:
                     Errores=0
-        except ValueError:
-                print("ingrese un numero (1 o 2) ")
+            else:
+                
                 try:     
-                    contraseña=input("ingrese la contraseña")
+                    contraseña=input("ingrese la contraseña: ")
                     if VerificacionDeDatos(2,contraseña) == False:
                         Errores+=1
-                    raise ValueError
+                        raise ValueError
                 except ValueError:
-                    print("la contraseña no es valida")
+                    print("la contraseña no es valida")                    
                 else:
                     print("se a realizado el logueo de la cuenta con exito!")
                     break
@@ -58,22 +58,27 @@ def RegistroDeUsuario(Opcion):
     return Usuario
     
 def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
-    arch=open("cuentas.cvs",mode="rt")
-    TorF=False
+    
+    TorF=False ###puto el que lee###
     if OP==1:
+        arch=open("cuentas.cvs",mode="rt")
         while True:
             Cuenta=arch.readline().strip().split("/")
             if Dato == Cuenta[0]:
-                print("el usuario es valido")
+                print(Cuenta[0])
                 TorF=True
+                print("el usuario es valido")
+                arch.close()
                 break
         return TorF
     else:
+        arch=open("cuentas.cvs",mode="rt")
         while True:
             Cuenta=arch.readline().strip().split("/")
             if Dato == Cuenta[1]:
-                print("la contraseña es valida")
                 TorF=True
+                print("la contraseña es valida")
+                arch.close()
                 break
         return TorF
 
