@@ -1,4 +1,4 @@
-from ActualizacionDeachivos import AdministrarArchivos
+from ActualizacionDeachivos import IngresoDeUsuarios, reinicioDeContraseña,EncontrarUsuario
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     arch=open("cuentas.cvs",mode="at")
     Usuario=NombreDeusuario()
@@ -8,43 +8,50 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     Datos=(f"{Usuario}/{Contraseña}/{Documento}/{Fecha}\n")
     arch.write(Datos)
     arch.close
-    AdministrarArchivos(Datos,1)
+    IngresoDeUsuarios(Datos)
     RegistroDeUsuario(1)
     
     
-def IniciarSesion():#esta es para verificar 
+def IniciarSesion():
     while True:
         try:
             Usuario=input("ingrese su nombre de usuario: ")
-            if VerificacionDeDatos(1,Usuario) == False:
+            Cuenta=EncontrarUsuario(Usuario)
+            if Cuenta == False:
                 raise ValueError
+            else:
+                break
+
         except ValueError:
             print("el nombre de usuario que ingreso no es valido")
-        else:
-            print("el usuario es valido")
-            Errores=0
+    Errores=0
+    while True:
+        if Errores == 3:
+            print("desea reiniciar la contraseña: ")
+            print("1. Si 2. No")
             
-            if Errores == 3:
-                print("desea reiniciar la contraseña: ")
-                print("1. Si 2. No")
-                print("ingrese un numero (1 o 2) ")
-                Eleccion=int(input("1. Si 2. No"))
+            try:
+                Eleccion=int(input("ingrese un numero (1 o 2): "))
                 if Eleccion == 1:
                     reinicioDeContraseña()
                 else:
                     Errores=0
-            else:
-                
-                try:     
-                    contraseña=input("ingrese la contraseña: ")
-                    if VerificacionDeDatos(2,contraseña) == False:
-                        Errores+=1
-                        raise ValueError
-                except ValueError:
+            except ValueError:
+                print("ingrese 1 o 2 porfavor")
+
+        else:
+            try:     
+                contraseña=input("ingrese la contraseña: ")
+                if VerificacionDeContraseña(contraseña,Cuenta[1]) == False:
+                    Errores+=1
+                    raise ValueError
+            except ValueError:
                     print("la contraseña no es valida")                    
-                else:
-                    print("se a realizado el logueo de la cuenta con exito!")
-                    break
+            else:
+                print("se a realizado el logueo de la cuenta con exito!")
+                break
+    
+    return Cuenta
 
 
 def RegistroDeUsuario(Opcion):
@@ -57,64 +64,12 @@ def RegistroDeUsuario(Opcion):
             
     return Usuario
     
-def VerificacionDeDatos(OP,Dato):#este va con el de Inicio de sesion
-    
-    TorF=False ###puto el que lee###
-    if OP==1:
-        arch=open("cuentas.cvs",mode="rt")
-        while True:
-            Cuenta=arch.readline().strip().split("/")
-            if Dato == Cuenta[0]:
-                print(Cuenta[0])
-                TorF=True
-                print("el usuario es valido")
-                arch.close()
-                break
-        return TorF
-    else:
-        arch=open("cuentas.cvs",mode="rt")
-        while True:
-            Cuenta=arch.readline().strip().split("/")
-            if Dato == Cuenta[1]:
-                TorF=True
-                print("la contraseña es valida")
-                arch.close()
-                break
-        return TorF
+def VerificacionDeContraseña(Cuenta,Contraseña):#este va con el de Inicio de sesion
+    TorF=False
+    if Contraseña == Cuenta:
+        TorF=True
+    return TorF
 
-        
-
-def reinicioDeContraseña(Usuario):#este lo voy a mandar a usuario si pone mas de 3 veces la contraseña
-    while True:
-        AdministrarArchivos(1)
-        break
-
-def SeguridadDeContraseña():#este va a ser el creador de contraseña
-    while True:
-        Contraseña=input("ingrese la contraseña:")
-        try:
-            if len(Contraseña)<8:
-                raise IndexError
-        except IndexError:
-            print("la Contraseña es demasiado corta")
-            continue
-        else:
-            try:
-                SimbolosNecesarios=["!","_","-","~","@","*","<",">","?"]
-                valor=0
-                for i in range(len(Contraseña)):
-                    if Contraseña[i] in SimbolosNecesarios:
-                            valor=1
-                    else:
-                        continue
-                if valor == 0:
-                    raise ValueError
-            except ValueError:
-                print("la contraseña no es suficientemente segura")
-            else:
-                print("la contraseña es segura")
-                break
-    return Contraseña
 
 
 def NombreDeusuario():#este es para verificar de que el nombre de usuario este disponible
@@ -126,14 +81,12 @@ def NombreDeusuario():#este es para verificar de que el nombre de usuario este d
             if len(Usuario)<8:
                 raise IndexError
             else:
-                while AuxUsuario:
-                    AuxUsuario=arch.readline()
-                    if AuxUsuario == Usuario:
+                for linea in arch:
+                    AuxUsuario=linea.strip().split("/")
+                    if AuxUsuario[0] == Usuario:
                         ValueError
                     else:
                         continue
-                break
-    
         except IndexError:
             print("el nombre tiene que tener mas o igual a 8 caracteres")
         except ValueError:
@@ -144,9 +97,55 @@ def NombreDeusuario():#este es para verificar de que el nombre de usuario este d
     arch.close()
     return Usuario
     
+def SeguridadDeContraseña():#este va a ser el creador de contraseña
+    while True:
+        Contraseña=input("ingrese la contraseña:")
+        try:
+            if len(Contraseña)<8:
+                raise IndexError
+        except IndexError:
+            print("la Contraseña es demasiado corta")
+            continue
+        else:
+            try:
+                SimbolosEspeciales=["!","_","-","~","@","*","<",">","?"]
+                Comprobacion={"Simbolos Especiales":False,"Numeros":False,"Letras":False,"Mayusculas":False}
+                for Caracter in range(len(Contraseña)):
+                    aux=Contraseña[Caracter]
+                    
+                    if aux in SimbolosEspeciales:
+                        Comprobacion["Simbolos Especiales"]=True
+                    if aux.isdigit() == True:
+                        Comprobacion["Numeros"]=True
+
+                    if aux.isalpha() == True:
+                        Comprobacion["Letras"]=True
+
+                    if aux.isupper() == True:
+                        Comprobacion["Mayusculas"]=True
+                
+                ErrorCount=0
+                for Claves in Comprobacion:    
+                    if Comprobacion[Claves] == False:
+                        if ErrorCount==1:
+                            Falta+=(f",{Claves}")
+                        else:
+                            Falta=(f"{Claves}")
+                            ErrorCount=1
+                    
+                if ErrorCount == 1:
+                    raise ValueError
+            
+            except ValueError:
+                print(f"la contraseña no es suficientemente segura le faltan {Falta}")
+            else:
+                print("la contraseña es segura")
+                break
+    return Contraseña
 
 def ComprobacionDeDniYFecha(Opcion):
     if Opcion == 1:
+
         documento=int(input("ingrese su DNI sin puntos:"))
         while True:
             try:
