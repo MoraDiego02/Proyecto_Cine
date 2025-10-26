@@ -30,18 +30,16 @@ def main(sucursales):
         pelicula = int(input("Ingrese el número de la película: "))
         while pelicula < 1 or pelicula > 4:
             pelicula = int(input("Número inválido. Ingrese el número de la película nuevamente: "))
-        print(" ")
+        
         print("Usted seleccionó la película:", pelicula)
-        print(" ")
-        formato()
-        print(" ")
+    
         print("Seleccione la sucursal y Sala")
         sucursal, sala = SeleccionarSucursal(sucursales)
         print("Precio de la entrada")
         PrecioDelaEntrada()
-        print(" ")
+        
         print("Gracias por su compra. ¡Disfrute la película!")
-        print(" ")
+        
         volver_a_comprar = input("¿Desea realizar otra compra? (si/no): ").lower()
         if volver_a_comprar == "si":
             main(sucursales)

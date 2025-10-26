@@ -140,7 +140,7 @@ def ReservaDeButacas(Sala):
     return asientos_reservados[-1] 
 
 
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
     print("Comprobante de pago")
     print("Nombre", Nombre)
     print("DNI:", dni)
@@ -211,7 +211,6 @@ def FinDelDia(Sucursales):
 def FinalDelDia():
     print("hola es el final del dia") 
 
-"""
 def EdadRating(req):
         
         with open("jtest.json", "r") as file :
@@ -258,13 +257,4 @@ def EdadRating(req):
             else:
                  print("Las peliculas disponibles para infantes",atp)
             
-flag=0
-while flag==0:
-    try:
-        EdadRating(int(input("Edad:")))
-        flag=1
-    except ValueError:
-        print("Inserte un valor numerico")
 
-"""
-    

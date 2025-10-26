@@ -12,3 +12,5 @@ agregar de manero eficiente el date time
 
 hacer lo de generar un base de datos con faker
 para instalar faker poner en consola pip install faker 
+
+hacer tupla el comprobante

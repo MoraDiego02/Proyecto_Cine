@@ -38,7 +38,6 @@ def IniciarSesion():
                     Errores=0
             except ValueError:
                 print("ingrese 1 o 2 porfavor")
-
         else:
             try:     
                 contraseña=input("ingrese la contraseña: ")
@@ -50,7 +49,6 @@ def IniciarSesion():
             else:
                 print("se a realizado el logueo de la cuenta con exito!")
                 break
-    
     return Cuenta
 
 
@@ -60,8 +58,7 @@ def RegistroDeUsuario(Opcion):
        Usuario=IniciarSesion() 
                 
     else:#este es el que crear las cuentas
-        CrearCuenta()
-            
+        CrearCuenta()   
     return Usuario
     
 def VerificacionDeContraseña(Cuenta,Contraseña):#este va con el de Inicio de sesion
@@ -69,8 +66,6 @@ def VerificacionDeContraseña(Cuenta,Contraseña):#este va con el de Inicio de s
     if Contraseña == Cuenta:
         TorF=True
     return TorF
-
-
 
 def NombreDeusuario():#este es para verificar de que el nombre de usuario este disponible
     arch=open("cuentas.cvs",mode="rt")
@@ -97,7 +92,7 @@ def NombreDeusuario():#este es para verificar de que el nombre de usuario este d
     arch.close()
     return Usuario
     
-def SeguridadDeContraseña():#este va a ser el creador de contraseña
+def SeguridadDeContraseña():
     while True:
         Contraseña=input("ingrese la contraseña:")
         try:
@@ -108,7 +103,7 @@ def SeguridadDeContraseña():#este va a ser el creador de contraseña
             continue
         else:
             try:
-                SimbolosEspeciales=["!","_","-","~","@","*","<",">","?"]
+                SimbolosEspeciales=["@", "!", "?", "#", "$", "¿", "¡", "&", "%", "(", ")", "=",".",",",";",":"]
                 Comprobacion={"Simbolos Especiales":False,"Numeros":False,"Letras":False,"Mayusculas":False}
                 for Caracter in range(len(Contraseña)):
                     aux=Contraseña[Caracter]
