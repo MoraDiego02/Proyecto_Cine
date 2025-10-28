@@ -1,11 +1,12 @@
 from funciones_cine import cartelera, formato, CargarSucursales, SeleccionarSucursal, PrecioDelaEntrada, comprobante, FinDelDia
 from Usuarios import RegistroDeUsuario
+from ActualizacionDeachivos import VerificarRoleDeUsuario
 def inicio():
     print("-" * 40)
     print("|      🎥 Bienvenido a CineUADE 🎥      |")
     print("-" * 40)
 
-def main(sucursales):
+def main():
     print("ingrese el numero de la opcion que quiere seleccionar")
     print("1 iniciar Sesion ")
     print("2 Crear una cuenta ")
@@ -19,11 +20,19 @@ def main(sucursales):
                 break
         except ValueError:
             print("ingrese 1 al 3 segun la opcion que quiere")
+    
+    
     if Opcion== 1:
         Usuario=RegistroDeUsuario(Opcion)
     if Opcion == 2:
         RegistroDeUsuario(Opcion)
-    else:
+
+    VerificarRoleDeUsuario(Usuario)
+    
+    
+    
+    
+    """
         print(" ")
         cartelera()
         print(" Seleccione la película que desea ver ")
@@ -45,7 +54,7 @@ def main(sucursales):
             main(sucursales)
         else:
             FinDelDia(sucursales)
-
+"""
 if __name__ == "__main__":
     inicio()
     sucursales = CargarSucursales()

@@ -5,7 +5,7 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     Contraseña=SeguridadDeContraseña()
     Documento=ComprobacionDeDniYFecha(1)
     Fecha=ComprobacionDeDniYFecha(2)
-    Datos=(f"{Usuario}/{Contraseña}/{Documento}/{Fecha}\n")
+    Datos=(f"{Usuario}/{Contraseña}/{Documento}/{Fecha}/User\n")
     arch.write(Datos)
     arch.close
     IngresoDeUsuarios(Datos)

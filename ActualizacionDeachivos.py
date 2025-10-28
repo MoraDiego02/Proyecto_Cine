@@ -1,13 +1,24 @@
 from Usuarios import IniciarSesion
-
+from Menus import MenuUser,MenuAdmin, MenuGuest,MenuSuperAdmin
 
 def IngresoDeUsuarios(Info,Op):
     if Op == 1 :#este es para añadir el usuario a la base de datos 
         arch=open("cuentas.cvs",mode="at")
         arch.write(Info)
         arch.close()
-        
 
+def VerificarRoleDeUsuario(Cuenta):
+    Role=["User,Admin,SuperAdmin"]
+    arch=open("cuentas.cvs",mode="rt")
+    
+    if Cuenta[len(Cuenta)-1] == Role[0]:
+        MenuUser(Cuenta)
+    if Cuenta[len(Cuenta)-1] == Role[1]:
+        MenuAdmin(Cuenta)
+    if Cuenta[len(Cuenta)-1] == Role[2]:
+        MenuSuperAdmin(Cuenta)
+    if Cuenta == False:
+        MenuGuest(Cuenta)
 
 def EncontrarUsuario(Info):
         arch=open("cuentas.cvs",mode="rt")
@@ -36,8 +47,7 @@ def reinicioDeContraseña():
         
     Errores=3    
     try:
-
-        Dni=int(input("ingrese su Dni:"))
+        Dni=int(input("ingrese su Dni"))
         if Dni == Cuenta [2] :
             print("el Dni es valido")
 
@@ -51,8 +61,10 @@ def reinicioDeContraseña():
     except ValueError:
         print("el dni que ingreso no pertenece a la cuenta")
         Errores-=1
+        print("cuando se acaben los intentos se bloqueara la cuenta y tendra que mandar un mensaje a atencion al cliente")
         print(f" quedan intentos {Errores} fallidos ")
 
+    Contraseña=("ingrese la contraseña: ")
 
     arch=open("cuentas.cvs", mode="rt")
     for linea in arch:
