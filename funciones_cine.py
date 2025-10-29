@@ -18,9 +18,15 @@ def PrecioDelaEntrada():
     print("con que quiere pagar ")
     print("ingrese 1 para pagar con tarjeta ")
     print("ingrese 2 para abonar en efectivo ")
-    MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-    while MetodoDePago != 1 and MetodoDePago != 2:
-        MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
+    while True:
+        try:
+            MetodoDePago=int(input("ingrese el numero (1 o 2) "))
+            while MetodoDePago != 1 and MetodoDePago != 2:
+                MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
+            break
+        except ValueError:
+            print("Error, Ingrese uno de los numeros posibles")
+            continue
     if MetodoDePago == 1:
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
         PrecioFinal=PrecioFinal*1.05
@@ -66,13 +72,19 @@ def SeleccionarSucursal(Sucursal):
     print("1. Para la sucursal de el Abasto")
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
-    NumeroDeSucursal = int(input("ingrese el numero de la sucursal desea seleccionar: ")) - 1
-    while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
-        NumeroDeSucursal = int(input("ingrese el numero de sucursal válido (1 a 3): ")) - 1
+    while True:
+        try:
+            NumeroDeSucursal = int(input("ingrese el numero de la sucursal desea seleccionar: ")) - 1
+            while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
+                NumeroDeSucursal = int(input("ingrese el numero de sucursal válido (1 a 3): ")) - 1
 
-    NumeroDeSala = int(input("ingrese el numero de sala que desea seleccionar (1 a 3): ")) - 1
-    while NumeroDeSala < 0 or NumeroDeSala > 2:
-        NumeroDeSala = int(input("ingrese el numero de sala válido (1 a 3): ")) - 1
+            NumeroDeSala = int(input("ingrese el numero de sala que desea seleccionar (1 a 3): ")) - 1
+            while NumeroDeSala < 0 or NumeroDeSala > 2:
+                NumeroDeSala = int(input("ingrese el numero de sala válido (1 a 3): ")) - 1
+            break
+        except ValueError:
+            print("Error")
+            continue
 
     if NumeroDeSucursal == 0:
         sala_matriz = SucursalAbasto[NumeroDeSala]
@@ -95,23 +107,38 @@ def ReservaDeButacas(Sala):
     print()
     print("Butacas disponibles:", ButacasVacias)
     print()
-
-    NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-    while NumeroDeButacas > ButacasVacias or NumeroDeButacas <= 0:
-        if NumeroDeButacas <= 0:
-            print(" Ingrese un número mayor que 0, por favor.")
-        else:
-            print("No hay suficientes butacas vacías.")
-            print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
+    try:
         NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
+        while NumeroDeButacas > ButacasVacias or NumeroDeButacas <= 0:
+            if NumeroDeButacas <= 0:
+                print(" Ingrese un número mayor que 0, por favor.")
+            else:
+                print("No hay suficientes butacas vacías.")
+                print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
+            NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
+    except ValueError:
+        print("Error")
 
     asientos_reservados = []
 
     while NumeroDeButacas >= 1:
         print()
         print("Seleccione la ubicación de su asiento:")
-        FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
-        ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+        while True:
+            try:
+                FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
+                while FilaDeLaButaca<0 or FilaDeLaButaca>4:
+                    print("Error. Seleccione una fila valida")
+                    FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
+
+                ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+                while ColumnaDeLaButaca<0 or ColumnaDeLaButaca>4:
+                    print("Error. Seleccione una columna valida")
+                    ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+                break
+            except:
+                print("Error")
+                continue
 
         ubicacion_valida = (FilaDeLaButaca >= 0 and FilaDeLaButaca < 5) and (ColumnaDeLaButaca >= 0 and ColumnaDeLaButaca < 5)
         if ubicacion_valida:
@@ -167,9 +194,15 @@ def formato():
     print("2D")
     print("3D")
     print("4D")
-    formato = int(input("Seleccione el formato de la película (1-3): "))
-    while formato < 1 or formato > 3:
-        formato = int(input("Incorrecto, Seleccione un formato válido (1-3): "))
+    while True:
+        try:
+            formato = int(input("Seleccione el formato de la película (1-3): "))
+            while formato < 1 or formato > 3:
+                formato = int(input("Incorrecto, Seleccione un formato válido (1-3): "))
+            break
+        except ValueError:
+            print("Error")
+            continue
     if formato == 1:
         return "2D"
     elif formato == 2:
