@@ -140,7 +140,6 @@ def SeguridadDeContraseña():
 
 def ComprobacionDeDniYFecha(Opcion):
     if Opcion == 1:
-
         documento=int(input("ingrese su DNI sin puntos:"))
         while True:
             try:
@@ -169,3 +168,20 @@ def ComprobacionDeDniYFecha(Opcion):
         fecha=(f"{dia}:{mes}:{año}")
         return fecha
 
+def EnviarMensajeAAC(Opcion):
+
+    with open("Mensajes/Solicitudes.cvs",mode="at") as Arch:
+
+        print("bienvenido a atencion al cliente")
+        print("ingrese el tipo de mensaje que quiere enviar")
+        while Opcion!=2:
+            print("1.segurencia 2.Solicitud De reinicio de contraseña ")
+    
+            MENS=int()
+            Mensaje=print("ingrese el mensajes:")
+
+            print("desea mandar otro mensaje")
+            print("1. enviar otro mensaje 2. para salir ")
+            Opcion=int(input("ingrese su seleccion: "))
+
+        return Opcion
