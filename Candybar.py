@@ -27,7 +27,6 @@ def compracandybar(candybar):
                             registro_compras[Productoacomprar] = {"Cantidad": Cantidad,
                                                                 "Subtotal": precioproducto
                                                          }
-
                         break
                     except IndexError:
                         print("Stock insuficiente para la compra.")
