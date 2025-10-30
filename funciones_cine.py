@@ -245,49 +245,43 @@ def FinalDelDia():
     print("hola es el final del dia") 
 
 def EdadRating(req):
-        
-        with open("jtest.json", "r") as file :
-            age=json.load(file)
-            codigos={}
-            codsave=0
-            peliculas = ["Avatar: El camino del agua","El gato con botas 2","John Wick 4","Super Mario"]
-            for i in range (len(peliculas)):
-                low=peliculas[i].lower()
-                codigos[low]=codsave
-                codsave=codsave+1
-            codigos["-1"]=999
-            #print(codigos)
-            #print(age)
+    
+    with open("jtest.json", "r") as file :
+        age=json.load(file)
+        codigos={}
+        codsave=0
+        peliculas = ["Avatar: El camino del agua","El gato con botas 2","John Wick 4","Super Mario","Chainsaw Man","Cretaceous Establishment","Superman","Interestelar","Fullmetal Alchemist","City of Tears","Cars","Forest Gump","Viernes 13","Angry Birds","Crimen y Castigo"]
+        for i in range (len(peliculas)):
+            low=peliculas[i].lower()
+            codigos[low]=codsave
+            codsave=codsave+1
+        codigos["-1"]=999
 
-            atp=[]
-            pg=[]
-            ad=[]
-            used=[]
-
-            while len(ad)<4:
-
-                rand=random.randint(0,len(codigos)-2)
-                if rand in used:
-                     rand=999
-                else:
-                      used.append(rand)
-                
-
-                aux=str(rand)
-
-                if age[aux]<=0:
-                    atp.append(peliculas[rand])
-                if age[aux]<=13:
-                        pg.append(peliculas[rand])
-                if age[aux]<=18:
-                        ad.append(peliculas[rand])
-
-                                
-            if req >=18:
-                print("Las peliculas disponibles son:",ad)
-            elif req >=13:
-                print("Las peliculas disponibles para adolecentes son:",pg)
+        atp=[]
+        pg=[]
+        ad=[]
+        used=[]
+    
+        while len(ad)<4:
+            rand=random.randint(0,len(codigos)-2)
+            if rand in used:
+                rand=999
             else:
-                 print("Las peliculas disponibles para infantes",atp)
+              used.append(rand)   
+
+            aux=str(rand)
+            if age[aux]<=0:
+                atp.append(peliculas[rand])
+            if age[aux]<=13:
+                pg.append(peliculas[rand])
+            if age[aux]<=18:
+                ad.append(peliculas[rand])
+                                
+        if req >=18:
+            print("Las peliculas disponibles son:",ad)
+        elif req >=13:
+            print("Las peliculas disponibles para adolecentes son:",pg)
+        else:
+             print("Las peliculas disponibles para infantes",atp)
             
 
