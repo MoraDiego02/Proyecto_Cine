@@ -1,5 +1,5 @@
 import random
-import faker
+import faker 
 import json
 #precio de la entrada
 def PrecioDelaEntrada():
@@ -168,15 +168,20 @@ def ReservaDeButacas(Sala):
 
 
 def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
-    print("Comprobante de pago")
-    print("Nombre", Nombre)
-    print("DNI:", dni)
-    print("Pelicula:", pelicula)
-    print("Sucursal:", sucursal)
-    print("Sala:", sala)
-    print("Asiento:", asiento)
-    print("Precio final:", precio_final)
-    print("¡Gracias por su compra!")
+    while True:
+        try:
+            eleccion = int(input("Desea su comprobante de compra? (Si/No): ")).strip().upper()
+            z = ["si", "no"]
+            if eleccion not in z:
+                raise ValueError
+            break
+        except ValueError:
+            print("Error en el ingreso")
+    if eleccion == "si":
+        comprobant = (Nombre, dni, pelicula, sucursal, sala, asiento, precio_final)
+        print(f"-Nombre: {Nombre} -DNI: {dni} -Pelicula:{pelicula} -Sucursal: {sucursal} -Sala: {sala} -Asiento: {asiento} -Precio Final: {precio_final}")
+    else:
+        print("No se emitio comprobante.")
 
 def cartelera():
     peliculas = [
