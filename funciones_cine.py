@@ -1,5 +1,5 @@
 import random
-import faker
+import faker 
 import json
 #precio de la entrada
 def PrecioDelaEntrada():
@@ -18,9 +18,15 @@ def PrecioDelaEntrada():
     print("con que quiere pagar ")
     print("ingrese 1 para pagar con tarjeta ")
     print("ingrese 2 para abonar en efectivo ")
-    MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-    while MetodoDePago != 1 and MetodoDePago != 2:
-        MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
+    while True:
+        try:
+            MetodoDePago=int(input("ingrese el numero (1 o 2) "))
+            while MetodoDePago != 1 and MetodoDePago != 2:
+                MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
+            break
+        except ValueError:
+            print("Error, Ingrese uno de los numeros posibles")
+            continue
     if MetodoDePago == 1:
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
         PrecioFinal=PrecioFinal*1.05
@@ -66,13 +72,19 @@ def SeleccionarSucursal(Sucursal):
     print("1. Para la sucursal de el Abasto")
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
-    NumeroDeSucursal = int(input("ingrese el numero de la sucursal desea seleccionar: ")) - 1
-    while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
-        NumeroDeSucursal = int(input("ingrese el numero de sucursal válido (1 a 3): ")) - 1
+    while True:
+        try:
+            NumeroDeSucursal = int(input("ingrese el numero de la sucursal desea seleccionar: ")) - 1
+            while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
+                NumeroDeSucursal = int(input("ingrese el numero de sucursal válido (1 a 3): ")) - 1
 
-    NumeroDeSala = int(input("ingrese el numero de sala que desea seleccionar (1 a 3): ")) - 1
-    while NumeroDeSala < 0 or NumeroDeSala > 2:
-        NumeroDeSala = int(input("ingrese el numero de sala válido (1 a 3): ")) - 1
+            NumeroDeSala = int(input("ingrese el numero de sala que desea seleccionar (1 a 3): ")) - 1
+            while NumeroDeSala < 0 or NumeroDeSala > 2:
+                NumeroDeSala = int(input("ingrese el numero de sala válido (1 a 3): ")) - 1
+            break
+        except ValueError:
+            print("Error")
+            continue
 
     if NumeroDeSucursal == 0:
         sala_matriz = SucursalAbasto[NumeroDeSala]
@@ -93,21 +105,36 @@ def ReservaDeButacas(Sala):
                 ButacasVacias += 1
 
     print("Butacas disponibles:", ButacasVacias)
-    try:
+    print()
+
+    NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
+    while NumeroDeButacas > ButacasVacias or NumeroDeButacas <= 0:
+        if NumeroDeButacas <= 0:
+            print(" Ingrese un número mayor que 0, por favor.")
+        else:
+            print("No hay suficientes butacas vacías.")
+            print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
         NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-        
-    except IndexError:
-        print("No hay suficientes butacas vacías.")
-        print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
-    except ValueError:
-        print(" Ingrese un número mayor a 0, por favor.")
-        
+
     asientos_reservados = []
     while NumeroDeButacas >= 1:
         print()
         print("Seleccione la ubicación de su asiento:")
-        FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
-        ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+        while True:
+            try:
+                FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
+                while FilaDeLaButaca<0 or FilaDeLaButaca>4:
+                    print("Error. Seleccione una fila valida")
+                    FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
+
+                ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+                while ColumnaDeLaButaca<0 or ColumnaDeLaButaca>4:
+                    print("Error. Seleccione una columna valida")
+                    ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+                break
+            except:
+                print("Error")
+                continue
 
         ubicacion_valida = (FilaDeLaButaca >= 0 and FilaDeLaButaca < 5) and (ColumnaDeLaButaca >= 0 and ColumnaDeLaButaca < 5)
         if ubicacion_valida:
@@ -136,8 +163,7 @@ def ReservaDeButacas(Sala):
     return asientos_reservados[-1] 
 
 
-
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
     print("Comprobante de pago")
     print("Nombre", Nombre)
     print("DNI:", dni)
@@ -153,9 +179,15 @@ def formato():
     print("2D")
     print("3D")
     print("4D")
-    formato = int(input("Seleccione el formato de la película (1-3): "))
-    while formato < 1 or formato > 3:
-        formato = int(input("Incorrecto, Seleccione un formato válido (1-3): "))
+    while True:
+        try:
+            formato = int(input("Seleccione el formato de la película (1-3): "))
+            while formato < 1 or formato > 3:
+                formato = int(input("Incorrecto, Seleccione un formato válido (1-3): "))
+            break
+        except ValueError:
+            print("Error")
+            continue
     if formato == 1:
         return "2D"
     elif formato == 2:
@@ -198,49 +230,43 @@ def FinalDelDia():
     print("hola es el final del dia") 
 
 def EdadRating(req):
-        
-        with open("jtest.json", "r") as file :
-            age=json.load(file)
-            codigos={}
-            codsave=0
-            peliculas = ["Avatar: El camino del agua","El gato con botas 2","John Wick 4","Super Mario"]
-            for i in range (len(peliculas)):
-                low=peliculas[i].lower()
-                codigos[low]=codsave
-                codsave=codsave+1
-            codigos["-1"]=999
-            #print(codigos)
-            #print(age)
+    
+    with open("jtest.json", "r") as file :
+        age=json.load(file)
+        codigos={}
+        codsave=0
+        peliculas = ["Avatar: El camino del agua","El gato con botas 2","John Wick 4","Super Mario","Chainsaw Man","Cretaceous Establishment","Superman","Interestelar","Fullmetal Alchemist","City of Tears","Cars","Forest Gump","Viernes 13","Angry Birds","Crimen y Castigo"]
+        for i in range (len(peliculas)):
+            low=peliculas[i].lower()
+            codigos[low]=codsave
+            codsave=codsave+1
+        codigos["-1"]=999
 
-            atp=[]
-            pg=[]
-            ad=[]
-            used=[]
-
-            while len(ad)<4:
-
-                rand=random.randint(0,len(codigos)-2)
-                if rand in used:
-                     rand=999
-                else:
-                      used.append(rand)
-                
-
-                aux=str(rand)
-
-                if age[aux]<=0:
-                    atp.append(peliculas[rand])
-                if age[aux]<=13:
-                        pg.append(peliculas[rand])
-                if age[aux]<=18:
-                        ad.append(peliculas[rand])
-
-                                
-            if req >=18:
-                print("Las peliculas disponibles son:",ad)
-            elif req >=13:
-                print("Las peliculas disponibles para adolecentes son:",pg)
+        atp=[]
+        pg=[]
+        ad=[]
+        used=[]
+    
+        while len(ad)<4:
+            rand=random.randint(0,len(codigos)-2)
+            if rand in used:
+                rand=999
             else:
-                 print("Las peliculas disponibles para infantes",atp)
+              used.append(rand)   
+
+            aux=str(rand)
+            if age[aux]<=0:
+                atp.append(peliculas[rand])
+            if age[aux]<=13:
+                pg.append(peliculas[rand])
+            if age[aux]<=18:
+                ad.append(peliculas[rand])
+                                
+        if req >=18:
+            print("Las peliculas disponibles son:",ad)
+        elif req >=13:
+            print("Las peliculas disponibles para adolecentes son:",pg)
+        else:
+             print("Las peliculas disponibles para infantes",atp)
             
 
