@@ -1,6 +1,6 @@
 from funciones_cine import cartelera, formato, CargarSucursales, SeleccionarSucursal, PrecioDelaEntrada, comprobante, FinDelDia
 from Usuarios import RegistroDeUsuario
-from ActualizacionDeachivos import VerificarRoleDeUsuario
+from ActualizacionDeArchivos import VerificarRoleDeUsuario
 def inicio():
     print("-" * 40)
     print("|      🎥 Bienvenido a CineUADE 🎥      |")
@@ -29,33 +29,8 @@ def main():
 
     VerificarRoleDeUsuario(Usuario)
     
-    
-    
-    
-    """
-        print(" ")
-        cartelera()
-        print(" Seleccione la película que desea ver ")
-        pelicula = int(input("Ingrese el número de la película: "))
-        while pelicula < 1 or pelicula > 4:
-            pelicula = int(input("Número inválido. Ingrese el número de la película nuevamente: "))
-        
-        print("Usted seleccionó la película:", pelicula)
-    
-        print("Seleccione la sucursal y Sala")
-        sucursal, sala = SeleccionarSucursal(sucursales)
-        print("Precio de la entrada")
-        PrecioDelaEntrada()
-        
-        print("Gracias por su compra. ¡Disfrute la película!")
-        
-        volver_a_comprar = input("¿Desea realizar otra compra? (si/no): ").lower()
-        if volver_a_comprar == "si":
-            main(sucursales)
-        else:
-            FinDelDia(sucursales)
-"""
+
 if __name__ == "__main__":
     inicio()
     sucursales = CargarSucursales()
-    main(sucursales)
+    main()

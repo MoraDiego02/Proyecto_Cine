@@ -92,21 +92,17 @@ def ReservaDeButacas(Sala):
             if Sala[i][j] == 0:
                 ButacasVacias += 1
 
-    print()
     print("Butacas disponibles:", ButacasVacias)
-    print()
-
-    NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-    while NumeroDeButacas > ButacasVacias or NumeroDeButacas <= 0:
-        if NumeroDeButacas <= 0:
-            print(" Ingrese un número mayor que 0, por favor.")
-        else:
-            print("No hay suficientes butacas vacías.")
-            print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
+    try:
         NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-
+        
+    except IndexError:
+        print("No hay suficientes butacas vacías.")
+        print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
+    except ValueError:
+        print(" Ingrese un número mayor a 0, por favor.")
+        
     asientos_reservados = []
-
     while NumeroDeButacas >= 1:
         print()
         print("Seleccione la ubicación de su asiento:")
@@ -140,7 +136,8 @@ def ReservaDeButacas(Sala):
     return asientos_reservados[-1] 
 
 
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
+
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):
     print("Comprobante de pago")
     print("Nombre", Nombre)
     print("DNI:", dni)
@@ -151,17 +148,6 @@ def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer t
     print("Precio final:", precio_final)
     print("¡Gracias por su compra!")
 
-def cartelera():
-    peliculas = [
-        "Cartelera de Películas:",
-        "1. Avatar: El camino del agua",
-        "2. El gato con botas 2",
-        "3. John Wick 4",
-        "4. Super Mario"
-    ]
-    for peli in peliculas:
-        print(peli)
-    print("Películas taquilleras:", peliculas[1:3])
 
 def formato():
     print("2D")
