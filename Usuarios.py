@@ -21,6 +21,8 @@ def VerificarRoleDeUsuario(Cuenta):
         MenuAdmin(Cuenta)
     if Cuenta[len(Cuenta)-1] == Role[2]:
         MenuSuperAdmin(Cuenta)
+
+    return
     
 def IniciarSesion():
     while True:

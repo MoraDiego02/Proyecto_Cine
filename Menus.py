@@ -14,12 +14,10 @@ def MenuUser(Usuario):
                 raise ValueError
         except ValueError:
             print("ingrese Un numero que este en las opciones")
-        else:    
+        else:                    
             if op == 1:
-                
-            if op == 2:
                 ReservaDeButacas()#hay que seleccionar la sala 
-            if op == 3:                
+            if op == 2:                
                 EnviarMensajeAAC(Usuario)
             if op == 3:                
                 break
