@@ -1,6 +1,5 @@
+import json 
 import random
-import faker 
-import json
 #precio de la entrada
 def PrecioDelaEntrada():
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
@@ -21,12 +20,13 @@ def PrecioDelaEntrada():
     while True:
         try:
             MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-            while MetodoDePago != 1 and MetodoDePago != 2:
-                MetodoDePago=int(input("porfavor ingrese un numero del 1 al 2 "))
-            break
+            if MetodoDePago < 1 or MetodoDePago > 2:
         except ValueError:
             print("Error, Ingrese uno de los numeros posibles")
             continue
+        else:
+            break
+
     if MetodoDePago == 1:
         print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
         PrecioFinal=PrecioFinal*1.05
@@ -52,8 +52,6 @@ def MostrarSala(matriz):
         print()
     return matriz
 
-
-
 def CargarSucursales():
 
     filas=5
@@ -74,17 +72,20 @@ def SeleccionarSucursal(Sucursal):
     print("3. Para la sucursal de Caballito")
     while True:
         try:
-            NumeroDeSucursal = int(input("ingrese el numero de la sucursal desea seleccionar: ")) - 1
-            while NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
-                NumeroDeSucursal = int(input("ingrese el numero de sucursal válido (1 a 3): ")) - 1
+            NumeroDeSucursal = int(input("Ingrese el número de sucursal (1 a 3): ")) - 1
+            if NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
+                raise ValueError("El número de sucursal debe estar entre 1 y 3.")
 
-            NumeroDeSala = int(input("ingrese el numero de sala que desea seleccionar (1 a 3): ")) - 1
-            while NumeroDeSala < 0 or NumeroDeSala > 2:
-                NumeroDeSala = int(input("ingrese el numero de sala válido (1 a 3): ")) - 1
-            break
-        except ValueError:
-            print("Error")
-            continue
+            NumeroDeSala = int(input("Ingrese el número de sala (1 a 3): ")) - 1
+            if NumeroDeSala < 0 or NumeroDeSala > 2:
+                raise ValueError("El número de sala debe estar entre 1 y 3.")
+
+            break  # Si todo salió bien, sale del bucle
+
+        except ValueError as e:
+            print("Error:", e)
+            print("Por favor, ingrese valores válidos.\n")
+
 
     if NumeroDeSucursal == 0:
         sala_matriz = SucursalAbasto[NumeroDeSala]
@@ -107,60 +108,60 @@ def ReservaDeButacas(Sala):
     print("Butacas disponibles:", ButacasVacias)
     print()
 
-    NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-    while NumeroDeButacas > ButacasVacias or NumeroDeButacas <= 0:
-        if NumeroDeButacas <= 0:
-            print(" Ingrese un número mayor que 0, por favor.")
-        else:
-            print("No hay suficientes butacas vacías.")
-            print("La cantidad de butacas vacías es:", ButacasVacias, ". Ingrese un número menor o igual a este.")
-        NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
+    
+    while True:
+        try:
+            NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
+            if NumeroDeButacas <= 0:
+                raise ValueError("Debe ingresar un número mayor que 0.")
+            if NumeroDeButacas > ButacasVacias:
+                raise ValueError(f"No hay suficientes butacas vacías (disponibles: {ButacasVacias}).")
+            break
+        except ValueError as e:
+            print("Error:", e)
 
     asientos_reservados = []
-    while NumeroDeButacas >= 1:
-        print()
-        print("Seleccione la ubicación de su asiento:")
+
+    
+    while NumeroDeButacas > 0:
+        print("\nSeleccione la ubicación de su asiento:")
+
+        
         while True:
             try:
-                FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
-                while FilaDeLaButaca<0 or FilaDeLaButaca>4:
-                    print("Error. Seleccione una fila valida")
-                    FilaDeLaButaca = int(input("Fila (1-5): ")) - 1
-
-                ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
-                while ColumnaDeLaButaca<0 or ColumnaDeLaButaca>4:
-                    print("Error. Seleccione una columna valida")
-                    ColumnaDeLaButaca = int(input("Columna (1-5): ")) - 1
+                FilaDeLaButaca = int(input("Ingrese la fila (1 a 5): ")) - 1
+                if FilaDeLaButaca < 0 or FilaDeLaButaca > 4:
+                    raise ValueError("La fila debe estar entre 1 y 5.")
                 break
-            except:
-                print("Error")
-                continue
+            except ValueError as e:
+                print("Error:", e)
 
-        ubicacion_valida = (FilaDeLaButaca >= 0 and FilaDeLaButaca < 5) and (ColumnaDeLaButaca >= 0 and ColumnaDeLaButaca < 5)
-        if ubicacion_valida:
-            if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
-                Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
-                print()
-                print("Asiento reservado: Fila", FilaDeLaButaca + 1, "   Columna", ColumnaDeLaButaca + 1)
-                print()
-                asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
-                NumeroDeButacas -= 1
-            else:
-                print()
-                print(" Ese asiento ya está ocupado. Elija otro, por favor.")
-                print()
+        
+        while True:
+            try:
+                ColumnaDeLaButaca = int(input("Ingrese la columna (1 a 5): ")) - 1
+                if ColumnaDeLaButaca < 0 or ColumnaDeLaButaca > 4:
+                    raise ValueError("La columna debe estar entre 1 y 5.")
+                break
+            except ValueError as e:
+                print("Error:", e)
+
+        
+        if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
+            Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
+            asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
+            NumeroDeButacas -= 1
+            print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
         else:
-            print()
-            print(" Eleccion incorrecta. Fila y columna deben estar entre 1 y 5.")
-            print()
+            print("Ese asiento ya está ocupado. Elija otro, por favor.")
 
-    print()
-    print("Resumen de asientos reservados:")
+    
+    print("\nResumen de asientos reservados:")
     for fila, col in asientos_reservados:
-        print(" - Fila", fila, " Columna", col)
+        print(f" - Fila {fila}, Columna {col}")
     print()
 
-    return asientos_reservados[-1] 
+ 
 
 
 def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
@@ -270,3 +271,5 @@ def EdadRating(req):
              print("Las peliculas disponibles para infantes",atp)
             
 
+def SimularDatos():
+    print("espacio reservado")

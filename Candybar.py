@@ -16,7 +16,7 @@ def compracandybar(candybar):
                         Cantidad=int(input(f"Ingrese la cantidad de {Productoacomprar} que desea comprar: "))
                         if Cantidad < 1 or Cantidad > candybar[Productoacomprar]["Stock"]:
                             raise IndexError
-                        precioproducto=Cantidad*candybar[Productoacomprar]["Precio"]
+                        precioproducto =Cantidad * candybar[Productoacomprar]["Precio"]
                         print("El precio de lo seleccionado es: ", precioproducto)
                         candybar[Productoacomprar]["Stock"] -= Cantidad
                         preciototal+=precioproducto
@@ -46,14 +46,22 @@ def compracandybar(candybar):
 
     comprobantecandy = {"Productos": registro_compras, "Total": preciototal}
     return comprobantecandy 
+    registrocandy=compracandybar(candybar)
 
 
+def CargarCandy():
+    Arch=open("CandybarProdutos.cvs", mode="wt", encoding="utf-8")
 
-candybar={"Pepsi":{"Precio":300,"Stock":40,"ID":"1111"},
-          "Pochoclo":{"Precio":200,"Stock":50,"ID":"2222"},
-          "Agua":{"Precio":150,"Stock":30,"ID":"3333"},
-          "Galletitas":{"Precio":250,"Stock":20,"ID":"4444"},
-          "Nachos":{"Precio":100,"Stock":60,"ID":"5555"}
-          }
+    
+
+
+def guardar_candybar_en_archivo(candybar):
+    """
+    Guarda el diccionario de productos en el archivo.
+    """
+    with open("CandybarProdutos.cvs", mode="wt", encoding="utf-8") as arch:
+        for producto, datos in candybar.items():
+            linea = f"{producto}/{datos['Precio']}/{datos['Stock']}/{datos['ID']}\n"
+            arch.write(linea)
 
 registrocandy=compracandybar(candybar)

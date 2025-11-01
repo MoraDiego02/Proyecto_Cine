@@ -1,5 +1,5 @@
-from ActualizacionDeArchivos import reinicioDeContraseña,EncontrarUsuario
-from logs import log
+from Menus import MenuUser,MenuAdmin,MenuSuperAdmin
+from logs import log,EnviarMensajeAAC
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     arch=open("cuentas.cvs",mode="at")
     Usuario=NombreDeusuario()
@@ -9,10 +9,18 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     Datos=(f"{Usuario}/{Contraseña}/{Documento}/{Fecha}/User\n")
     
     arch.write(Datos)
-    arch.close
+    arch.close()
     
     RegistroDeUsuario(1)
     
+def VerificarRoleDeUsuario(Cuenta):
+    Role=["User","Admin","SuperAdmin"]
+    if Cuenta[len(Cuenta)-1] == Role[0]:
+        MenuUser(Cuenta)
+    if Cuenta[len(Cuenta)-1] == Role[1]:
+        MenuAdmin(Cuenta)
+    if Cuenta[len(Cuenta)-1] == Role[2]:
+        MenuSuperAdmin(Cuenta)
     
 def IniciarSesion():
     while True:
@@ -54,13 +62,20 @@ def IniciarSesion():
     return Cuenta
 
 
-def RegistroDeUsuario(Opcion):
-    if Opcion == 1:
-       print("Inicio de Sesion")
-       Usuario=IniciarSesion() 
-                
-    else:#este es el que crear las cuentas
-        CrearCuenta()   
+def RegistroDeUsuario():
+    try:
+        print("1. Iniciar Sesion \n2. Crear Cuenta")
+        Opcion=int(input("ingrese el numero de la opcion que quiere elegir: "))
+        if Opcion < 1 or Opcion > 2:
+            raise ValueError    
+    except ValueError:
+        print("ingrese 1 o 2 segun la opcion que quiere")
+    else:
+        if Opcion == 1:
+            print("Inicio de Sesion")
+            Usuario=IniciarSesion()             
+        else:
+            Opcion=CrearCuenta()   
     return Usuario
     
 def VerificacionDeContraseña(Cuenta,Contraseña):#este va con el de Inicio de sesion
@@ -170,25 +185,7 @@ def ComprobacionDeDniYFecha(Opcion):
         fecha=(f"{dia}:{mes}:{año}")
         return fecha
 
-def EnviarMensajeAAC(Opcion):
-
-    with open("Mensajes/Solicitudes.cvs",mode="at") as Arch:
-
-        print("bienvenido a atencion al cliente")
-        print("ingrese el tipo de mensaje que quiere enviar")
-        while Opcion!=2:
-            print("1.segurencia 2.Solicitud De reinicio de contraseña ")
     
-            MENS=int()
-            Mensaje=print("ingrese el mensajes:")
-
-            print("desea mandar otro mensaje")
-            print("1. enviar otro mensaje 2. para salir ")
-            Opcion=int(input("ingrese su seleccion: "))
-
-        return Opcion
-    
-
 def reinicioDeContraseña():
     print("para poder autentificar que la cuenta es suya vamos a pedir los siguientes datos")
     arch = open("cuentas.cvs", mode="rt")
@@ -203,58 +200,74 @@ def reinicioDeContraseña():
             raise ValueError
     except ValueError:
         print("ese nombre de usuario no pertenece a ninguna cuenta")
-        
-    UsuarioNom=Cuenta[0]
-    Errores = 3    
-    try:
-        Dni = input("ingrese su Dni")
-
-        if Dni == Cuenta [2] :
-            print("el Dni es valido")
+    else:
+        UsuarioNom = Cuenta[0]
+        Errores = 3    
+        try:
+            if Errores == 0:
+                print("se a quedado sin intentos mande un mensaje a atencion al cliente")
+                print("1. Si 2. No")
+                try:
+                    op=int(input("seleccione la opcion que quiere"))
+                    if op < 1 and op > 2:
+                        raise ValueError
+                except ValueError:
+                    print("ingrese Un numero que este en las opciones")
+                    if op == 1:
+                        op=EnviarMensajeAAC()
+                    if op == 2:
+                        return   
+            Dni = input("ingrese su Dni")
+            if Dni == Cuenta [2] :
+                print("el Dni es valido")
+            else:
+                raise ValueError
+            
+        except ValueError:
+            print("el Dni no es valido")
+            Errores -= 1
         else:
-            raise ValueError
-    except ValueError:
-        print("el Dni no es valido")
-        Errores -= 1
+            arch.close()
 
-
-        if Errores == 0:
-            print("se a quedado sin intentos mande un mensaje a atencion al cliente")
-            print("1. Si 2. No")
-            try:
-                op=int(input("seleccione la opcion que quiere"))
-                if op < 1 and op > 2:
-                    raise ValueError
-            except ValueError:
-                print("ingrese Un numero que este en las opciones")
-                if op == 1:
-                    op=EnviarMensajeAAC()
-                if op == 2:
-                    return 
-    arch.close()
-
-    NuevaContraseña = SeguridadDeContraseña()
-    Cuenta[1] = NuevaContraseña
-   
-    arch = open("cuentas.cvs", mode="r", encoding="utf-8")
-    LineasActualizadas = []  
-    for linea in arch:
-        datos = linea.strip().split("/")
-        if datos[0] == Usuario:
-            nueva_linea = "/".join(Cuenta) + "\n"
-            LineasActualizadas.append(nueva_linea)
-        else:    
-            LineasActualizadas.append(linea)
-    arch.close()
-
-    arch = open("cuentas.cvs", mode="w", encoding="utf-8")
-
-    for linea in LineasActualizadas:
-        arch.write(linea)
-
-    arch.close()
-
-    print("Contraseña actualizada correctamente.")
+            NuevaContraseña = SeguridadDeContraseña()
+            Cuenta[1] = NuevaContraseña
         
-    log("reiniciodecontraseña",3,UsuarioNom)
-    return 
+            arch = open("cuentas.cvs", mode="r", encoding="utf-8")
+            LineasActualizadas = [] 
+
+            for linea in arch:
+                datos = linea.strip().split("/")
+            
+                if datos[0] == Usuario:
+                    nueva_linea = "/".join(Cuenta) + "\n"
+                    LineasActualizadas.append(nueva_linea)
+            
+                else:    
+                    LineasActualizadas.append(linea)
+            arch.close()
+
+            arch = open("cuentas.cvs", mode="w", encoding="utf-8")
+
+            for linea in LineasActualizadas:
+                arch.write(linea)
+
+            arch.close()
+            print("Contraseña actualizada correctamente.")
+                
+            log("reiniciodecontraseña",3,UsuarioNom)
+            return 
+
+
+def EncontrarUsuario(Info):
+        arch=open("cuentas.cvs",mode="rt")
+        Cuenta=False
+
+        for linea in arch:
+            CuentaAux = linea.strip().split("/")
+        
+            if Info == CuentaAux[0]:
+                Cuenta = CuentaAux
+        
+        arch.close()
+        return Cuenta
+
