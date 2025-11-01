@@ -1,6 +1,3 @@
-from Usuarios import EncontrarUsuario
-from logs import log 
-
 
 def SolicitudDeDesbloqueo():
     print("reservado")
@@ -49,25 +46,23 @@ def SimularDatos():
 def CambiarPreciosDelCandy():
     
     candybar = {}
-
-    try:
-        with open("", mode="rt", encoding="utf-8") as arch:
-            for linea in arch:
-                # Eliminar saltos de línea y separar los datos
-                datos = linea.strip().split("/")
+    with open("", mode="rt", encoding="utf-8") as arch:
+        for linea in arch:
+        # Eliminar saltos de línea y separar los datos
+            datos = linea.strip().split("/")
                 
                 # Validar que la línea tenga todos los datos
-                if len(datos) == 4:
-                    producto, precio, stock, id_prod = datos
-                    
+        if len(datos) == 4:
+                producto, precio, stock, id_prod = datos
+                
                     # Crear una entrada en el diccionario
-                    candybar[producto.title()] = {
-                        "Precio": int(precio),
-                        "Stock": int(stock),
-                        "ID": id_prod
+                candybar[producto.title()] = {
+                    "Precio": int(precio),
+                    "Stock": int(stock),
+                    "ID": id_prod
                     }
     return candybar
 
 
 def verDatos():
-    
+    print("reservado")
