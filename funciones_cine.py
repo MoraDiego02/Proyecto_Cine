@@ -230,10 +230,72 @@ def FinDelDia(Sucursales):
 def FinalDelDia():
     print("hola es el final del dia") 
 
-def EdadRating(req):
+def agecheck():
+    while True:
+        m30=[4,6,9,11]
+        try:
+            dia=int(input("Ingrese el dia que cumple años (sin mes):"))
+            if dia<1 or dia>31:
+                print("Error, Ingrese un dia valido")
+                continue
+
+            mes=int(input("Ingrese su mes de cumpleaños(formato numerico):"))
+            if mes<1 or mes>12:
+                if mes in m30 and dia==31:
+                    print("Error, Ingrese el dia o mes correecto")
+                    continue
+                elif mes==2 and dia>=29:
+                    print("Error, Ingrese el dia o mes correecto")
+                    continue
+                print("Error, ingrese un mes vratingalido")
+                continue
+                        
+            año=int(input("Ingrese el año que nació:"))
+            if año<1920 or año>2025:
+                print("Error, ingrese un año valido")
+                continue
+            break
+        except ValueError:
+            print("Error, Ingrese un numero")
+            continue
+
+    req=0   
+    if año == 2007:
+        if mes==11:
+            if dia<=2:
+                req=18
+            else:
+                req=13
+        elif mes>11:
+            req=13
+        else:
+            req=18
+
+    elif año >2007:
+        if año==2012:
+            if mes==11:
+                if dia<=2:
+                    req=13
+                else:
+                    req=0
+            elif mes>11:
+                req=0
+            else:
+                req=13
+        elif año>2012:
+            req=0
+        else:
+            req=13
+    else:
+        req=18
+    return req
+
+
+
+def EdadRating():
     
     with open("jtest.json", "r") as file :
-        age=json.load(file)
+        rating=json.load(file)
         codigos={}
         codsave=0
         peliculas = ["Avatar: El camino del agua","El gato con botas 2","John Wick 4","Super Mario","Chainsaw Man","Cretaceous Establishment","Superman","Interestelar","Fullmetal Alchemist","City of Tears","Cars","Forest Gump","Viernes 13","Angry Birds","Crimen y Castigo"]
@@ -256,16 +318,18 @@ def EdadRating(req):
               used.append(rand)   
 
             aux=str(rand)
-            if age[aux]<=0:
+            if rating[aux]<=0:
                 atp.append(peliculas[rand])
-            if age[aux]<=13:
+            if rating[aux]<=13:
                 pg.append(peliculas[rand])
-            if age[aux]<=18:
+            if rating[aux]<=18:
                 ad.append(peliculas[rand])
+        
+        age=agecheck()
                                 
-        if req >=18:
+        if age >=18:
             print("Las peliculas disponibles son:",ad)
-        elif req >=13:
+        elif age >=13:
             print("Las peliculas disponibles para adolecentes son:",pg)
         else:
              print("Las peliculas disponibles para infantes",atp)
