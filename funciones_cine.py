@@ -2,7 +2,7 @@ import json
 import random
 #import gspread
 #from google.oauth2.service_account import Credentials
-from Candybar import mostrarProductos
+from Candybar import compraCandybar
 from datetime import date
 
 #precio de la entrada
@@ -175,7 +175,7 @@ def ReservaDeButacas(Sala,info):
         else:
             candycompra=0
             if opcion == 1:
-                candycompra=mostrarProductos(candycompra)
+                candycompra=compraCandybar(candycompra)
                     
             if opcion == 2:
                 candycompra=0
@@ -206,6 +206,18 @@ def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):#hace
             else:
                 print("No se emitio comprobante.")
 
+def simularPagos():
+    random.choice
+    entrada=7500    
+    mult=[0.80,1.10]
+    mult=random.choice(mult)
+    pagosim=entrada*mult
+
+    return pagosim
+
+
+
+
 def FinDelDia(Sucursales):
     print("finalizo el dia")
     print("estos son los datos de todas la sucursales")
@@ -216,19 +228,27 @@ def FinDelDia(Sucursales):
         "Palermo":0
     }
 
+    cantasientosAbasto=0
+    cantasientosCaballito=0
+    cantasientosPalermo=0
+    
+
     for i in range(len(Sucursales)):
         for j in range(len(Sucursales[i])):
             for k in range(len(Sucursales[i][j])):
                 for l in range(len(Sucursales[i][j][k])):
                         if i == 0:
                             if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=SimularPagos()
+                                Recaudaciones["Abasto"]+=simularPagos()
+                                cantasientosAbasto+=1
                         elif i == 1:
                             if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=simularPagos()
+                                Recaudaciones["caballito"]+=simularPagos()
+                                cantasientosAbasto+=1
                         else:
                             if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=SimularPagos()
+                                Recaudaciones["palermo"]+=simularPagos()
+                                cantasientosAbasto+=1
     Recaudaciones_total=0
     for clave in Recaudaciones:
         Recaudaciones_total+=Recaudaciones[clave]
@@ -238,6 +258,8 @@ def FinDelDia(Sucursales):
     print(f"la recaudacion total de la sucursal Palermo es de:{Recaudaciones["Palermo"]}")
     print(f"la recaudacion total del dia es de:{Recaudaciones_total}")
     print("la Sucursal que mas recaudaciones: con")
+
+
     
 
 
@@ -279,7 +301,6 @@ def EdadRating(Edad):
         }
     }
 
-    # Determinar clasificación según edad
     if Edad < 13:
         categoria = "ATP"
     elif Edad < 16:
@@ -293,12 +314,10 @@ def EdadRating(Edad):
     print(f"Descripción: {peliculas[categoria]['descripcion']}")
     print("\nPelículas disponibles:")
 
-
     contador = 1
     for titulo in peliculas[categoria]["titulos"]:
         print(f"{contador}. {titulo}")
         contador += 1
-
 
     while True:
         try:

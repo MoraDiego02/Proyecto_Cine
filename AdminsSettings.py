@@ -144,14 +144,14 @@ def generarcuentas():
     usuarios = []
 
     for i in range(1, cantidad + 1):
-        # Generar nombre de usuario (solo letras y números)
+       
         nombre = fake.user_name()
         username = "".join(c for c in nombre if c.isalnum()).lower()
 
-        # Generar DNI de 8 dígitos
+      
         dni = str(random.randint(10_000_000, 99_999_999))
 
-        # Generar contraseña con al menos 1 mayúscula y longitud mínima 8
+       
         letras = "abcdefghijklmnopqrstuvwxyz"
         numeros = "0123456789"
         simbolos = "!@#$%&*?"
@@ -159,15 +159,14 @@ def generarcuentas():
         resto = "".join(random.choice(letras + letras.upper() + numeros + simbolos) for _ in range(7))
         password = mayus + resto
 
-        # Generar fecha de nacimiento
+       
         fecha = fake.date_of_birth(minimum_age=5, maximum_age=90)
         fecha_nac = f"{fecha.day}:{fecha.month}:{fecha.year}"
 
-        # Crear usuario con el formato pedido
+        
         usuario = f"{username};{password};{dni};{fecha_nac};User"
         usuarios.append(usuario)
 
-    # Guardar en el archivo (modo append)
     with open("cuentas.csv", "a", encoding="utf-8") as f:
         for u in usuarios:
             f.write(u + "\n")
@@ -175,4 +174,3 @@ def generarcuentas():
     print(f"\n✅ {cantidad} usuarios generados y guardados en 'cuentas.csv'.\n")
     return usuarios
 
-    

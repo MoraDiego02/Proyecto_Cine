@@ -34,7 +34,7 @@ def menuprincipal(sucursales):
 
 def MenuUser(Usuario,sucursales):
     while True:
-        print("1. Comprar un ticket \n2. atencion al cliente \n3. cerrar sesion  ")
+        print("1.Comprar un ticket \n2.atencion al cliente \n3.cerrar sesion  ")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >3:
@@ -53,7 +53,7 @@ def MenuUser(Usuario,sucursales):
 def MenuAdmin(Usuario,sucursales):
     while True:
         print()
-        print("1.revisar el stock de la comida \n 2.fin del dia  \n3. cerrar sesion  ")
+        print("1.revisar el stock de la comida \n2.fin del dia  \n3.cerrar sesion")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >3:
@@ -63,15 +63,15 @@ def MenuAdmin(Usuario,sucursales):
         else:
             if op == 1:
                 RevisarStock()
+            if op == 2:
+                FinDelDia() 
             if op == 3:
-                FinDelDia()
-            if op == 4:
                 break
     menuprincipal(sucursales)
 
 def MenuSuperAdmin(Usuario,sucursales):
     while True:
-        print("1. cambiar roles de usuarios \n2. generar Cuentas \n 3. cerrar sesion")
+        print("1.cambiar roles de usuarios \n2.generar Cuentas \n3.cerrar sesion")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >2:
