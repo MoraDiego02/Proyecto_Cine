@@ -1,7 +1,8 @@
 import json 
 import random
+import gspread
+#from google.oauth2.service_account import Credentials
 from Candybar import mostrarProductos
-from datetime import date
 #precio de la entrada
 def PrecioDelaEntrada(precioCandy,info):
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
@@ -301,3 +302,28 @@ def EdadRating():
 
 def SimularDatos():
     print("espacio reservado")
+
+def spreadsheet():
+
+  scopes = [
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/drive"
+  ]
+
+  cred = Credentials.from_service_account_file("cineuade-1ca1650b48f9.json", scopes=scopes)
+  gc = gspread.authorize(cred)
+  sh = gc.open("CineUade")
+  print(sh.sheet1.acell("A1").value)
+
+  spreadsheet_name = "CineUade"
+  worksheet_name = "Sheet1"
+
+  spreadsheet = gc.open(spreadsheet_name)
+  worksheet = spreadsheet.worksheet(worksheet_name)
+
+  worksheet.clear()
+  with open("Example.csv", 'r', encoding='utf-8') as file:
+      for i, linea in enumerate(file, start=1):
+          aux = linea.strip().split(",")  # separa por comas y elimina \n
+          worksheet.insert_row(aux, index=i)
+spreadsheet()
