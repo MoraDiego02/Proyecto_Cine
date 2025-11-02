@@ -1,18 +1,16 @@
-from Usuarios import CrearCuenta,IniciarSesion
-from funciones_cine import CargarSucursales
+from Usuarios import CrearCuenta,IniciarSesion,VerificarRoleDeUsuario
+from funciones_cine import CargarSucursales,ReservaDeButacas,SeleccionarSucursal
+from logs import EnviarMensajeAAC,SolicitudDeDesbloqueo
 
-
-def menuprincipal():
+def menuprincipal(sucursales):
     while True:
         print("1. Crear Cuenta \n2. IniciarSesion")
         try:
-            Opcion=int(input("ingrese el numero de la opcion que quiere:"))
+            Opcion=int(input("ingrese el numero de la opcion que quiere: "))
             if Opcion < 1 or Opcion > 2 :
                 raise ValueError
-
         except ValueError:
                 print("ingrese un numero que este en las opciones")
-
         else:
             if Opcion == 1:
                 CrearCuenta()
@@ -23,15 +21,15 @@ def menuprincipal():
     Role=VerificarRoleDeUsuario(Usuario)
 
     if Role == "User":
-        MenuUser(Usuario)
+        MenuUser(Usuario,sucursales)
     if Role == "Admin":
-        MenuAdmin(Usuario)
+        MenuAdmin(Usuario,sucursales)
     if Role == "SuperAdmin":
-        MenuSuperAdmin(Usuario) 
+        MenuSuperAdmin(Usuario,sucursales) 
 
-def MenuUser(Usuario):
+def MenuUser(Usuario,sucursales):
     while True:
-        print("1. Comprar un ticket \n 2. atencion al cliente\n 3. cerrar sesion  ")
+        print("1. Comprar un ticket \n2. atencion al cliente\n3. cerrar sesion  ")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >3:
@@ -40,17 +38,17 @@ def MenuUser(Usuario):
             print("ingrese Un numero que este en las opciones")
         else:                    
             if op == 1:
-                ReservaDeButacas()#hay que seleccionar la sala 
+                SeleccionarSucursal(sucursales)#hay que seleccionar la sala 
             if op == 2:                
                 EnviarMensajeAAC(Usuario)
             if op == 3:                
                 break
-    return
+    menuprincipal(sucursales)
 
-
-def MenuAdmin(Usuario):
+def MenuAdmin(Usuario,sucursales):
     while True:
-        print(" 1. revisar las solicitudes de desbloqueo \n 2. revisar el stock de la comida \n 3. Cambiar Precios Del candyBar \n 4. ver datos del Dia   \n 5. cerrar sesion  ")
+        print()
+        print("1. revisar las solicitudes de desbloqueo \n2. revisar el stock de la comida \n3. Cambiar Precios Del candyBar \n4. ver datos del Dia   \n5. cerrar sesion  ")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >5:
@@ -68,9 +66,9 @@ def MenuAdmin(Usuario):
                 #VerDatos()
             if op == 5:
                 break
-    
+    menuprincipal(sucursales)
 
-def MenuSuperAdmin(Usuario):
+def MenuSuperAdmin(Usuario,sucursales):
     while True:
         print("1. cambiar roles de usuarios \n 2. Simular Datos \n 3. cerrar sesion")
         try:
@@ -86,25 +84,13 @@ def MenuSuperAdmin(Usuario):
                 SimularDatos()
             if op == 3:
                 break
-    return
-
-
-
-
-
-
-
-
-
-
-
-
+    menuprincipal(sucursales)
 
 def main():
-    menuprincipal()
+    Sucursales=CargarSucursales()
+    menuprincipal(Sucursales)
     
 
-
 if __name__ == "__main__":
-    sucursales = CargarSucursales()
+    
     main()

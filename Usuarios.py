@@ -1,15 +1,15 @@
+from gestionDeDatos import reinicioDeContraseña
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     arch=open("cuentas.cvs",mode="at")
     Usuario=NombreDeusuario()
     Contraseña=SeguridadDeContraseña()
     Documento=ComprobacionDeDniYFecha(1)
     Fecha=ComprobacionDeDniYFecha(2)
-    Datos=(f"{Usuario}/{Contraseña}/{Documento}/{Fecha}/User\n")
+    Datos=(f"{Usuario};{Contraseña};{Documento};{Fecha};User\n")
     
     arch.write(Datos)
     arch.close()
-    
-    RegistroDeUsuario(1)
+    return
     
 def VerificarRoleDeUsuario(Cuenta):
     Role=["User","Admin","SuperAdmin"]
@@ -97,8 +97,6 @@ def NombreDeusuario():#este es para verificar de que el nombre de usuario este d
                     AuxUsuario=linea.strip().split("/")
                     if AuxUsuario[0] == Usuario:
                         ValueError
-                    else:
-                        continue
         except IndexError:
             print("el nombre tiene que tener mas o igual a 8 caracteres")
         except ValueError:
@@ -157,8 +155,8 @@ def SeguridadDeContraseña():
 
 def ComprobacionDeDniYFecha(Opcion):
     if Opcion == 1:
-        documento=int(input("ingrese su DNI sin puntos:"))
         while True:
+            documento=int(input("ingrese su DNI sin puntos:"))
             try:
                 if documento <10000000 or documento >99999999:
                     raise ValueError
@@ -167,7 +165,7 @@ def ComprobacionDeDniYFecha(Opcion):
             else:
                 print("el DNI es valido")
                 break
-        return str(documento)
+            return str(documento)
     else:
         while True:
             try:
@@ -175,8 +173,13 @@ def ComprobacionDeDniYFecha(Opcion):
                 dia=int(fecha[0:2])
                 mes=int(fecha[3:5])
                 año=int(fecha[6:10])
-                if dia < 1 or dia > 31 or mes < 1 or mes > 12 or año < 1930 or año > 2025:
+                if len(fecha)<10:
+                    raise IndexError
+                if dia < 1 or dia > 31 or mes < 1 or mes > 12 or año < 1910 or año > 2025:
                     raise ValueError
+                
+            except IndexError:
+                print("porfavor si su contraseña es algo como este 4/4/2000 04/04/2000 ingresela como")
             except ValueError:
                 print("La fecha de nacimiento es invalida. Volve a intentarlo")
             else:

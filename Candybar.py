@@ -8,8 +8,6 @@ def compracandybar():
 
 
 
-
-
 def CargarCandy():
     Arch=open("CandybarProdutos.cvs", mode="wt", encoding="utf-8")
     productosCandy={}
@@ -26,3 +24,4 @@ def guardar_candybar_en_archivo(candybar):
         for producto, datos in candybar.items():
             linea = f"{producto}/{datos['Precio']}/{datos['Stock']}/{datos['ID']}\n"
             arch.write(linea)
+    

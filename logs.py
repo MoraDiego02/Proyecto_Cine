@@ -31,8 +31,6 @@ def EnviarMensajeAAC(Opcion):
         return Opcion
 
 
-
-
 def SolicitudDeDesbloqueo():
     arch=open("Mensajes/Solicitudes.cvs",mode="at")
     for lineas in arch:

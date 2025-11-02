@@ -91,10 +91,12 @@ def SeleccionarSucursal(Sucursal):
                 elif NumeroDeSucursal == 2:
                     sala_matriz = SucursalCaballito[NumeroDeSala]
                     ReservaDeButacas(MostrarSala(sala_matriz))
-                return NumeroDeSucursal, NumeroDeSala
-            break
+                break
+    ReservaDeButacas(sala_matriz)
+        
 
 def ReservaDeButacas(Sala):
+    MostrarSala(Sala)
     ButacasVacias = 0
     for i in range(len(Sala)):
         for j in range(len(Sala[0])):
@@ -116,34 +118,32 @@ def ReservaDeButacas(Sala):
             asientos_reservados = []
             while NumeroDeButacas > 0:
                 print("\nSeleccione la ubicación de su asiento:")
-
-        while True:
-            try:
-                FilaDeLaButaca = int(input("Ingrese la fila (1 a 5): ")) - 1
-                if FilaDeLaButaca < 0 or FilaDeLaButaca > 4:
-                    raise ValueError
-            except ValueError:
-                print("La fila debe estar entre 1 y 5.")
-            else:
-                while True:
-                    try:
-                        ColumnaDeLaButaca = int(input("Ingrese la columna (1 a 5): ")) - 1
-                        if ColumnaDeLaButaca < 0 or ColumnaDeLaButaca > 4:
-                            raise ValueError
-                    except ValueError:
-                        print("La columna debe estar entre 1 y 5.")
-                    else:
-                        if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
-                            Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
-                            asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
-                            NumeroDeButacas -= 1
-                            print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
+                try:
+                    FilaDeLaButaca = int(input("Ingrese la fila (1 a 5): ")) - 1
+                    if FilaDeLaButaca < 0 or FilaDeLaButaca > 4:
+                        raise ValueError
+                except ValueError:
+                    print("La fila debe estar entre 1 y 5.")
+                else:
+                    while True:
+                        try:
+                            ColumnaDeLaButaca = int(input("Ingrese la columna (1 a 5): ")) - 1
+                            if ColumnaDeLaButaca < 0 or ColumnaDeLaButaca > 4:
+                                raise ValueError
+                        except ValueError:
+                            print("La columna debe estar entre 1 y 5.")
                         else:
-                            print("Ese asiento ya está ocupado. Elija otro, por favor.")
-                            print("\nResumen de asientos reservados:")
-                            for fila, col in asientos_reservados:
-                                print(f" - Fila {fila}, Columna {col}")
-                                print()
+                            if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
+                                Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
+                                asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
+                                NumeroDeButacas -= 1
+                                print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
+                            else:
+                                print("Ese asiento ya está ocupado. Elija otro, por favor.")
+                                print("\nResumen de asientos reservados:")
+                                for fila, col in asientos_reservados:
+                                    print(f" - Fila {fila}, Columna {col}")
+                                    print()
 
 def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
     while True:

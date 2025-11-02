@@ -1,4 +1,4 @@
- 
+
 def reinicioDeContraseña():
     print("para poder autentificar que la cuenta es suya vamos a pedir los siguientes datos")
     arch = open("cuentas.cvs", mode="rt")
