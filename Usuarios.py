@@ -18,8 +18,7 @@ def VerificarRoleDeUsuario(Cuenta):
     if Cuenta[-1] == Role[1]:
         role="Admin"
     if Cuenta[-1] == Role[2]:
-        role="superAdmin"
-
+        role="SuperAdmin"
     return role
     
 def IniciarSesion():
@@ -189,21 +188,21 @@ def ComprobacionDeDniYFecha(Opcion):
         return fecha
 
 def EncontrarUsuario(Info):
-        arch=open("cuentas.scv",mode="rt")
+        arch=open("cuentas.csv",mode="rt")
         Cuenta=False
-
-        for linea in arch:
-            CuentaAux = linea.strip().split("/")
-        
-            if Info == CuentaAux[0]:
-                Cuenta = CuentaAux
-        
+        if Info != '':
+            for linea in arch:
+                CuentaAux = linea.strip().split(";")
+            
+                if Info == CuentaAux[0]:
+                    Cuenta = CuentaAux
+            
         arch.close()
         return Cuenta
 
 def traerUsuarios():
     try:
-        with open("cuentas.scv", "r") as archivo:
+        with open("cuentas.csv", "r") as archivo:
             usuarios = []
             for lineas in archivo:
                 usuarios.append( lineas.strip().split(";"))

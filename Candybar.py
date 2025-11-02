@@ -22,6 +22,7 @@ def actualizarCandybar(id,cantidad):
         print("Error al abrir el archivo.")
 
 def compraCandybar(compracandybar):
+    mostrarProductos(compracandybar)
     try:
         with open ("archivosDeTexto/CandybarProductos.csv","r") as arch:
             producto = estaEntre(1,5,"\nSeleccione el producto a comprar (1-5): ")
@@ -34,7 +35,7 @@ def compraCandybar(compracandybar):
             respuesta = validarString(("s","si","n","no"),f"El costo total es de ${total}. Desea realizar la compra?: ")
             if respuesta == "s" or respuesta == "si":
                 actualizarCandybar(id,cantidad)
-                compracandybar+=[f"{cantidad} {nombre}  ${total} "]
+                compracandybar+= total
             compraMas = validarString(("s","si","n","no"),f"Desea realizar otra compra?: ")
             if compraMas == "s" or compraMas == "si":
                 mostrarProductos(compracandybar)

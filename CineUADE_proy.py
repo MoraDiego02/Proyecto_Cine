@@ -1,6 +1,7 @@
 from Usuarios import CrearCuenta,IniciarSesion,VerificarRoleDeUsuario
 from funciones_cine import CargarSucursales,ReservaDeButacas,SeleccionarSucursal,FinDelDia
-from logs import EnviarMensajeAAC,SolicitudDeDesbloqueo
+from logs import EnviarMensajeAAC
+from AdminsSettings import CambiarRoles,generarcuentas
 
 def menuprincipal(sucursales):
     while True:
@@ -16,7 +17,11 @@ def menuprincipal(sucursales):
                 CrearCuenta()
                 continue
             else:
+                
                 Usuario=IniciarSesion()
+                if Usuario == False:
+                    Usuario=IniciarSesion()
+
                 break
     Role=VerificarRoleDeUsuario(Usuario)
 
@@ -29,7 +34,7 @@ def menuprincipal(sucursales):
 
 def MenuUser(Usuario,sucursales):
     while True:
-        print("1. Comprar un ticket \n2. atencion al cliente\n3. cerrar sesion  ")
+        print("1. Comprar un ticket \n2. atencion al cliente \n3. cerrar sesion  ")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >3:
@@ -48,29 +53,25 @@ def MenuUser(Usuario,sucursales):
 def MenuAdmin(Usuario,sucursales):
     while True:
         print()
-        print("1. revisar las solicitudes de desbloqueo \n2. revisar el stock de la comida \n3. Cambiar Precios Del candyBar \n4.fin del dia  \n5. cerrar sesion  ")
+        print("1.revisar el stock de la comida \n 2.fin del dia  \n3. cerrar sesion  ")
         try:
             op=int(input("seleccione la opcion que quiere"))
-            if op < 1 and op >5:
+            if op < 1 and op >3:
                 raise ValueError
         except ValueError:
             print("ingrese Un numero que este en las opciones")
         else:
             if op == 1:
-                SolicitudDeDesbloqueo()
-            if op == 2:
                 RevisarStock()
             if op == 3:
-                CambiarPreciosDelCandy()
-            if op == 4:
                 FinDelDia()
-            if op == 5:
+            if op == 4:
                 break
     menuprincipal(sucursales)
 
 def MenuSuperAdmin(Usuario,sucursales):
     while True:
-        print("1. cambiar roles de usuarios \n 2. Simular Datos \n 3. cerrar sesion")
+        print("1. cambiar roles de usuarios \n2. generar Cuentas \n 3. cerrar sesion")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >2:
@@ -81,7 +82,7 @@ def MenuSuperAdmin(Usuario,sucursales):
             if op == 1:
                 CambiarRoles()
             if op == 2:
-                CrearUsuarios()
+                generarcuentas()
             if op == 3:
                 break
     menuprincipal(sucursales)

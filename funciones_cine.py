@@ -1,15 +1,16 @@
 import json 
 import random
-import gspread
+#import gspread
 #from google.oauth2.service_account import Credentials
 from Candybar import mostrarProductos
+from datetime import date
+
 #precio de la entrada
-def PrecioDelaEntrada(precioCandy,info):
+def PrecioDelaEntrada(candy):
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
     GenerarDia = lambda : random.randint(0,6)
     QueDiaEs=GenerarDia()
     entrada=7500
-    PrecioFinal+=precioCandy
     if 0<= QueDiaEs <= 3 :
         PrecioFinal=entrada*0.80
         print("como hoy es",Dias[QueDiaEs],"la entrada tiene un descuento del 20%!")
@@ -37,6 +38,7 @@ def PrecioDelaEntrada(precioCandy,info):
             else: 
                 print("selecciono efectivo")
                 break
+    PrecioFinal+=candy
     return PrecioFinal
 
 def MostrarSala(matriz):
@@ -67,6 +69,8 @@ def CargarSucursales():
 
 
 def SeleccionarSucursal(Sucursal,info):
+    
+    NombresDeSucursal=["Sucursal Abasto","Sucursal Caballito","Sucursal Palermo",]
     SucursalAbasto = Sucursal[0]
     SucursalCaballito = Sucursal[1]
     SucursalPalermo = Sucursal[2]
@@ -94,15 +98,23 @@ def SeleccionarSucursal(Sucursal,info):
                     sala_matriz = SucursalPalermo[NumeroDeSala]
                 elif NumeroDeSucursal == 2:
                     sala_matriz = SucursalCaballito[NumeroDeSala]
-                    ReservaDeButacas(MostrarSala(sala_matriz))
                 break
+    
+    info+=[f"{NombresDeSucursal[NumeroDeSucursal]} - Sala {NumeroDeSala + 1}"]
+    
     ReservaDeButacas(sala_matriz,info)
         
 
 def ReservaDeButacas(Sala,info):
+    Edad=info[3]
+    
+    Edad=calcular_edad(Edad)
+    
+    pelicula=EdadRating(Edad)
+    
     MostrarSala(Sala)
-    edad=calcular_edad()
-    seleccionarpelicula=(Edad)
+    
+    info+=pelicula
     ButacasVacias = 0
     for i in range(len(Sala)):
         for j in range(len(Sala[0])):
@@ -110,7 +122,7 @@ def ReservaDeButacas(Sala,info):
                 ButacasVacias += 1
 
     print("Butacas disponibles:", ButacasVacias)
-    
+    asientos=[]
     try:
         NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
         if NumeroDeButacas <= 0:
@@ -142,64 +154,57 @@ def ReservaDeButacas(Sala,info):
                         asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
                         NumeroDeButacas =- 1
                         print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
+                        asientos+=[f"F {FilaDeLaButaca+1} C {ColumnaDeLaButaca+1}"]
                     else:
                         print("Ese asiento ya está ocupado. Elija otro, por favor.")
                         print("\nResumen de asientos reservados:")
                         for fila, col in asientos_reservados:
                             print(f" - Fila {fila}, Columna {col}")
                             print()
-        print("los asientos estan reservados")
+                            print("los asientos estan reservados")
+
         try:
+            info += asientos
             print("quiere comprar algo del candybar")
             print("1. Si 2. No ")
-            opcion=int(input("ingrese el numero de la opcion que quiero"))
+            opcion=int(input("ingrese el numero de la opcion que quiera: "))
             if opcion < 1 or opcion > 2:
                 raise ValueError
-        except:
-            print("porfavor ingrese un numero de la opcion que quiere")
+        except ValueError:
+            print("porfavor ingrese un numero de la opcion que quiere(1 o 2)")
+        else:
+            candycompra=0
             if opcion == 1:
-                print("reservado")
-                candycompra=[]
-                mostrarProductos(candycompra)
+                candycompra=mostrarProductos(candycompra)
+                    
             if opcion == 2:
-                comprobante(info[0],info[1],info[2],info[3],info[4],info[5],info[6],info[7])
+                candycompra=0
+            
+                
+    print(info[2],info[0],info[6],info[7],info[5])
+    precio=PrecioDelaEntrada(candycompra)
+
+    info.append(str(precio))
+        
+    comprobante(info[2],info[0],info[6],info[7],info[5],info[8],info[9])
 
             
 
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre,comida,cant):#hacer tuplax
-    while True:
+def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):#hacer tuplax
         try:
-            eleccion = int(input("Desea su comprobante de compra? (Si/No): ")).strip().upper()
-            Opcion = ["si", "no"]
-            if eleccion not in z:
-                raise ValueError
-            break
+            print("1. si 2. no" )
+            Opcion=int(input("ingrese el numero de la opcion que quiere"))
+            if Opcion < 1 or Opcion > 2:
+                ValueError
         except ValueError:
             print("Error en el ingreso")
-    if eleccion == "si":
-        comprobant = (Nombre, dni, pelicula, sucursal, sala, asiento, precio_final)
-        print(f"-Nombre: {Nombre} \n-DNI: {dni} \n-Pelicula:{pelicula} {cant} Comida {comida} -Sucursal: {sucursal} -Sala: {sala} -Asiento: {asiento} -Precio Final: {precio_final}")
-    else:
-        print("No se emitio comprobante.")
-
-def formato():
-    print("2D")
-    print("3D")
-    print("4D")
-    while True:
-        try:
-            formato = int(input("Seleccione el formato de la película (1-3): "))
-            while formato < 1 or formato > 3:
-                raise ValueError
-        except ValueError:
-            print("Incorrecto, Seleccione un formato válido (1-3): ")
         else:
-            if formato == 1:
-                return "2D"
-            elif formato == 2:
-                return "3D"
+            if Opcion == 1 :
+                comprobante = (Nombre, dni, pelicula, sucursal, asiento, precio_final)
+                print(f"-Nombre: {Nombre} \n-DNI: {dni} \n-Pelicula:{pelicula} formato {formato}\n-Sucursal: {sucursal} \nAsiento/s: {asiento} \n-Precio Final: {precio_final}")
+                print()
             else:
-                return "4D"
+                print("No se emitio comprobante.")
 
 def FinDelDia(Sucursales):
     print("finalizo el dia")
@@ -217,20 +222,16 @@ def FinDelDia(Sucursales):
                 for l in range(len(Sucursales[i][j][k])):
                         if i == 0:
                             if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=7500
+                                Recaudaciones["Abasto"]+=SimularPagos()
                         elif i == 1:
                             if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=7500
+                                Recaudaciones["Abasto"]+=simularPagos()
                         else:
                             if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=7500
+                                Recaudaciones["Abasto"]+=SimularPagos()
     Recaudaciones_total=0
     for clave in Recaudaciones:
         Recaudaciones_total+=Recaudaciones[clave]
-
-
-
-
 
     print(f"la recaudacion total de la sucursal Abasto es de:{Recaudaciones["Abasto"]}")
     print(f"la recaudacion total de la sucursal Caballito es de:{Recaudaciones["Caballito"]}")
@@ -239,70 +240,100 @@ def FinDelDia(Sucursales):
     print("la Sucursal que mas recaudaciones: con")
     
 
-from datetime import date
 
-def calcular_edad(usuario):
-    
+
+def calcular_edad(info):
+
+    info=str(info)
+    info=info.strip().split(":")
+    anio=int(info[2])
+    mes=int(info[1])
+    dia=int(info[0])
     hoy = date.today()
     nacimiento = date(anio, mes, dia)
     edad = hoy.year - nacimiento.year
 
-    # Si todavía no cumplió años este año, se resta 1
     if (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day):
         edad -= 1
 
     return edad
 
                                     
-def EdadRating():
+def EdadRating(Edad):
+    peliculas = {
+        "ATP": {
+            "descripcion": "Apta para todo público.",
+            "titulos": ["Toy Story", "Coco", "Buscando a Nemo", "Kung Fu Panda"]
+        },
+        "+13": {
+            "descripcion": "Puede contener violencia leve o temas más maduros.",
+            "titulos": ["Los Vengadores", "Jurassic World", "Spider-Man", "Piratas del Caribe"]
+        },
+        "+16": {
+            "descripcion": "Contiene violencia intensa o lenguaje fuerte.",
+            "titulos": ["Inception", "El Caballero Oscuro", "John Wick", "Matrix"]
+        },
+        "+18": {
+            "descripcion": "Solo para adultos. Puede incluir violencia o contenido explícito.",
+            "titulos": ["El Padrino", "Scarface", "Pulp Fiction", "El Lobo de Wall Street"]
+        }
+    }
+
+    # Determinar clasificación según edad
+    if Edad < 13:
+        categoria = "ATP"
+    elif Edad < 16:
+        categoria = "+13"
+    elif Edad < 18:
+        categoria = "+16"
+    else:
+        categoria = "+18"
+
+    print(f"\nClasificación: {categoria}")
+    print(f"Descripción: {peliculas[categoria]['descripcion']}")
+    print("\nPelículas disponibles:")
+
+
+    contador = 1
+    for titulo in peliculas[categoria]["titulos"]:
+        print(f"{contador}. {titulo}")
+        contador += 1
+
+
     while True:
         try:
-            with open("jtest.json", "r") as file :
-                raise IOError
-        except IOError:
-            print("Error al abrir el archivo!")
-        else:
-            rating=json.load(file)
-            codigos={}
-            codsave=0
-            peliculas = ["Avatar: El camino del agua","El gato con botas 2","John Wick 4","Super Mario","Chainsaw Man","Cretaceous Establishment","Superman","Interestelar","Fullmetal Alchemist","City of Tears","Cars","Forest Gump","Viernes 13","Angry Birds","Crimen y Castigo"]
-            for i in range (len(peliculas)):
-                low=peliculas[i].lower()
-                codigos[low]=codsave
-                codsave=codsave+1
-            codigos["-1"]=999
+            opcion = int(input("\nElige el número de la película: ")) - 1
+            if opcion < 0 or opcion >= len(peliculas[categoria]["titulos"]):
+                raise ValueError
+            break
+        except ValueError:
+            print("Opción inválida. Intenta nuevamente.")
 
-            atp=[]
-            pg=[]
-            ad=[]
-            used=[]
-            while len(ad)<4:
-                rand=random.randint(0,len(codigos)-2)
-                if rand in used:
-                    rand=999
-                else:
-                    used.append(rand)   
+    pelicula_elegida = peliculas[categoria]["titulos"][opcion]
 
-                aux=str(rand)
-                if rating[aux]<=0:
-                    atp.append(peliculas[rand])
-                if rating[aux]<=13:
-                    pg.append(peliculas[rand])
-                if rating[aux]<=18:
-                    ad.append(peliculas[rand])
-        
-            age=agecheck()
-                                
-            if age >=18:
-                print("Las peliculas disponibles son:",ad)
-            elif age >=13:
-                print("Las peliculas disponibles para adolecentes son:",pg)
-            else:
-                print("Las peliculas disponibles para infantes",atp)
+    formatos = ["2D", "3D"]
+    print("\nFormatos disponibles:")
+    contador = 1
+    for f in formatos:
+        print(f"{contador}. {f}")
+        contador += 1
 
-def SimularDatos():
-    print("espacio reservado")
+    while True:
+        try:
+            opcion_formato = int(input("\nElige el formato: ")) - 1
+            if opcion_formato not in (0, 1):
+                raise ValueError
+            break
+        except ValueError:
+            print("Formato inválido. Elige 1 o 2.")
 
+    formato_elegido = formatos[opcion_formato]
+
+    return pelicula_elegida,formato_elegido
+
+            
+
+"""
 def spreadsheet():
 
   scopes = [
@@ -326,4 +357,4 @@ def spreadsheet():
       for i, linea in enumerate(file, start=1):
           aux = linea.strip().split(",")  # separa por comas y elimina \n
           worksheet.insert_row(aux, index=i)
-spreadsheet()
+spreadsheet()"""
