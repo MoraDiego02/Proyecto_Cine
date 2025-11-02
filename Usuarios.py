@@ -1,6 +1,6 @@
 from gestionDeDatos import reinicioDeContraseña
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
-    arch=open("cuentas.cvs",mode="at")
+    arch=open("cuentas.scv",mode="at")
     Usuario=NombreDeusuario()
     Contraseña=SeguridadDeContraseña()
     Documento=ComprobacionDeDniYFecha(1)
@@ -13,11 +13,11 @@ def CrearCuenta():#este es para exportar la cuenta creada a el archivo
     
 def VerificarRoleDeUsuario(Cuenta):
     Role=["User","Admin","SuperAdmin"]
-    if Cuenta[len(Cuenta)-1] == Role[0]:
+    if Cuenta[-1] == Role[0]:
         role="User"
-    if Cuenta[len(Cuenta)-1] == Role[1]:
+    if Cuenta[-1] == Role[1]:
         role="Admin"
-    if Cuenta[len(Cuenta)-1] == Role[2]:
+    if Cuenta[-1] == Role[2]:
         role="superAdmin"
 
     return role
@@ -85,7 +85,7 @@ def VerificacionDeContraseña(Cuenta,Contraseña):#este va con el de Inicio de s
     return TorF
 
 def NombreDeusuario():#este es para verificar de que el nombre de usuario este disponible
-    arch=open("cuentas.cvs",mode="rt")
+    arch=open("cuentas.scv",mode="rt")
     while True:
         print("el nombre de usuario tiene que tener mas de 8 caracteres")
         try:
@@ -189,7 +189,7 @@ def ComprobacionDeDniYFecha(Opcion):
         return fecha
 
 def EncontrarUsuario(Info):
-        arch=open("cuentas.cvs",mode="rt")
+        arch=open("cuentas.scv",mode="rt")
         Cuenta=False
 
         for linea in arch:
@@ -201,3 +201,25 @@ def EncontrarUsuario(Info):
         arch.close()
         return Cuenta
 
+def traerUsuarios():
+    try:
+        with open("cuentas.scv", "r") as archivo:
+            usuarios = []
+            for lineas in archivo:
+                usuarios.append( lineas.strip().split(";"))
+        return usuarios
+    except IOError:
+        print("Hubo un problema con el archivo cuentas.scv")
+        
+def imprimirUsuarios(usuario):
+    usuarios = traerUsuarios()
+    print("-"*30)
+    print("USUARIOS: ")
+    print("-"*30)
+    for user in usuarios:
+        posicion = usuarios.index(user)
+        print(f"{posicion}. {user[0]}- Rol: {user[-1]}")
+    print("-"*30)
+    
+    eleccion = int(input(f"{usuario[0]}: "))
+    return usuarios[eleccion]

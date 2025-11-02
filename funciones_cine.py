@@ -1,11 +1,14 @@
 import json 
 import random
+from Candybar import mostrarProductos
+from datetime import date
 #precio de la entrada
-def PrecioDelaEntrada():
+def PrecioDelaEntrada(precioCandy,info):
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
     GenerarDia = lambda : random.randint(0,6)
     QueDiaEs=GenerarDia()
     entrada=7500
+    PrecioFinal+=precioCandy
     if 0<= QueDiaEs <= 3 :
         PrecioFinal=entrada*0.80
         print("como hoy es",Dias[QueDiaEs],"la entrada tiene un descuento del 20%!")
@@ -62,7 +65,7 @@ def CargarSucursales():
     return sucursal
 
 
-def SeleccionarSucursal(Sucursal):
+def SeleccionarSucursal(Sucursal,info):
     SucursalAbasto = Sucursal[0]
     SucursalCaballito = Sucursal[1]
     SucursalPalermo = Sucursal[2]
@@ -92,11 +95,13 @@ def SeleccionarSucursal(Sucursal):
                     sala_matriz = SucursalCaballito[NumeroDeSala]
                     ReservaDeButacas(MostrarSala(sala_matriz))
                 break
-    ReservaDeButacas(sala_matriz)
+    ReservaDeButacas(sala_matriz,info)
         
 
-def ReservaDeButacas(Sala):
+def ReservaDeButacas(Sala,info):
     MostrarSala(Sala)
+    edad=calcular_edad()
+    seleccionarpelicula=(Edad)
     ButacasVacias = 0
     for i in range(len(Sala)):
         for j in range(len(Sala[0])):
@@ -104,52 +109,67 @@ def ReservaDeButacas(Sala):
                 ButacasVacias += 1
 
     print("Butacas disponibles:", ButacasVacias)
-    print()
-    while True:
-        try:
-            NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-            if NumeroDeButacas <= 0:
-                raise ValueError("Debe ingresar un número mayor que 0.")
-            if NumeroDeButacas > ButacasVacias:
-                raise ValueError
-        except ValueError:
-            print(f"No hay suficientes butacas vacías (disponibles: {ButacasVacias}).")
-        else:
-            asientos_reservados = []
-            while NumeroDeButacas > 0:
-                print("\nSeleccione la ubicación de su asiento:")
+    
+    try:
+        NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
+        if NumeroDeButacas <= 0:
+            raise ValueError("Debe ingresar un número mayor que 0.")
+        if NumeroDeButacas > ButacasVacias:
+            raise ValueError
+    except ValueError:
+        print(f"No hay suficientes butacas vacías (disponibles: {ButacasVacias}).")
+    else:
+        asientos_reservados = []
+        while NumeroDeButacas > 0:
+            print("\nSeleccione la ubicación de su asiento:")
+            try:
+                FilaDeLaButaca = int(input("Ingrese la fila (1 a 5): ")) - 1
+                if FilaDeLaButaca < 0 or FilaDeLaButaca > 4:
+                    raise ValueError
+            except ValueError:
+                print("La fila debe estar entre 1 y 5.")
+            else:
                 try:
-                    FilaDeLaButaca = int(input("Ingrese la fila (1 a 5): ")) - 1
-                    if FilaDeLaButaca < 0 or FilaDeLaButaca > 4:
+                    ColumnaDeLaButaca = int(input("Ingrese la columna (1 a 5): ")) - 1
+                    if ColumnaDeLaButaca < 0 or ColumnaDeLaButaca > 4:
                         raise ValueError
                 except ValueError:
-                    print("La fila debe estar entre 1 y 5.")
+                        print("La columna debe estar entre 1 y 5.")
                 else:
-                    while True:
-                        try:
-                            ColumnaDeLaButaca = int(input("Ingrese la columna (1 a 5): ")) - 1
-                            if ColumnaDeLaButaca < 0 or ColumnaDeLaButaca > 4:
-                                raise ValueError
-                        except ValueError:
-                            print("La columna debe estar entre 1 y 5.")
-                        else:
-                            if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
-                                Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
-                                asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
-                                NumeroDeButacas -= 1
-                                print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
-                            else:
-                                print("Ese asiento ya está ocupado. Elija otro, por favor.")
-                                print("\nResumen de asientos reservados:")
-                                for fila, col in asientos_reservados:
-                                    print(f" - Fila {fila}, Columna {col}")
-                                    print()
+                    if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
+                        Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
+                        asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
+                        NumeroDeButacas =- 1
+                        print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
+                    else:
+                        print("Ese asiento ya está ocupado. Elija otro, por favor.")
+                        print("\nResumen de asientos reservados:")
+                        for fila, col in asientos_reservados:
+                            print(f" - Fila {fila}, Columna {col}")
+                            print()
+        print("los asientos estan reservados")
+        try:
+            print("quiere comprar algo del candybar")
+            print("1. Si 2. No ")
+            opcion=int(input("ingrese el numero de la opcion que quiero"))
+            if opcion < 1 or opcion > 2:
+                raise ValueError
+        except:
+            print("porfavor ingrese un numero de la opcion que quiere")
+            if opcion == 1:
+                print("reservado")
+                candycompra=[]
+                mostrarProductos(candycompra)
+            if opcion == 2:
+                comprobante(info[0],info[1],info[2],info[3],info[4],info[5],info[6],info[7])
 
-def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer tuplax
+            
+
+def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre,comida,cant):#hacer tuplax
     while True:
         try:
             eleccion = int(input("Desea su comprobante de compra? (Si/No): ")).strip().upper()
-            z = ["si", "no"]
+            Opcion = ["si", "no"]
             if eleccion not in z:
                 raise ValueError
             break
@@ -157,7 +177,7 @@ def comprobante(dni,pelicula,sucursal,sala,asiento,precio_final,Nombre):#hacer t
             print("Error en el ingreso")
     if eleccion == "si":
         comprobant = (Nombre, dni, pelicula, sucursal, sala, asiento, precio_final)
-        print(f"-Nombre: {Nombre} -DNI: {dni} -Pelicula:{pelicula} -Sucursal: {sucursal} -Sala: {sala} -Asiento: {asiento} -Precio Final: {precio_final}")
+        print(f"-Nombre: {Nombre} \n-DNI: {dni} \n-Pelicula:{pelicula} {cant} Comida {comida} -Sucursal: {sucursal} -Sala: {sala} -Asiento: {asiento} -Precio Final: {precio_final}")
     else:
         print("No se emitio comprobante.")
 
@@ -181,13 +201,14 @@ def formato():
                 return "4D"
 
 def FinDelDia(Sucursales):
-    recaudaciones_totales= []
-    SCaballito=0
-    SPalermo=0
-    SAbasto=0
-
     print("finalizo el dia")
     print("estos son los datos de todas la sucursales")
+
+    Recaudaciones={
+        "Abasto":0,
+        "Caballito":0,
+        "Palermo":0
+    }
 
     for i in range(len(Sucursales)):
         for j in range(len(Sucursales[i])):
@@ -195,84 +216,42 @@ def FinDelDia(Sucursales):
                 for l in range(len(Sucursales[i][j][k])):
                         if i == 0:
                             if Sucursales[i][j][k][l]==1:
-                                SAbasto+=7500
+                                Recaudaciones["Abasto"]+=7500
                         elif i == 1:
                             if Sucursales[i][j][k][l]==1:
-                                SCaballito+=7500
+                                Recaudaciones["Abasto"]+=7500
                         else:
                             if Sucursales[i][j][k][l]==1:
-                                SPalermo+=7500
-    recaudaciones_totales.append(SAbasto)
-    recaudaciones_totales.append(SCaballito)
-    recaudaciones_totales.append(SPalermo)
-    print("la recaudacion total de la sucursal Abasto es de:",recaudaciones_totales[0])
-    print("la recaudacion total de la sucursal Caballito es de:",recaudaciones_totales[1])
-    print("la recaudacion total de la sucursal Palermo es de:",recaudaciones_totales[2])
-    print("la recaudacion total del dia es de:",sum(recaudaciones_totales))
+                                Recaudaciones["Abasto"]+=7500
+    Recaudaciones_total=0
+    for clave in Recaudaciones:
+        Recaudaciones_total+=Recaudaciones[clave]
 
-def agecheck():
-    while True:
-        m30=[4,6,9,11]
-        try:
-            dia=int(input("Ingrese el dia que cumple años (sin mes):"))
-            if dia<1 or dia>31:
-                raise ValueError
-        except ValueError:
-            print("Error, Ingrese un dia valido")
-        else:
-            while True:
-                try:
-                    mes=int(input("Ingrese su mes de cumpleaños(formato numerico):"))
-                    if mes<1 or mes>12 or mes in m30 and dia==31:
-                        raise ValueError
-                except ValueError:
-                     print("Mes o dia  Incorrecto!")
-                else:
-                    while True:
-                        try:
-                            if mes==2 and dia>=29:
-                                raise ValueError
-                        except ValueError:
-                            print("Error, Ingrese el dia o mes correecto")
-                        else:
-                            while True:
-                                try:
-                                    año=int(input("Ingrese el año que nació:"))
-                                    if año<1920 or año>2025:
-                                        raise ValueError
-                                except ValueError:
-                                    print("Error, ingrese un año valido")
-                                else:
-                                    req=0   
-                                    if año == 2007:
-                                        if mes==11:
-                                            if dia<=2:
-                                                 req=18
-                                            else:
-                                                req=13
-                                        elif mes>11:
-                                            req=13
-                                        else:
-                                            req=18
 
-                                    elif año >2007:
-                                        if año==2012:
-                                            if mes==11:
-                                                if dia<=2:
-                                                    req=13
-                                                else:
-                                                    req=0
-                                            elif mes>11:
-                                                    req=0
-                                            else:
-                                                req=13
-                                        elif año>2012:
-                                                req=0
-                                        else:
-                                            req=13
-                                    else:
-                                        req=18
-                                    return req
+
+
+
+    print(f"la recaudacion total de la sucursal Abasto es de:{Recaudaciones["Abasto"]}")
+    print(f"la recaudacion total de la sucursal Caballito es de:{Recaudaciones["Caballito"]}")
+    print(f"la recaudacion total de la sucursal Palermo es de:{Recaudaciones["Palermo"]}")
+    print(f"la recaudacion total del dia es de:{Recaudaciones_total}")
+    print("la Sucursal que mas recaudaciones: con")
+    
+
+from datetime import date
+
+def calcular_edad(usuario):
+    
+    hoy = date.today()
+    nacimiento = date(anio, mes, dia)
+    edad = hoy.year - nacimiento.year
+
+    # Si todavía no cumplió años este año, se resta 1
+    if (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day):
+        edad -= 1
+
+    return edad
+
                                     
 def EdadRating():
     while True:

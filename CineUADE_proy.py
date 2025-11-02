@@ -1,5 +1,5 @@
 from Usuarios import CrearCuenta,IniciarSesion,VerificarRoleDeUsuario
-from funciones_cine import CargarSucursales,ReservaDeButacas,SeleccionarSucursal
+from funciones_cine import CargarSucursales,ReservaDeButacas,SeleccionarSucursal,FinDelDia
 from logs import EnviarMensajeAAC,SolicitudDeDesbloqueo
 
 def menuprincipal(sucursales):
@@ -38,7 +38,7 @@ def MenuUser(Usuario,sucursales):
             print("ingrese Un numero que este en las opciones")
         else:                    
             if op == 1:
-                SeleccionarSucursal(sucursales)#hay que seleccionar la sala 
+                SeleccionarSucursal(sucursales,Usuario)#hay que seleccionar la sala 
             if op == 2:                
                 EnviarMensajeAAC(Usuario)
             if op == 3:                
@@ -48,7 +48,7 @@ def MenuUser(Usuario,sucursales):
 def MenuAdmin(Usuario,sucursales):
     while True:
         print()
-        print("1. revisar las solicitudes de desbloqueo \n2. revisar el stock de la comida \n3. Cambiar Precios Del candyBar \n4. ver datos del Dia   \n5. cerrar sesion  ")
+        print("1. revisar las solicitudes de desbloqueo \n2. revisar el stock de la comida \n3. Cambiar Precios Del candyBar \n4.fin del dia  \n5. cerrar sesion  ")
         try:
             op=int(input("seleccione la opcion que quiere"))
             if op < 1 and op >5:
@@ -62,8 +62,8 @@ def MenuAdmin(Usuario,sucursales):
                 RevisarStock()
             if op == 3:
                 CambiarPreciosDelCandy()
-            #if op == 4:
-                #VerDatos()
+            if op == 4:
+                FinDelDia()
             if op == 5:
                 break
     menuprincipal(sucursales)
@@ -81,7 +81,7 @@ def MenuSuperAdmin(Usuario,sucursales):
             if op == 1:
                 CambiarRoles()
             if op == 2:
-                SimularDatos()
+                CrearUsuarios()
             if op == 3:
                 break
     menuprincipal(sucursales)
@@ -92,5 +92,5 @@ def main():
     
 
 if __name__ == "__main__":
-    
     main()
+
