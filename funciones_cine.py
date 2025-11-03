@@ -258,7 +258,8 @@ def FinDelDia(Sucursales,Usuario):
 
     with open("recuentodebutacas.csv", "a") as f:
         for suc in Butacas:
-            f.write(f"{suc},{Butacas[suc]}\n")
+            porcentaje=(Butacas[suc]/75)
+            f.write(f"{suc},{Butacas[suc]},{porcentaje}\n")
 
     with open("recaudacion_por_sucursal.csv", "a") as f:
         for suc in Recaudaciones:
@@ -370,15 +371,14 @@ def EdadRating(Edad):
 
             
 
-"""
-def spreadsheet():
+def spreadsheet(cont):
 
   scopes = [
       "https://www.googleapis.com/auth/spreadsheets",
       "https://www.googleapis.com/auth/drive"
   ]
 
-  cred = Credentials.from_service_account_file("cineuade-1ca1650b48f9.json", scopes=scopes)
+  cred = Credentials.from_service_account_file("cineuade-2e212a60f1c7.json", scopes=scopes)
   gc = gspread.authorize(cred)
   sh = gc.open("CineUade")
   print(sh.sheet1.acell("A1").value)
@@ -389,9 +389,38 @@ def spreadsheet():
   spreadsheet = gc.open(spreadsheet_name)
   worksheet = spreadsheet.worksheet(worksheet_name)
 
-  worksheet.clear()
-  with open("Example.csv", 'r', encoding='utf-8') as file:
-      for i, linea in enumerate(file, start=1):
-          aux = linea.strip().split(",")  # separa por comas y elimina \n
-          worksheet.insert_row(aux, index=i)
-spreadsheet()"""
+
+  with open("recaudacion_aux.csv", 'r', encoding='utf-8') as file:
+    data = [line.strip().split(",") for line in file]
+    pos="A"+ str(1+(4*cont))
+    worksheet.update(pos, data)
+
+  with open("recaudacion_por_sucursal.csv", 'r', encoding='utf-8') as file:
+    data = [line.strip().split(",") for line in file]
+    pos="A"+ str(2+(4*cont))
+    worksheet.update(pos, data)
+
+  with open("recaudacion_total.csv", 'r', encoding='utf-8') as file:
+    data = [line.strip().split(",") for line in file]
+    pos="C"+ str(2+(4*cont))
+    worksheet.update(pos, data)
+
+  with open("mayor_recaudacion.csv", 'r', encoding='utf-8') as file:
+    data = [line.strip().split(",") for line in file]
+    pos="E"+ str(2+(4*cont))
+    worksheet.update(pos, data)
+
+  worksheet_name = "Sheet2"
+  worksheet = spreadsheet.worksheet(worksheet_name)
+
+  with open("recuentodebutacas_aux.csv", 'r', encoding='utf-8') as file:
+    data = [line.strip().split(",") for line in file]
+    worksheet.update('A1', data)
+    pos="A"+ str(1+(4*cont))
+    worksheet.update(pos, data)
+    
+
+  with open("recuentodebutacas.csv", 'r', encoding='utf-8') as file:
+    data = [line.strip().split(",") for line in file]
+    pos="A"+ str(2+(4*cont))
+    worksheet.update(pos, data)
