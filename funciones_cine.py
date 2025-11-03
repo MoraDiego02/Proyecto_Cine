@@ -5,6 +5,7 @@ import random
 from Candybar import compraCandybar
 from datetime import date
 from logs import log
+from CineUADE_proy import menuprincipal
 
 #precio de la entrada
 def PrecioDelaEntrada(candy):
@@ -207,68 +208,67 @@ def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):#hace
             else:
                 print("No se emitio comprobante.")
 
-def simularPagos():
-    random.choice
-    entrada=7500    
-    mult=[0.80,1.10]
-    mult=random.choice(mult)
-    pagosim=entrada*mult
+import random
+from datetime import datetime
 
-    return pagosim
+def simularPagos():
+    dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+    hoy = datetime.now().weekday()
+    entrada = 7500
+    if hoy <= 3:
+        precio = entrada * 0.8
+    else:
+        precio = entrada * 1.1
+
+    metodo = random.choice(["tarjeta", "efectivo"])
+    if metodo == "tarjeta":
+        precio *= 1.05
+    return precio
 
 def FinDelDia(Sucursales):
-    print("finalizo el dia")
-    print("estos son los datos de todas la sucursales")
-    log("FinDelDia")
-    Recaudaciones={
-        "Abasto":0,
-        "Caballito":0,
-        "Palermo":0
-    }
-
-    cantasientosAbasto=0
-    cantasientosCaballito=0
-    cantasientosPalermo=0
-    
+    Recaudaciones = {"Abasto": 0, "Caballito": 0, "Palermo": 0}
+    Butacas = {"Abasto": 0, "Caballito": 0, "Palermo": 0}
 
     for i in range(len(Sucursales)):
         for j in range(len(Sucursales[i])):
             for k in range(len(Sucursales[i][j])):
                 for l in range(len(Sucursales[i][j][k])):
+                    if Sucursales[i][j][k][l] == 1:
                         if i == 0:
-                            if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["Abasto"]+=simularPagos()
-                                cantasientosAbasto+=1
+                            Recaudaciones["Abasto"] += simularPagos()
+                            Butacas["Abasto"] += 1
                         elif i == 1:
-                            if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["caballito"]+=simularPagos()
-                                cantasientosAbasto+=1
+                            Recaudaciones["Caballito"] += simularPagos()
+                            Butacas["Caballito"] += 1
                         else:
-                            if Sucursales[i][j][k][l]==1:
-                                Recaudaciones["palermo"]+=simularPagos()
-                                cantasientosAbasto+=1
-    Recaudaciones_total=0
-    for clave in Recaudaciones:
-        Recaudaciones_total+=Recaudaciones[clave]
+                            Recaudaciones["Palermo"] += simularPagos()
+                            Butacas["Palermo"] += 1
 
-    arch=open("recuentodebutacas.csv", mode="a")
+    total = sum(Recaudaciones.values())
+    mayor_sucursal = max(Recaudaciones, key=Recaudaciones.get)
 
+    with open("recuentodebutacas.csv", "a") as f:
+        for suc in Butacas:
+            f.write(f"{suc},{Butacas[suc]}\n")
 
-    arch.close()
-    arch=open("calculototalDelasSucursales.csv",mode="a")
-    arch.close()
+    with open("recaudacion_por_sucursal.csv", "a") as f:
+        for suc in Recaudaciones:
+            f.write(f"{suc},{Recaudaciones[suc]:.2f}\n")
 
-    
+    with open("recaudacion_total.csv", "a") as f:
+        f.write(f"Total,{total:.2f}\n")
 
+    with open("mayor_recaudacion.csv", "a") as f:
+        f.write(f"{mayor_sucursal},{Recaudaciones[mayor_sucursal]:.2f}\n")
 
-
-    print(f"la recaudacion total de la sucursal Abasto es de:{Recaudaciones["Abasto"]}")
-    print(f"la recaudacion total de la sucursal Caballito es de:{Recaudaciones["Caballito"]}")
-    print(f"la recaudacion total de la sucursal Palermo es de:{Recaudaciones["Palermo"]}")
-    print(f"la recaudacion total del dia es de:{Recaudaciones_total}")
-    print("la Sucursal que mas recaudaciones: con")
-
-
+    print("Recuento de butacas ocupadas:")
+    for suc, cant in Butacas.items():
+        print(f"{suc}: {cant}")
+    print("\nRecaudación por sucursal:")
+    for suc, rec in Recaudaciones.items():
+        print(f"{suc}: ${rec:.2f}")
+    print(f"\nRecaudación total del día: ${total:.2f}")
+    print(f"Sucursal con mayor recaudación: {mayor_sucursal} (${Recaudaciones[mayor_sucursal]:.2f})")
 
 
 def calcular_edad(info):

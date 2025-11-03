@@ -1,4 +1,4 @@
-from validacionDatos import estaEntre, validarString
+from ValidacionDeDatos import estaEntre, validarString
 
 def actualizarCandybar(id,cantidad):
     try:
@@ -50,4 +50,3 @@ def mostrarProductos():
     except (IOError, OSError):
         print("Error al abrir el archivo.")
 
-mostrarProductos()
