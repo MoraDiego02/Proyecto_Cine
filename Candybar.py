@@ -1,4 +1,4 @@
-from validacionDatos import estaEntre, validarString
+from ValidacionDeDatos import estaEntre, validarString
 
 def actualizarCandybar(id,cantidad):
     try:

@@ -262,9 +262,9 @@ def FinDelDia(Sucursales):
 
 
 
-    print(f"la recaudacion total de la sucursal Abasto es de:{Recaudaciones["Abasto"]}")
-    print(f"la recaudacion total de la sucursal Caballito es de:{Recaudaciones["Caballito"]}")
-    print(f"la recaudacion total de la sucursal Palermo es de:{Recaudaciones["Palermo"]}")
+    print(f"la recaudacion total de la sucursal Abasto es de:{Recaudaciones['Abasto']}")
+    print(f"la recaudacion total de la sucursal Caballito es de:{Recaudaciones['Caballito']}")
+    print(f"la recaudacion total de la sucursal Palermo es de:{Recaudaciones['Palermo']}")
     print(f"la recaudacion total del dia es de:{Recaudaciones_total}")
     print("la Sucursal que mas recaudaciones: con")
 
