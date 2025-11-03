@@ -1,17 +1,16 @@
 from Usuarios import CrearCuenta,IniciarSesion,VerificarRoleDeUsuario
 from funciones_cine import CargarSucursales,ReservaDeButacas,SeleccionarSucursal,FinDelDia
 from logs import EnviarMensajeAAC
-from AdminsSettings import CambiarRoles,generarcuentas
 
 def menuprincipal(sucursales):
     while True:
-        print("1. Crear Cuenta \n2. IniciarSesion")
+        print("1. Crear Cuenta \n2. Iniciar Sesion ")
         try:
             Opcion=int(input("ingrese el numero de la opcion que quiere: "))
             if Opcion < 1 or Opcion > 2 :
                 raise ValueError
         except ValueError:
-                print("ingrese un numero que este en las opciones")
+                print("ingrese un numero que este en las opciones: ")
         else:
             if Opcion == 1:
                 CrearCuenta()
@@ -34,16 +33,18 @@ def menuprincipal(sucursales):
 
 def MenuUser(Usuario,sucursales):
     while True:
+        print()
         print("1.Comprar un ticket \n2.atencion al cliente \n3.cerrar sesion  ")
         try:
-            op=int(input("seleccione la opcion que quiere"))
+            print()
+            op=int(input("Seleccione la opcion que quiere: "))
             if op < 1 and op >3:
                 raise ValueError
         except ValueError:
             print("ingrese Un numero que este en las opciones")
         else:                    
             if op == 1:
-                SeleccionarSucursal(sucursales,Usuario)#hay que seleccionar la sala 
+                SeleccionarSucursal(sucursales,Usuario)
             if op == 2:                
                 EnviarMensajeAAC(Usuario)
             if op == 3:                
@@ -55,11 +56,11 @@ def MenuAdmin(Usuario,sucursales):
         print()
         print("1.revisar el stock de la comida \n2.fin del dia  \n3.cerrar sesion")
         try:
-            op=int(input("seleccione la opcion que quiere"))
+            op=int(input("seleccione la opcion que quiere: "))
             if op < 1 and op >3:
                 raise ValueError
         except ValueError:
-            print("ingrese Un numero que este en las opciones")
+            print("ingrese Un numero que este en las opciones: ")
         else:
             if op == 1:
                 RevisarStock()
@@ -71,6 +72,7 @@ def MenuAdmin(Usuario,sucursales):
 
 def MenuSuperAdmin(Usuario,sucursales):
     while True:
+        print()
         print("1.cambiar roles de usuarios \n2.generar Cuentas \n3.cerrar sesion")
         try:
             op=int(input("seleccione la opcion que quiere"))
