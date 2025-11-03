@@ -84,7 +84,7 @@ def VerificacionDeContraseña(Cuenta,Contraseña):#este va con el de Inicio de s
     return TorF
 
 def NombreDeusuario():#este es para verificar de que el nombre de usuario este disponible
-    arch=open("cuentas.scv",mode="rt")
+    arch=open("cuentas.csv",mode="rt")
     while True:
         print("el nombre de usuario tiene que tener mas de 8 caracteres")
         try:

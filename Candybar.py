@@ -22,32 +22,55 @@ def actualizarCandybar(id,cantidad):
         print("Error al abrir el archivo.")
 
 def compraCandybar():
+    total_candy = 0.0
     try:
-        with open ("archivosDeTexto/CandybarProductos.csv","r") as arch:
-            producto = estaEntre(1,5,"\nSeleccione el producto a comprar (1-5): ")
-            for linea in arch:
-                if int(linea[0]) == producto:
-                    id,nombre,precio,stock = linea.split(";")
-                    precio, stock = int(precio),int(stock)
-            cantidad = estaEntre(1,stock,f"Ingrese la cantidad de {nombre} a comprar (1-{stock}): ")
-            total = precio*cantidad
-            respuesta = validarString(("s","si","n","no"),f"El costo total es de ${total}. Desea realizar la compra?: ")
-            if respuesta == "s" or respuesta == "si":
-                actualizarCandybar(id,cantidad)
-            compraMas = validarString(("s","si","n","no"),f"Desea realizar otra compra?: ")
-            if compraMas == "s" or compraMas == "si":
-                mostrarProductos()
+        while True:
+            mostrarProductos()  # solo muestra
+
+            producto_id = estaEntre(1, 5, "\nSeleccione el producto a comprar (1-5): ")
+
+            # buscar producto por ID
+            item = None
+            with open("archivosDeTexto/CandybarProductos.csv", "r", encoding="utf-8") as arch:
+                for linea in arch:
+                    linea = linea.strip()
+                    if not linea:
+                        continue
+                    id_str, nombre, precio_str, stock_str = linea.split(";")
+                    if int(id_str) == producto_id:
+                        item = {"id": int(id_str), "nombre": nombre,
+                                "precio": float(precio_str), "stock": int(stock_str)}
+                        break
+            if item is None:
+                print("Producto inexistente.")
+                continue
+
+            cant = estaEntre(1, item["stock"], f"Ingrese la cantidad de {item['nombre']} (1-{item['stock']}): ")
+            subtotal = item["precio"] * cant
+
+            conf = validarString(("s","si","n","no"),
+                                 f"El costo es ${subtotal:.2f}. ¿Confirmar compra?: ")
+            if conf in ("s","si"):
+                actualizarCandybar(item["id"], cant)   # descuenta stock
+                total_candy += subtotal
+
+            otra = validarString(("s","si","n","no"), "¿Desea realizar otra compra?: ")
+            if otra not in ("s","si"):
+                break
     except (IOError, OSError):
         print("Error al abrir el archivo.")
+    return total_candy
 
 def mostrarProductos():
+    # Solo imprime el catálogo. No llames a compraCandybar() acá.
     try:
-        with open ("archivosDeTexto/CandybarProductos.csv","r") as arch:
+        print("\nID  | Nombre                 | Precio   | Stock")
+        with open("archivosDeTexto/CandybarProductos.csv", "r", encoding="utf-8") as arch:
             for linea in arch:
-                id,nombre,precio,stock = linea.split(";")
-                print(f"{id}. {nombre} - ${precio}")
-        compraCandybar()
+                linea = linea.strip()
+                if not linea:
+                    continue
+                id_str, nombre, precio_str, stock_str = linea.split(";")
+                print(f"{int(id_str):<3} | {nombre:<22} | ${float(precio_str):>7.2f} | {int(stock_str):>5}")
     except (IOError, OSError):
         print("Error al abrir el archivo.")
-
-mostrarProductos()

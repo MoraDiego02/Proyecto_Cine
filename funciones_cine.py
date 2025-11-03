@@ -174,16 +174,17 @@ def ReservaDeButacas(Sala,info):
         except ValueError:
             print("porfavor ingrese un numero de la opcion que quiere(1 o 2)")
         else:
-            candycompra=0
+            candy_total = 0.0
             if opcion == 1:
-                candycompra=compraCandybar(candycompra)
+                candy_total=compraCandybar()
                     
             if opcion == 2:
-                candycompra=0
+                candy_total =0
             
                 
     print(info[2],info[0],info[6],info[7],info[5])
-    precio=PrecioDelaEntrada(candycompra)
+    
+    precio=PrecioDelaEntrada(candy_total)
 
     info.append(str(precio))
         
