@@ -7,38 +7,50 @@ from datetime import date
 from logs import log
 
 def PrecioDelaEntrada(candy):
-    Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
-    GenerarDia = lambda : random.randint(0,6)
-    QueDiaEs=GenerarDia()
-    entrada=7500
-    if 0<= QueDiaEs <= 3 :
-        PrecioFinal=entrada*0.80
-        print("como hoy es",Dias[QueDiaEs],"la entrada tiene un descuento del 20%!")
-        print("la entrada para la pelicula esta:",PrecioFinal)
+    import random
+
+    Dias = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
+    QueDiaEs = random.randint(0, 6)
+
+    entrada = 7500.0
+    if 0 <= QueDiaEs <= 3:
+        PrecioFinal = entrada * 0.80
+        print(f"Como hoy es {Dias[QueDiaEs]} la entrada tiene un descuento del 20%!")
     else:
-        PrecioFinal=entrada*1.10
-        print("como hoy es",Dias[QueDiaEs],"la entrada tiene un aumento del 10%")
-        print("la entrada para la pelicula esta:",PrecioFinal)
-    print("con que quiere pagar ")
-    print("ingrese 1 para pagar con tarjeta ")
-    print("ingrese 2 para abonar en efectivo ")
+        PrecioFinal = entrada * 1.10
+        print(f"Como hoy es {Dias[QueDiaEs]} la entrada tiene un aumento del 10%")
+    print()
+    print("La entrada para la película está:", PrecioFinal)
+    print()
+    print("¿Con qué quiere pagar?")
+    print()
+    print("Ingrese 1 para pagar con tarjeta")
+    print()
+    print("Ingrese 2 para abonar en efectivo")
+
     while True:
         try:
-            MetodoDePago=int(input("ingrese el numero (1 o 2) "))
-            if MetodoDePago < 1 or MetodoDePago > 2:
+            MetodoDePago = int(input("Ingrese el número (1 o 2): "))
+            if MetodoDePago not in (1, 2):
                 raise ValueError
+            break
         except ValueError:
-            print("Error, Ingrese uno de los numeros posibles")
-        else:
-            if MetodoDePago == 1:
-                print("se selecciono tarjeta hay un 5% de recargo para este metodo de pago")
-                PrecioFinal=PrecioFinal*1.05
-                print("el precio final seria de:",PrecioFinal)
-                break
-            else: 
-                print("selecciono efectivo")
-                break
-    PrecioFinal+=candy
+            print("Error, ingrese 1 o 2.")
+
+    if MetodoDePago == 1:
+        print()
+        print("Se seleccionó tarjeta: hay un 5% de recargo.")
+        PrecioFinal *= 1.05
+        print("El precio final (solo entradas) sería de:", PrecioFinal)
+    else:
+        print("Seleccionó efectivo.")
+
+    try:
+        candy_num = float(candy)
+    except (TypeError, ValueError):
+        candy_num = 0.0
+
+    PrecioFinal += candy_num
     return PrecioFinal
 
 def MostrarSala(matriz):
@@ -74,11 +86,13 @@ def SeleccionarSucursal(Sucursal,info):
     SucursalAbasto = Sucursal[0]
     SucursalCaballito = Sucursal[1]
     SucursalPalermo = Sucursal[2]
+    print()
     print("1. Para la sucursal de el Abasto")
     print("2. Para la sucursal de Palermo")
     print("3. Para la sucursal de Caballito")
     while True:
         try:
+            print()
             NumeroDeSucursal = int(input("Ingrese el número de sucursal (1 a 3): ")) - 1
             if NumeroDeSucursal < 0 or NumeroDeSucursal > 2:
                 raise ValueError
@@ -104,93 +118,90 @@ def SeleccionarSucursal(Sucursal,info):
     
     ReservaDeButacas(sala_matriz,info)
         
-
-def ReservaDeButacas(Sala,info):
-    Edad=info[3]
-    
-    Edad=calcular_edad(Edad)
-    
-    pelicula=EdadRating(Edad)
-    
+def ReservaDeButacas(Sala, info):
+    Edad = calcular_edad(info[3])
+    pelicula = EdadRating(Edad)
     MostrarSala(Sala)
-    
-    info+=pelicula
-    ButacasVacias = 0
-    for i in range(len(Sala)):
-        for j in range(len(Sala[0])):
-            if Sala[i][j] == 0:
-                ButacasVacias += 1
+    info += pelicula
 
+    ButacasVacias = sum(1 for i in range(len(Sala)) for j in range(len(Sala[0])) if Sala[i][j] == 0)
     print("Butacas disponibles:", ButacasVacias)
-    asientos=[]
+
+    asientos = []
+    asientos_reservados = []
+
     try:
+        print()
         NumeroDeButacas = int(input("¿Cuántas butacas desea comprar?: "))
-        if NumeroDeButacas <= 0:
-            raise ValueError("Debe ingresar un número mayor que 0.")
-        if NumeroDeButacas > ButacasVacias:
+        if NumeroDeButacas <= 0 or NumeroDeButacas > ButacasVacias:
             raise ValueError
     except ValueError:
         print(f"No hay suficientes butacas vacías (disponibles: {ButacasVacias}).")
+        return
     else:
-        asientos_reservados = []
         while NumeroDeButacas > 0:
+            print()
             print("\nSeleccione la ubicación de su asiento:")
+
             try:
-                FilaDeLaButaca = int(input("Ingrese la fila (1 a 5): ")) - 1
-                if FilaDeLaButaca < 0 or FilaDeLaButaca > 4:
+                print()
+                f = int(input("Ingrese la fila (1 a 5): ")) - 1
+                if f < 0 or f > 4:
                     raise ValueError
             except ValueError:
                 print("La fila debe estar entre 1 y 5.")
+                continue
+
+            try:
+                print()
+                c = int(input("Ingrese la columna (1 a 5): ")) - 1
+                if c < 0 or c > 4:
+                    raise ValueError
+            except ValueError:
+                print("La columna debe estar entre 1 y 5.")
+                continue
+
+            if Sala[f][c] == 0:
+                Sala[f][c] = 1
+                asientos_reservados.append((f + 1, c + 1))
+                asientos.append(f"F {f + 1} C {c + 1}")
+                NumeroDeButacas -= 1
+                print(f"Asiento reservado: Fila {f + 1}, Columna {c + 1}")
             else:
-                try:
-                    ColumnaDeLaButaca = int(input("Ingrese la columna (1 a 5): ")) - 1
-                    if ColumnaDeLaButaca < 0 or ColumnaDeLaButaca > 4:
-                        raise ValueError
-                except ValueError:
-                        print("La columna debe estar entre 1 y 5.")
-                else:
-                    if Sala[FilaDeLaButaca][ColumnaDeLaButaca] == 0:
-                        Sala[FilaDeLaButaca][ColumnaDeLaButaca] = 1
-                        asientos_reservados.append((FilaDeLaButaca + 1, ColumnaDeLaButaca + 1))
-                        NumeroDeButacas =- 1
-                        print(f"Asiento reservado correctamente: Fila {FilaDeLaButaca + 1}, Columna {ColumnaDeLaButaca + 1}")
-                        asientos+=[f"F {FilaDeLaButaca+1} C {ColumnaDeLaButaca+1}"]
-                    else:
-                        print("Ese asiento ya está ocupado. Elija otro, por favor.")
-                        print("\nResumen de asientos reservados:")
-                        for fila, col in asientos_reservados:
-                            print(f" - Fila {fila}, Columna {col}")
-                            print()
-                            print("los asientos estan reservados")
+                print("Ese asiento ya está ocupado. Elija otro, por favor.")
 
+    if asientos_reservados:
+        print("\nResumen de asientos reservados:")
+        for fila, col in asientos_reservados:
+            print(f" - Fila {fila}, Columna {col}")
+        print("\nLos asientos están reservados.")
+
+    info += asientos
+
+    candy_total = 0.0
+    print()
+    print("¿Quiere comprar algo del candybar?")
+    while True:
         try:
-            info += asientos
-            print("quiere comprar algo del candybar")
-            print("1. Si 2. No ")
-            opcion=int(input("ingrese el numero de la opcion que quiera: "))
-            if opcion < 1 or opcion > 2:
+            print("1. Sí   2. No")
+            opcion = int(input("Ingrese el número de la opción que quiera: "))
+            if opcion not in (1, 2):
                 raise ValueError
+            break
         except ValueError:
-            print("porfavor ingrese un numero de la opcion que quiere(1 o 2)")
-        else:
-            candycompra=0
-            if opcion == 1:
-                candycompra=compraCandybar(candycompra)
-                    
-            if opcion == 2:
-                candycompra=0
-            
-                
-    print(info[2],info[0],info[6],info[7],info[5])
-    precio=PrecioDelaEntrada(candycompra)
+            print("Por favor ingrese 1 o 2.")
 
+    if opcion == 1:
+        candy_total = float(compraCandybar())
+
+    precio = PrecioDelaEntrada(candy_total)
     info.append(str(precio))
-        
-    comprobante(info[2],info[0],info[6],info[7],info[5],info[8],info[9])
 
-def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):#hacer tuplax
+    comprobante(info[0], info[2], info[6], info[5], info[7], asientos, precio)
+
+def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):
         try:
-            print("1. si 2. no" )
+            print("Desea su comprobante? 1. si 2. no: " )
             Opcion=int(input("ingrese el numero de la opcion que quiere"))
             if Opcion < 1 or Opcion > 2:
                 ValueError
@@ -198,6 +209,7 @@ def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):#hace
             print("Error en el ingreso")
         else:
             if Opcion == 1 :
+                print()
                 comprobante = (Nombre, dni, pelicula, sucursal, asiento, precio_final)
                 print(f"-Nombre: {Nombre} \n-DNI: {dni} \n-Pelicula:{pelicula} formato {formato}\n-Sucursal: {sucursal} \nAsiento/s: {asiento} \n-Precio Final: {precio_final}")
                 print()
