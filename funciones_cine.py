@@ -5,9 +5,7 @@ import random
 from Candybar import compraCandybar
 from datetime import date
 from logs import log
-from CineUADE_proy import menuprincipal
 
-#precio de la entrada
 def PrecioDelaEntrada(candy):
     Dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
     GenerarDia = lambda : random.randint(0,6)
@@ -175,23 +173,20 @@ def ReservaDeButacas(Sala,info):
         except ValueError:
             print("porfavor ingrese un numero de la opcion que quiere(1 o 2)")
         else:
-            candy_total = 0.0
+            candycompra=0
             if opcion == 1:
-                candy_total=compraCandybar()
+                candycompra=compraCandybar(candycompra)
                     
             if opcion == 2:
-                candy_total =0
+                candycompra=0
             
                 
     print(info[2],info[0],info[6],info[7],info[5])
-    
-    precio=PrecioDelaEntrada(candy_total)
+    precio=PrecioDelaEntrada(candycompra)
 
     info.append(str(precio))
         
     comprobante(info[2],info[0],info[6],info[7],info[5],info[8],info[9])
-
-            
 
 def comprobante(dni,Nombre,pelicula,formato,sucursal,asiento,precio_final):#hacer tuplax
         try:
@@ -226,9 +221,10 @@ def simularPagos():
         precio *= 1.05
     return precio
 
-def FinDelDia(Sucursales):
+def FinDelDia(Sucursales,Usuario):
     Recaudaciones = {"Abasto": 0, "Caballito": 0, "Palermo": 0}
     Butacas = {"Abasto": 0, "Caballito": 0, "Palermo": 0}
+    log()
 
     for i in range(len(Sucursales)):
         for j in range(len(Sucursales[i])):

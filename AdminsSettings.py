@@ -3,67 +3,6 @@ from ValidacionDeDatos import validarLista
 from logs import log
 from faker import Faker
 import random
-def MenuUser(Usuario):
-    while True:
-        print("1. Comprar un ticket \n 2. atencion al cliente\n 3. cerrar sesion  ")
-        try:
-            op=int(input("seleccione la opcion que quiere"))
-            if op < 1 and op >3:
-                raise ValueError
-        except ValueError:
-            print("ingrese Un numero que este en las opciones")
-        # else:                    
-        #     if op == 1:
-        #         ReservaDeButacas()#hay que seleccionar la sala 
-        #     if op == 2:                
-        
-        #     if op == 3:                
-        #         break
-    return
-
-
-def MenuAdmin(Usuario):
-    while True:
-        print(" 1. revisar las solicitudes de desbloqueo \n 2. revisar el stock de la comida \n 3. Cambiar Precios Del candyBar \n 4. ver datos del Dia   \n 5. cerrar sesion  ")
-        try:
-            op=int(input("seleccione la opcion que quiere"))
-            if op < 1 and op >5:
-                raise ValueError
-        except ValueError:
-            print("ingrese Un numero que este en las opciones")
-        # else:
-        #     if op == 1:
-        #         SolicitudDeDesbloqueo()
-        #     if op == 2:
-        #         RevisarStock()
-        #     if op == 3:
-        #         CambiarPreciosDelCandy()
-        #     #if op == 4:
-        #         #VerDatos()
-        #     if op == 5:
-        #         break
-    
-
-def MenuSuperAdmin(Usuario):
-    while True:
-        print("1. cambiar roles de usuarios \n2generar cuentas\n3. cerrar sesion")
-        try:
-            print("seleecione la opcion que quiere:")
-            op=int(input(f"{Usuario[0]}:"))
-            if op < 1 and op >2:
-                raise ValueError
-        except ValueError:
-            print("ingrese Un numero que este en las opciones")
-        else:    
-            if op == 1:
-                CambiarRoles(Usuario)
-            
-            if op == 2:
-                generarCuentas()
-            if op == 3:
-
-                break
-    return
 
 def actualizarRol(rolElegido, user):
     
@@ -107,7 +46,6 @@ def CambiarRoles(usuario):
         else:
             print("No se pudo actualizar el rol")
     return
-
 
 
 def CambiarPreciosDelCandy():
@@ -176,3 +114,5 @@ def generarcuentas():
     print(f"\n✅ {cantidad} usuarios generados y guardados en 'cuentas.csv'.\n")
     return usuarios
 
+def revisarstock():
+    

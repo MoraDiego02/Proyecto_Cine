@@ -25,11 +25,10 @@ def compraCandybar():
     total_candy = 0.0
     try:
         while True:
-            mostrarProductos()  # solo muestra
+            mostrarProductos()  
 
             producto_id = estaEntre(1, 5, "\nSeleccione el producto a comprar (1-5): ")
 
-            # buscar producto por ID
             item = None
             with open("archivosDeTexto/CandybarProductos.csv", "r", encoding="utf-8") as arch:
                 for linea in arch:
@@ -51,7 +50,7 @@ def compraCandybar():
             conf = validarString(("s","si","n","no"),
                                  f"El costo es ${subtotal:.2f}. ¿Confirmar compra?: ")
             if conf in ("s","si"):
-                actualizarCandybar(item["id"], cant)   # descuenta stock
+                actualizarCandybar(item["id"], cant)   
                 total_candy += subtotal
 
             otra = validarString(("s","si","n","no"), "¿Desea realizar otra compra?: ")
@@ -62,7 +61,6 @@ def compraCandybar():
     return total_candy
 
 def mostrarProductos():
-    # Solo imprime el catálogo. No llames a compraCandybar() acá.
     try:
         print("\nID  | Nombre                 | Precio   | Stock")
         with open("archivosDeTexto/CandybarProductos.csv", "r", encoding="utf-8") as arch:
