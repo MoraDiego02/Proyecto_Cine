@@ -1,4 +1,4 @@
-from ValidacionDeDatos import estaEntre, validarString
+from validacionDatos import estaEntre, validarString
 
 def actualizarCandybar(id,cantidad):
     try:
@@ -21,7 +21,7 @@ def actualizarCandybar(id,cantidad):
     except (IOError, OSError):
         print("Error al abrir el archivo.")
 
-def compraCandybar(compracandybar):
+def compraCandybar():
     try:
         with open ("archivosDeTexto/CandybarProductos.csv","r") as arch:
             producto = estaEntre(1,5,"\nSeleccione el producto a comprar (1-5): ")
@@ -34,24 +34,20 @@ def compraCandybar(compracandybar):
             respuesta = validarString(("s","si","n","no"),f"El costo total es de ${total}. Desea realizar la compra?: ")
             if respuesta == "s" or respuesta == "si":
                 actualizarCandybar(id,cantidad)
-                compracandybar+=total
             compraMas = validarString(("s","si","n","no"),f"Desea realizar otra compra?: ")
             if compraMas == "s" or compraMas == "si":
-                mostrarProductos(compracandybar)
-            if compraMas == "n" or compraMas == "no":
-                return compraCandybar
-
+                mostrarProductos()
     except (IOError, OSError):
         print("Error al abrir el archivo.")
 
-def mostrarProductos(Candycompra,seguir):
+def mostrarProductos():
     try:
         with open ("archivosDeTexto/CandybarProductos.csv","r") as arch:
             for linea in arch:
                 id,nombre,precio,stock = linea.split(";")
                 print(f"{id}. {nombre} - ${precio}")
-        compraCandybar(Candycompra)
+        compraCandybar()
     except (IOError, OSError):
         print("Error al abrir el archivo.")
 
-
+mostrarProductos()

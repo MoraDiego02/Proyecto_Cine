@@ -1,6 +1,6 @@
 from gestionDeDatos import reinicioDeContraseña
 def CrearCuenta():#este es para exportar la cuenta creada a el archivo
-    arch=open("cuentas.scv",mode="at")
+    arch=open("cuentas.csv",mode="at")
     Usuario=NombreDeusuario()
     Contraseña=SeguridadDeContraseña()
     Documento=ComprobacionDeDniYFecha(1)

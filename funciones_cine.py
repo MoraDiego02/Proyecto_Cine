@@ -4,6 +4,7 @@ import random
 #from google.oauth2.service_account import Credentials
 from Candybar import compraCandybar
 from datetime import date
+from logs import log
 
 #precio de la entrada
 def PrecioDelaEntrada(candy):
@@ -215,13 +216,10 @@ def simularPagos():
 
     return pagosim
 
-
-
-
 def FinDelDia(Sucursales):
     print("finalizo el dia")
     print("estos son los datos de todas la sucursales")
-
+    log("FinDelDia")
     Recaudaciones={
         "Abasto":0,
         "Caballito":0,
@@ -253,14 +251,23 @@ def FinDelDia(Sucursales):
     for clave in Recaudaciones:
         Recaudaciones_total+=Recaudaciones[clave]
 
+    arch=open("recuentodebutacas.csv", mode="a")
+
+
+    arch.close()
+    arch=open("calculototalDelasSucursales.csv",mode="a")
+    arch.close()
+
+    
+
+
+
     print(f"la recaudacion total de la sucursal Abasto es de:{Recaudaciones["Abasto"]}")
     print(f"la recaudacion total de la sucursal Caballito es de:{Recaudaciones["Caballito"]}")
     print(f"la recaudacion total de la sucursal Palermo es de:{Recaudaciones["Palermo"]}")
     print(f"la recaudacion total del dia es de:{Recaudaciones_total}")
     print("la Sucursal que mas recaudaciones: con")
 
-
-    
 
 
 

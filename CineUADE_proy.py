@@ -64,7 +64,7 @@ def MenuAdmin(Usuario,sucursales):
             if op == 1:
                 RevisarStock()
             if op == 2:
-                FinDelDia() 
+                FinDelDia(sucursales) 
             if op == 3:
                 break
     menuprincipal(sucursales)
@@ -80,9 +80,9 @@ def MenuSuperAdmin(Usuario,sucursales):
             print("ingrese Un numero que este en las opciones")
         else:    
             if op == 1:
-                CambiarRoles()
+                CambiarRoles(Usuario)
             if op == 2:
-                generarcuentas()
+                generarcuentas(Usuario)
             if op == 3:
                 break
     menuprincipal(sucursales)

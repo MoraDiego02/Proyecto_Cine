@@ -66,6 +66,7 @@ def MenuSuperAdmin(Usuario):
     return
 
 def actualizarRol(rolElegido, user):
+    
     try:
         lineasOriginales = []
         with open("cuentas.csv", "r") as archivo:
@@ -94,6 +95,7 @@ def actualizarRol(rolElegido, user):
 
 
 def CambiarRoles(usuario):
+    log()
     user = imprimirUsuarios(usuario)
     cuenta = EncontrarUsuario(user[0])
     if cuenta != False:
