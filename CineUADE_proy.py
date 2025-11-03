@@ -1,7 +1,7 @@
 from Usuarios import CrearCuenta,IniciarSesion,VerificarRoleDeUsuario
 from funciones_cine import CargarSucursales,ReservaDeButacas,SeleccionarSucursal,FinDelDia
 from logs import EnviarMensajeAAC
-from AdminsSettings import CambiarRoles,generarcuentas
+from AdminsSettings import CambiarRoles,generarcuentas,RevisarStock
 
 def menuprincipal(sucursales):
     while True:
@@ -36,7 +36,7 @@ def MenuUser(Usuario,sucursales):
     while True:
         print("1.Comprar un ticket \n2.atencion al cliente \n3.cerrar sesion  ")
         try:
-            op=int(input("seleccione la opcion que quiere"))
+            op=int(input("seleccione la opcion que quiere: "))
             if op < 1 and op >3:
                 raise ValueError
         except ValueError:
@@ -45,7 +45,7 @@ def MenuUser(Usuario,sucursales):
             if op == 1:
                 SeleccionarSucursal(sucursales,Usuario)#hay que seleccionar la sala 
             if op == 2:                
-                EnviarMensajeAAC(Usuario)
+                EnviarMensajeAAC()
             if op == 3:                
                 break
     menuprincipal(sucursales)
@@ -55,7 +55,7 @@ def MenuAdmin(Usuario,sucursales):
         print()
         print("1.revisar el stock de la comida \n2.fin del dia  \n3.cerrar sesion")
         try:
-            op=int(input("seleccione la opcion que quiere"))
+            op=int(input("seleccione la opcion que quiere: "))
             if op < 1 and op >3:
                 raise ValueError
         except ValueError:
@@ -64,16 +64,16 @@ def MenuAdmin(Usuario,sucursales):
             if op == 1:
                 RevisarStock()
             if op == 2:
-                FinDelDia(sucursales) 
+                FinDelDia(sucursales,Usuario) 
             if op == 3:
                 break
     menuprincipal(sucursales)
 
 def MenuSuperAdmin(Usuario,sucursales):
     while True:
-        print("1.cambiar roles de usuarios \n2.generar Cuentas \n3.cerrar sesion")
+        print("1.Cambiar Roles De Usuarios \n2.Generar Cuentas \n3.Cambiar Rol \n3.Cerrar Sesion")
         try:
-            op=int(input("seleccione la opcion que quiere"))
+            op=int(input("seleccione la opcion que quiere: "))
             if op < 1 and op >2:
                 raise ValueError
         except ValueError:
@@ -90,7 +90,7 @@ def MenuSuperAdmin(Usuario,sucursales):
 def main():
     Sucursales=CargarSucursales()
     menuprincipal(Sucursales)
-    
+
 
 if __name__ == "__main__":
     main()

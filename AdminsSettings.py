@@ -34,7 +34,7 @@ def actualizarRol(rolElegido, user):
 
 
 def CambiarRoles(usuario):
-    log()
+    log("CambiarRoles",1,usuario)
     user = imprimirUsuarios(usuario)
     cuenta = EncontrarUsuario(user[0])
     if cuenta != False:
@@ -47,30 +47,9 @@ def CambiarRoles(usuario):
             print("No se pudo actualizar el rol")
     return
 
-
-def CambiarPreciosDelCandy():
-    
-    candybar = {}
-    with open("", mode="rt", encoding="utf-8") as arch:
-        for linea in arch:
-        # Eliminar saltos de línea y separar los datos
-            datos = linea.strip().split(";")
-                
-                # Validar que la línea tenga todos los datos
-        if len(datos) == 4:
-                id_prod, producto, precio, stock, = datos
-                
-                    # Crear una entrada en el diccionario
-                candybar[producto.title()] = {
-                    "Precio": int(precio),
-                    "Stock": int(stock),
-                    "ID": id_prod
-                    }
-    return candybar
-
 def generarcuentas():
     fake = Faker("es_AR")
-
+    log("generarcuentas",5,"SuperAdmin")
     # Pedir cuántos usuarios generar
     while True:
         try:
@@ -80,7 +59,6 @@ def generarcuentas():
             break
         except ValueError:
             print("Por favor, ingresá un número válido mayor que 0.")
-
     usuarios = []
 
     for i in range(1, cantidad + 1):
@@ -114,5 +92,21 @@ def generarcuentas():
     print(f"\n✅ {cantidad} usuarios generados y guardados en 'cuentas.csv'.\n")
     return usuarios
 
-def revisarstock():
-    
+def RevisarStock():
+    try:
+        with open("archivosDeTexto/CandybarProductos.csv", "r", encoding="cp1252") as arch:
+            productos = [linea.strip().split(";") for linea in arch]
+
+        i = 0
+        while i < len(productos):
+            print(f"{i}: {productos[i][1]}")
+            i += 1
+
+        opcion = int(input("Ingrese el número del producto: "))
+
+        print(f"El stock de {productos[opcion][1]} es {productos[opcion][3]} unidades.")
+
+    except (IOError, OSError):
+        print("Error al abrir el archivo.")
+    except (IndexError, ValueError):
+        print("Número inválido.")

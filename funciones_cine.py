@@ -1,7 +1,7 @@
-import json 
+
 import random
-#import gspread
-#from google.oauth2.service_account import Credentials
+import gspread
+from google.oauth2.service_account import Credentials
 from Candybar import compraCandybar
 from datetime import date
 from logs import log
@@ -224,7 +224,7 @@ def simularPagos():
 def FinDelDia(Sucursales,Usuario):
     Recaudaciones = {"Abasto": 0, "Caballito": 0, "Palermo": 0}
     Butacas = {"Abasto": 0, "Caballito": 0, "Palermo": 0}
-    log()
+    log("FinDelDia",1,Usuario)
 
     for i in range(len(Sucursales)):
         for j in range(len(Sucursales[i])):
@@ -266,6 +266,8 @@ def FinDelDia(Sucursales,Usuario):
         print(f"{suc}: ${rec:.2f}")
     print(f"\nRecaudación total del día: ${total:.2f}")
     print(f"Sucursal con mayor recaudación: {mayor_sucursal} (${Recaudaciones[mayor_sucursal]:.2f})")
+    
+
 
 
 def calcular_edad(info):
